@@ -10,6 +10,7 @@
 		public var barrierArray:Array = new Array();
 		public var jumpTriggerArray:Array = new Array();
 		private var foregroundArray:Array = new Array();
+		private var staticForegroundArray:Array = new Array(); //Non parallaxing layer
 		private var midgroundArray:Array = new Array();
 		private var backgroundArray:Array = new Array();
 		public var stoppingPointArray:Array = new Array();
@@ -23,6 +24,7 @@
 		
 		public function S_LevelOneState(documentClass)
 		{
+			
 			refToDocClass = documentClass;
 			//Initialise the player
 			player = new Player(40, 40, this);
@@ -157,6 +159,12 @@
 				create(item, foregroundArray);
 			}
 			
+			//static foreground
+			for each(item in refToDocClass.xmlManager.xmlFile.level_1.static_foreground.object) 
+			{ 
+				create(item, staticForegroundArray);
+			}
+			
 			//background
 			for each(item in refToDocClass.xmlManager.xmlFile.level_1.background.object) 
 			{ 
@@ -171,66 +179,79 @@
 						layerArray.push(new Button1());
 						layerArray[layerArray.length-1].x = xmlObject.@x;
 						layerArray[layerArray.length-1].y = xmlObject.@y;
+						layerArray[layerArray.length-1].cacheAsBitmap = true;
 					break;
 					case "Button2":
 						layerArray.push(new Button2());
 						layerArray[layerArray.length-1].x = xmlObject.@x;
 						layerArray[layerArray.length-1].y = xmlObject.@y;
+						layerArray[layerArray.length-1].cacheAsBitmap = true;
 					break;
 					case "StoppingPoint":
 						layerArray.push(new StoppingPoint());
 						layerArray[layerArray.length-1].x = xmlObject.@x;
 						layerArray[layerArray.length-1].y = xmlObject.@y;
+						layerArray[layerArray.length-1].cacheAsBitmap = true;
 					break;
 					case "Asset00":
 						layerArray.push(new Asset00());
 						layerArray[layerArray.length-1].x = xmlObject.@x;
 						layerArray[layerArray.length-1].y = xmlObject.@y;
+						layerArray[layerArray.length-1].cacheAsBitmap = true;
 					break;
 					case "Asset01":
 						layerArray.push(new Asset01());
 						layerArray[layerArray.length-1].x = xmlObject.@x;
 						layerArray[layerArray.length-1].y = xmlObject.@y;
+						layerArray[layerArray.length-1].cacheAsBitmap = true;
 					break;
 					case "Asset02":
 						layerArray.push(new Asset02());
 						layerArray[layerArray.length-1].x = xmlObject.@x;
 						layerArray[layerArray.length-1].y = xmlObject.@y;
+						layerArray[layerArray.length-1].cacheAsBitmap = true;
 					break;
 					case "Asset03":
 						layerArray.push(new Asset03());
 						layerArray[layerArray.length-1].x = xmlObject.@x;
 						layerArray[layerArray.length-1].y = xmlObject.@y;
+						layerArray[layerArray.length-1].cacheAsBitmap = true;
 					break;
 					case "Asset04":
 						layerArray.push(new Asset04());
 						layerArray[layerArray.length-1].x = xmlObject.@x;
 						layerArray[layerArray.length-1].y = xmlObject.@y;
+						layerArray[layerArray.length-1].cacheAsBitmap = true;
 					break;
 					case "Asset05":
 						layerArray.push(new Asset05());
 						layerArray[layerArray.length-1].x = xmlObject.@x;
 						layerArray[layerArray.length-1].y = xmlObject.@y;
+						layerArray[layerArray.length-1].cacheAsBitmap = true;
 					break;
 					case "Asset06":
 						layerArray.push(new Asset06());
 						layerArray[layerArray.length-1].x = xmlObject.@x;
 						layerArray[layerArray.length-1].y = xmlObject.@y;
+						layerArray[layerArray.length-1].cacheAsBitmap = true;
 					break;
 					case "Asset07":
 						layerArray.push(new Asset07());
 						layerArray[layerArray.length-1].x = xmlObject.@x;
 						layerArray[layerArray.length-1].y = xmlObject.@y;
+						layerArray[layerArray.length-1].cacheAsBitmap = true;
 					break;
 					case "Asset08":
 						layerArray.push(new Asset08());
 						layerArray[layerArray.length-1].x = xmlObject.@x;
 						layerArray[layerArray.length-1].y = xmlObject.@y;
+						layerArray[layerArray.length-1].cacheAsBitmap = true;
 					break;
 					case "Asset09":
 						layerArray.push(new Asset09());
 						layerArray[layerArray.length-1].x = xmlObject.@x;
 						layerArray[layerArray.length-1].y = xmlObject.@y;
+						layerArray[layerArray.length-1].cacheAsBitmap = true;
 					break;
 					default:
 						trace("The type '" + xmlObject.@type.toString() + "' is not a recognised type. Add a definition for it.");
@@ -263,6 +284,11 @@
 			addChild(enemy);
 			addChild(hitler);
 			addChild(player);
+			
+			for (i = 0; i < staticForegroundArray.length; i++)
+			{
+				addChild(staticForegroundArray[i]);
+			}
 			
 			for (i = 0; i < foregroundArray.length; i++)
 			{

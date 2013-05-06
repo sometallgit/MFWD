@@ -40,6 +40,7 @@
 									<background></background>
 									<midground></midground>
 									<foreground></foreground>
+									<static_foreground></static_foreground>
 									<collision></collision>
 									<jump_trigger></jump_trigger>
 									<stop_point></stop_point>
@@ -462,6 +463,115 @@
 				}
 				
 			}
+			
+			//==========================================
+			//=====LEVEL01 Static Foreground============
+			//==========================================
+			for(i = 0;i<refToStage.level1_static_foreground.numChildren;i++)
+			{
+				object = 	<object>
+							</object>
+				
+				if (refToStage.level1_static_foreground.getChildAt(i) is Button1) 
+				{
+					object.@type = 	"Button1";
+					object.@x = refToStage.level1_static_foreground.getChildAt(i).x;
+					object.@y = refToStage.level1_static_foreground.getChildAt(i).y;
+					xmlFile.level_1.static_foreground.appendChild(object);
+					trace("found");
+				}
+				
+				else if (refToStage.level1_static_foreground.getChildAt(i) is Button2)
+				{
+					object.@type = 	"Button2";
+					object.@x = refToStage.level1_static_foreground.getChildAt(i).x;
+					object.@y = refToStage.level1_static_foreground.getChildAt(i).y;
+					xmlFile.level_1.static_foreground.appendChild(object);
+					trace("found");
+				}
+				
+				if (refToStage.level1_static_foreground.getChildAt(i) is Asset00) 
+				{
+					object.@type = 	"Asset00";
+					object.@x = refToStage.level1_static_foreground.getChildAt(i).x;
+					object.@y = refToStage.level1_static_foreground.getChildAt(i).y;
+					xmlFile.level_1.static_foreground.appendChild(object);
+				}
+				
+				if (refToStage.level1_static_foreground.getChildAt(i) is Asset01) 
+				{
+					object.@type = 	"Asset01";
+					object.@x = refToStage.level1_static_foreground.getChildAt(i).x;
+					object.@y = refToStage.level1_static_foreground.getChildAt(i).y;
+					xmlFile.level_1.static_foreground.appendChild(object);
+				}
+				
+				if (refToStage.level1_static_foreground.getChildAt(i) is Asset02) 
+				{
+					object.@type = 	"Asset02";
+					object.@x = refToStage.level1_static_foreground.getChildAt(i).x;
+					object.@y = refToStage.level1_static_foreground.getChildAt(i).y;
+					xmlFile.level_1.static_foreground.appendChild(object);
+				}
+				
+				if (refToStage.level1_static_foreground.getChildAt(i) is Asset03) 
+				{
+					object.@type = 	"Asset03";
+					object.@x = refToStage.level1_static_foreground.getChildAt(i).x;
+					object.@y = refToStage.level1_static_foreground.getChildAt(i).y;
+					xmlFile.level_1.static_foreground.appendChild(object);
+				}
+				
+				if (refToStage.level1_static_foreground.getChildAt(i) is Asset04) 
+				{
+					object.@type = 	"Asset04";
+					object.@x = refToStage.level1_static_foreground.getChildAt(i).x;
+					object.@y = refToStage.level1_static_foreground.getChildAt(i).y;
+					xmlFile.level_1.static_foreground.appendChild(object);
+				}
+				
+				if (refToStage.level1_static_foreground.getChildAt(i) is Asset05) 
+				{
+					object.@type = 	"Asset05";
+					object.@x = refToStage.level1_static_foreground.getChildAt(i).x;
+					object.@y = refToStage.level1_static_foreground.getChildAt(i).y;
+					xmlFile.level_1.static_foreground.appendChild(object);
+				}
+				
+				if (refToStage.level1_static_foreground.getChildAt(i) is Asset06) 
+				{
+					object.@type = 	"Asset06";
+					object.@x = refToStage.level1_static_foreground.getChildAt(i).x;
+					object.@y = refToStage.level1_static_foreground.getChildAt(i).y;
+					xmlFile.level_1.static_foreground.appendChild(object);
+				}
+				
+				if (refToStage.level1_static_foreground.getChildAt(i) is Asset07) 
+				{
+					object.@type = 	"Asset07";
+					object.@x = refToStage.level1_static_foreground.getChildAt(i).x;
+					object.@y = refToStage.level1_static_foreground.getChildAt(i).y;
+					xmlFile.level_1.static_foreground.appendChild(object);
+				}
+				
+				if (refToStage.level1_static_foreground.getChildAt(i) is Asset08) 
+				{
+					object.@type = 	"Asset08";
+					object.@x = refToStage.level1_static_foreground.getChildAt(i).x;
+					object.@y = refToStage.level1_static_foreground.getChildAt(i).y;
+					xmlFile.level_1.static_foreground.appendChild(object);
+				}
+				
+				if (refToStage.level1_static_foreground.getChildAt(i) is Asset09) 
+				{
+					object.@type = 	"Asset09";
+					object.@x = refToStage.level1_static_foreground.getChildAt(i).x;
+					object.@y = refToStage.level1_static_foreground.getChildAt(i).y;
+					xmlFile.level_1.static_foreground.appendChild(object);
+				}
+				
+			}
+			
 			
 			//trace(xmlFile);
 			/*
