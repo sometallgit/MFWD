@@ -50,7 +50,6 @@
 								</level_2>
 																
 							</Data>;
-			//xmlFile.ignoreWhite = true;
 			//readStage();
 			//save();
 			load();
@@ -62,7 +61,39 @@
 			var i:int = 0; //Stop annoying duplicate variable warning
 			var object:XML;
 			
+			function checkType(stageAddress, xmlAddress)
+			{
+				if (stageAddress.getChildAt(i) is Button1)		appendXML("Button1", stageAddress, xmlAddress);
+				if (stageAddress.getChildAt(i) is Button2)		appendXML("Button2", stageAddress, xmlAddress);
+				if (stageAddress.getChildAt(i) is Asset00)		appendXML("Asset00", stageAddress, xmlAddress);
+				if (stageAddress.getChildAt(i) is Asset01)		appendXML("Asset01", stageAddress, xmlAddress);
+				if (stageAddress.getChildAt(i) is Asset02)		appendXML("Asset02", stageAddress, xmlAddress);
+				if (stageAddress.getChildAt(i) is Asset03)		appendXML("Asset03", stageAddress, xmlAddress);
+				if (stageAddress.getChildAt(i) is Asset04)		appendXML("Asset04", stageAddress, xmlAddress);
+				if (stageAddress.getChildAt(i) is Asset05)		appendXML("Asset05", stageAddress, xmlAddress);
+				if (stageAddress.getChildAt(i) is Asset06)		appendXML("Asset06", stageAddress, xmlAddress);
+				if (stageAddress.getChildAt(i) is Asset07)		appendXML("Asset07", stageAddress, xmlAddress);
+				if (stageAddress.getChildAt(i) is Asset08)		appendXML("Asset08", stageAddress, xmlAddress);
+				if (stageAddress.getChildAt(i) is Asset09)		appendXML("Asset09", stageAddress, xmlAddress);
+			}
 			
+			function appendXML(t, stageAddress, xmlAddress)
+			{
+				object.@type = 	t;
+				object.@x = 	stageAddress.getChildAt(i).x;
+				object.@y = 	stageAddress.getChildAt(i).y;
+				xmlAddress.appendChild(object);
+			}
+			
+			function appendXMLScalable(t, stageAddress, xmlAddress)
+			{
+				object.@type = 	t;
+				object.@x = stageAddress.getChildAt(i).x;
+				object.@y = stageAddress.getChildAt(i).y;
+				object.@width = stageAddress.getChildAt(i).width;
+				object.@height = stageAddress.getChildAt(i).height;
+				xmlAddress.appendChild(object);
+			}
 			
 			//==========================================
 			//================MAIN MENU=================
@@ -75,24 +106,12 @@
 				//==========================================
 				//================Button01==================
 				//==========================================
-				if (refToStage.menu.getChildAt(i) is Button1) 
-				{
-					object.@type = 	"Button1";
-					object.@x = 	refToStage.menu.getChildAt(i).x;
-					object.@y = 	refToStage.menu.getChildAt(i).y;
-					xmlFile.menu.gui.button1.appendChild(object);
-				}
+				if (refToStage.menu.getChildAt(i) is Button1) 					{					appendXML("Button1", refToStage.menu, xmlFile.menu.gui.button1);			}
 
 				//==========================================
 				//================Button02==================
 				//==========================================
-				if (refToStage.menu.getChildAt(i) is Button2)
-				{
-					object.@type = 	"Button2";
-					object.@x = refToStage.menu.getChildAt(i).x;
-					object.@y = refToStage.menu.getChildAt(i).y;
-					xmlFile.menu.gui.button2.appendChild(object);
-				}
+				if (refToStage.menu.getChildAt(i) is Button2)					{					appendXML("Button2", refToStage.menu, xmlFile.menu.gui.button2);			}
 			}
 			
 			//==========================================
@@ -106,146 +125,23 @@
 				//==========================================
 				//================Midground==================
 				//==========================================
-				if (refToStage.level1.getChildAt(i) is Asset00) 
-				{
-					object.@type = 	"Asset00";
-					object.@x = refToStage.level1.getChildAt(i).x;
-					object.@y = refToStage.level1.getChildAt(i).y;
-					xmlFile.level_1.midground.appendChild(object);
-				}
-				
-				if (refToStage.level1.getChildAt(i) is Asset01) 
-				{
-					object.@type = 	"Asset01";
-					object.@x = refToStage.level1.getChildAt(i).x;
-					object.@y = refToStage.level1.getChildAt(i).y;
-					xmlFile.level_1.midground.appendChild(object);
-				}
-				
-				if (refToStage.level1.getChildAt(i) is Asset02) 
-				{
-					object.@type = 	"Asset02";
-					object.@x = refToStage.level1.getChildAt(i).x;
-					object.@y = refToStage.level1.getChildAt(i).y;
-					xmlFile.level_1.midground.appendChild(object);
-				}
-				
-				if (refToStage.level1.getChildAt(i) is Asset03) 
-				{
-					object.@type = 	"Asset03";
-					object.@x = refToStage.level1.getChildAt(i).x;
-					object.@y = refToStage.level1.getChildAt(i).y;
-					xmlFile.level_1.midground.appendChild(object);
-				}
-				
-				if (refToStage.level1.getChildAt(i) is Asset04) 
-				{
-					object.@type = 	"Asset04";
-					object.@x = refToStage.level1.getChildAt(i).x;
-					object.@y = refToStage.level1.getChildAt(i).y;
-					xmlFile.level_1.midground.appendChild(object);
-				}
-				
-				if (refToStage.level1.getChildAt(i) is Asset05) 
-				{
-					object.@type = 	"Asset05";
-					object.@x = refToStage.level1.getChildAt(i).x;
-					object.@y = refToStage.level1.getChildAt(i).y;
-					xmlFile.level_1.midground.appendChild(object);
-				}
-				
-				if (refToStage.level1.getChildAt(i) is Asset06) 
-				{
-					object.@type = 	"Asset06";
-					object.@x = refToStage.level1.getChildAt(i).x;
-					object.@y = refToStage.level1.getChildAt(i).y;
-					xmlFile.level_1.midground.appendChild(object);
-				}
-				
-				if (refToStage.level1.getChildAt(i) is Asset07) 
-				{
-					object.@type = 	"Asset07";
-					object.@x = refToStage.level1.getChildAt(i).x;
-					object.@y = refToStage.level1.getChildAt(i).y;
-					xmlFile.level_1.midground.appendChild(object);
-				}
-				
-				if (refToStage.level1.getChildAt(i) is Asset08) 
-				{
-					object.@type = 	"Asset08";
-					object.@x = refToStage.level1.getChildAt(i).x;
-					object.@y = refToStage.level1.getChildAt(i).y;
-					xmlFile.level_1.midground.appendChild(object);
-				}
-				
-				if (refToStage.level1.getChildAt(i) is Asset09) 
-				{
-					object.@type = 	"Asset09";
-					object.@x = refToStage.level1.getChildAt(i).x;
-					object.@y = refToStage.level1.getChildAt(i).y;
-					xmlFile.level_1.midground.appendChild(object);
-				}
-				
-				//==========================================
-				//================Button01==================
-				//==========================================
-				if (refToStage.level1.getChildAt(i) is Button1) 
-				{
-					object.@type = 	"Button1";
-					object.@x = refToStage.level1.getChildAt(i).x;
-					object.@y = refToStage.level1.getChildAt(i).y;
-					xmlFile.level_1.gui.button1.appendChild(object);
-				}
-				
-				//==========================================
-				//================Button02==================
-				//==========================================
-				else if (refToStage.level1.getChildAt(i) is Button2)
-				{
-					object.@type = 	"Button2";
-					object.@x = refToStage.level1.getChildAt(i).x;
-					object.@y = refToStage.level1.getChildAt(i).y;
-					xmlFile.level_1.gui.button2.appendChild(object);
-				}
+				checkType(refToStage.level1, xmlFile.level_1.midground);
 				
 				//==========================================
 				//================Collision=================
 				//==========================================
-				else if (refToStage.level1.getChildAt(i) is CollisionBoundingBox)
-				{
-					object.@type = 	"CollisionBoundingBox";
-					object.@x = refToStage.level1.getChildAt(i).x;
-					object.@y = refToStage.level1.getChildAt(i).y;
-					object.@width = refToStage.level1.getChildAt(i).width;
-					object.@height = refToStage.level1.getChildAt(i).height;
-					xmlFile.level_1.collision.appendChild(object);
-				}
+				if (refToStage.level1.getChildAt(i) is CollisionBoundingBox)	{					appendXMLScalable("CollisionBoundingBox", refToStage.level1, xmlFile.level_1.collision);		}
 				
 				//==========================================
 				//==============Jump Trigger================
 				//==========================================
-				else if (refToStage.level1.getChildAt(i) is AiJumpTrigger)
-				{
-					object.@type = 	"AiJumpTrigger";
-					object.@x = refToStage.level1.getChildAt(i).x;
-					object.@y = refToStage.level1.getChildAt(i).y;
-					object.@width = refToStage.level1.getChildAt(i).width;
-					object.@height = refToStage.level1.getChildAt(i).height;
-					xmlFile.level_1.jump_trigger.appendChild(object);
-				}
+				if (refToStage.level1.getChildAt(i) is AiJumpTrigger)			{					appendXMLScalable("AiJumpTrigger", refToStage.level1, xmlFile.level_1.jump_trigger);			}
 				
 				//==========================================
 				//===============Stop Point=================
 				//==========================================
-				else if (refToStage.level1.getChildAt(i) is StoppingPoint)
-				{
-					object.@type = 	"StoppingPoint";
-					object.@x = refToStage.level1.getChildAt(i).x;
-					object.@y = refToStage.level1.getChildAt(i).y;
-					xmlFile.level_1.stop_point.appendChild(object);
-				}
+				if (refToStage.level1.getChildAt(i) is StoppingPoint)			{					appendXML("StoppingPoint", refToStage.level1, xmlFile.level_1.stop_point);		}
 				
-								
 			}
 			
 			//==========================================
@@ -256,104 +152,7 @@
 				object = 	<object>
 							</object>
 				
-				if (refToStage.level1_foreground.getChildAt(i) is Button1) 
-				{
-					object.@type = 	"Button1";
-					object.@x = refToStage.level1_foreground.getChildAt(i).x;
-					object.@y = refToStage.level1_foreground.getChildAt(i).y;
-					xmlFile.level_1.foreground.appendChild(object);
-					trace("found");
-				}
-				
-				else if (refToStage.level1_foreground.getChildAt(i) is Button2)
-				{
-					object.@type = 	"Button2";
-					object.@x = refToStage.level1_foreground.getChildAt(i).x;
-					object.@y = refToStage.level1_foreground.getChildAt(i).y;
-					xmlFile.level_1.foreground.appendChild(object);
-					trace("found");
-				}
-				
-				if (refToStage.level1_foreground.getChildAt(i) is Asset00) 
-				{
-					object.@type = 	"Asset00";
-					object.@x = refToStage.level1_foreground.getChildAt(i).x;
-					object.@y = refToStage.level1_foreground.getChildAt(i).y;
-					xmlFile.level_1.foreground.appendChild(object);
-				}
-				
-				if (refToStage.level1_foreground.getChildAt(i) is Asset01) 
-				{
-					object.@type = 	"Asset01";
-					object.@x = refToStage.level1_foreground.getChildAt(i).x;
-					object.@y = refToStage.level1_foreground.getChildAt(i).y;
-					xmlFile.level_1.foreground.appendChild(object);
-				}
-				
-				if (refToStage.level1_foreground.getChildAt(i) is Asset02) 
-				{
-					object.@type = 	"Asset02";
-					object.@x = refToStage.level1_foreground.getChildAt(i).x;
-					object.@y = refToStage.level1_foreground.getChildAt(i).y;
-					xmlFile.level_1.foreground.appendChild(object);
-				}
-				
-				if (refToStage.level1_foreground.getChildAt(i) is Asset03) 
-				{
-					object.@type = 	"Asset03";
-					object.@x = refToStage.level1_foreground.getChildAt(i).x;
-					object.@y = refToStage.level1_foreground.getChildAt(i).y;
-					xmlFile.level_1.foreground.appendChild(object);
-				}
-				
-				if (refToStage.level1_foreground.getChildAt(i) is Asset04) 
-				{
-					object.@type = 	"Asset04";
-					object.@x = refToStage.level1_foreground.getChildAt(i).x;
-					object.@y = refToStage.level1_foreground.getChildAt(i).y;
-					xmlFile.level_1.foreground.appendChild(object);
-				}
-				
-				if (refToStage.level1_foreground.getChildAt(i) is Asset05) 
-				{
-					object.@type = 	"Asset05";
-					object.@x = refToStage.level1_foreground.getChildAt(i).x;
-					object.@y = refToStage.level1_foreground.getChildAt(i).y;
-					xmlFile.level_1.foreground.appendChild(object);
-				}
-				
-				if (refToStage.level1_foreground.getChildAt(i) is Asset06) 
-				{
-					object.@type = 	"Asset06";
-					object.@x = refToStage.level1_foreground.getChildAt(i).x;
-					object.@y = refToStage.level1_foreground.getChildAt(i).y;
-					xmlFile.level_1.foreground.appendChild(object);
-				}
-				
-				if (refToStage.level1_foreground.getChildAt(i) is Asset07) 
-				{
-					object.@type = 	"Asset07";
-					object.@x = refToStage.level1_foreground.getChildAt(i).x;
-					object.@y = refToStage.level1_foreground.getChildAt(i).y;
-					xmlFile.level_1.foreground.appendChild(object);
-				}
-				
-				if (refToStage.level1_foreground.getChildAt(i) is Asset08) 
-				{
-					object.@type = 	"Asset08";
-					object.@x = refToStage.level1_foreground.getChildAt(i).x;
-					object.@y = refToStage.level1_foreground.getChildAt(i).y;
-					xmlFile.level_1.foreground.appendChild(object);
-				}
-				
-				if (refToStage.level1_foreground.getChildAt(i) is Asset09) 
-				{
-					object.@type = 	"Asset09";
-					object.@x = refToStage.level1_foreground.getChildAt(i).x;
-					object.@y = refToStage.level1_foreground.getChildAt(i).y;
-					xmlFile.level_1.foreground.appendChild(object);
-				}
-				
+				checkType(refToStage.level1_foreground, xmlFile.level_1.foreground);
 			}
 			
 			//==========================================
@@ -364,104 +163,7 @@
 				object = 	<object>
 							</object>
 				
-				if (refToStage.level1_background.getChildAt(i) is Button1) 
-				{
-					object.@type = 	"Button1";
-					object.@x = refToStage.level1_background.getChildAt(i).x;
-					object.@y = refToStage.level1_background.getChildAt(i).y;
-					xmlFile.level_1.background.appendChild(object);
-					trace("found");
-				}
-				
-				else if (refToStage.level1_background.getChildAt(i) is Button2)
-				{
-					object.@type = 	"Button2";
-					object.@x = refToStage.level1_background.getChildAt(i).x;
-					object.@y = refToStage.level1_background.getChildAt(i).y;
-					xmlFile.level_1.background.appendChild(object);
-					trace("found");
-				}
-				
-				if (refToStage.level1_background.getChildAt(i) is Asset00) 
-				{
-					object.@type = 	"Asset00";
-					object.@x = refToStage.level1_background.getChildAt(i).x;
-					object.@y = refToStage.level1_background.getChildAt(i).y;
-					xmlFile.level_1.background.appendChild(object);
-				}
-				
-				if (refToStage.level1_background.getChildAt(i) is Asset01) 
-				{
-					object.@type = 	"Asset01";
-					object.@x = refToStage.level1_background.getChildAt(i).x;
-					object.@y = refToStage.level1_background.getChildAt(i).y;
-					xmlFile.level_1.background.appendChild(object);
-				}
-				
-				if (refToStage.level1_background.getChildAt(i) is Asset02) 
-				{
-					object.@type = 	"Asset02";
-					object.@x = refToStage.level1_background.getChildAt(i).x;
-					object.@y = refToStage.level1_background.getChildAt(i).y;
-					xmlFile.level_1.background.appendChild(object);
-				}
-				
-				if (refToStage.level1_background.getChildAt(i) is Asset03) 
-				{
-					object.@type = 	"Asset03";
-					object.@x = refToStage.level1_background.getChildAt(i).x;
-					object.@y = refToStage.level1_background.getChildAt(i).y;
-					xmlFile.level_1.background.appendChild(object);
-				}
-				
-				if (refToStage.level1_background.getChildAt(i) is Asset04) 
-				{
-					object.@type = 	"Asset04";
-					object.@x = refToStage.level1_background.getChildAt(i).x;
-					object.@y = refToStage.level1_background.getChildAt(i).y;
-					xmlFile.level_1.background.appendChild(object);
-				}
-				
-				if (refToStage.level1_background.getChildAt(i) is Asset05) 
-				{
-					object.@type = 	"Asset05";
-					object.@x = refToStage.level1_background.getChildAt(i).x;
-					object.@y = refToStage.level1_background.getChildAt(i).y;
-					xmlFile.level_1.background.appendChild(object);
-				}
-				
-				if (refToStage.level1_background.getChildAt(i) is Asset06) 
-				{
-					object.@type = 	"Asset06";
-					object.@x = refToStage.level1_background.getChildAt(i).x;
-					object.@y = refToStage.level1_background.getChildAt(i).y;
-					xmlFile.level_1.background.appendChild(object);
-				}
-				
-				if (refToStage.level1_background.getChildAt(i) is Asset07) 
-				{
-					object.@type = 	"Asset07";
-					object.@x = refToStage.level1_background.getChildAt(i).x;
-					object.@y = refToStage.level1_background.getChildAt(i).y;
-					xmlFile.level_1.background.appendChild(object);
-				}
-				
-				if (refToStage.level1_background.getChildAt(i) is Asset08) 
-				{
-					object.@type = 	"Asset08";
-					object.@x = refToStage.level1_background.getChildAt(i).x;
-					object.@y = refToStage.level1_background.getChildAt(i).y;
-					xmlFile.level_1.background.appendChild(object);
-				}
-				
-				if (refToStage.level1_background.getChildAt(i) is Asset09) 
-				{
-					object.@type = 	"Asset09";
-					object.@x = refToStage.level1_background.getChildAt(i).x;
-					object.@y = refToStage.level1_background.getChildAt(i).y;
-					xmlFile.level_1.background.appendChild(object);
-				}
-				
+				checkType(refToStage.level1_background, xmlFile.level_1.background);
 			}
 			
 			//==========================================
@@ -472,131 +174,9 @@
 				object = 	<object>
 							</object>
 				
-				if (refToStage.level1_static_foreground.getChildAt(i) is Button1) 
-				{
-					object.@type = 	"Button1";
-					object.@x = refToStage.level1_static_foreground.getChildAt(i).x;
-					object.@y = refToStage.level1_static_foreground.getChildAt(i).y;
-					xmlFile.level_1.static_foreground.appendChild(object);
-					trace("found");
-				}
-				
-				else if (refToStage.level1_static_foreground.getChildAt(i) is Button2)
-				{
-					object.@type = 	"Button2";
-					object.@x = refToStage.level1_static_foreground.getChildAt(i).x;
-					object.@y = refToStage.level1_static_foreground.getChildAt(i).y;
-					xmlFile.level_1.static_foreground.appendChild(object);
-					trace("found");
-				}
-				
-				if (refToStage.level1_static_foreground.getChildAt(i) is Asset00) 
-				{
-					object.@type = 	"Asset00";
-					object.@x = refToStage.level1_static_foreground.getChildAt(i).x;
-					object.@y = refToStage.level1_static_foreground.getChildAt(i).y;
-					xmlFile.level_1.static_foreground.appendChild(object);
-				}
-				
-				if (refToStage.level1_static_foreground.getChildAt(i) is Asset01) 
-				{
-					object.@type = 	"Asset01";
-					object.@x = refToStage.level1_static_foreground.getChildAt(i).x;
-					object.@y = refToStage.level1_static_foreground.getChildAt(i).y;
-					xmlFile.level_1.static_foreground.appendChild(object);
-				}
-				
-				if (refToStage.level1_static_foreground.getChildAt(i) is Asset02) 
-				{
-					object.@type = 	"Asset02";
-					object.@x = refToStage.level1_static_foreground.getChildAt(i).x;
-					object.@y = refToStage.level1_static_foreground.getChildAt(i).y;
-					xmlFile.level_1.static_foreground.appendChild(object);
-				}
-				
-				if (refToStage.level1_static_foreground.getChildAt(i) is Asset03) 
-				{
-					object.@type = 	"Asset03";
-					object.@x = refToStage.level1_static_foreground.getChildAt(i).x;
-					object.@y = refToStage.level1_static_foreground.getChildAt(i).y;
-					xmlFile.level_1.static_foreground.appendChild(object);
-				}
-				
-				if (refToStage.level1_static_foreground.getChildAt(i) is Asset04) 
-				{
-					object.@type = 	"Asset04";
-					object.@x = refToStage.level1_static_foreground.getChildAt(i).x;
-					object.@y = refToStage.level1_static_foreground.getChildAt(i).y;
-					xmlFile.level_1.static_foreground.appendChild(object);
-				}
-				
-				if (refToStage.level1_static_foreground.getChildAt(i) is Asset05) 
-				{
-					object.@type = 	"Asset05";
-					object.@x = refToStage.level1_static_foreground.getChildAt(i).x;
-					object.@y = refToStage.level1_static_foreground.getChildAt(i).y;
-					xmlFile.level_1.static_foreground.appendChild(object);
-				}
-				
-				if (refToStage.level1_static_foreground.getChildAt(i) is Asset06) 
-				{
-					object.@type = 	"Asset06";
-					object.@x = refToStage.level1_static_foreground.getChildAt(i).x;
-					object.@y = refToStage.level1_static_foreground.getChildAt(i).y;
-					xmlFile.level_1.static_foreground.appendChild(object);
-				}
-				
-				if (refToStage.level1_static_foreground.getChildAt(i) is Asset07) 
-				{
-					object.@type = 	"Asset07";
-					object.@x = refToStage.level1_static_foreground.getChildAt(i).x;
-					object.@y = refToStage.level1_static_foreground.getChildAt(i).y;
-					xmlFile.level_1.static_foreground.appendChild(object);
-				}
-				
-				if (refToStage.level1_static_foreground.getChildAt(i) is Asset08) 
-				{
-					object.@type = 	"Asset08";
-					object.@x = refToStage.level1_static_foreground.getChildAt(i).x;
-					object.@y = refToStage.level1_static_foreground.getChildAt(i).y;
-					xmlFile.level_1.static_foreground.appendChild(object);
-				}
-				
-				if (refToStage.level1_static_foreground.getChildAt(i) is Asset09) 
-				{
-					object.@type = 	"Asset09";
-					object.@x = refToStage.level1_static_foreground.getChildAt(i).x;
-					object.@y = refToStage.level1_static_foreground.getChildAt(i).y;
-					xmlFile.level_1.static_foreground.appendChild(object);
-				}
-				
+				checkType(refToStage.level1_static_foreground, xmlFile.level_1.static_foreground);
 			}
-			
-			
-			//trace(xmlFile);
-			/*
-			for(var i=0;i<MovieClip(root).test.numChildren;i++)
-			{
-				//if(container.getChildAt(i) is Pic) doSomething();
-				if (MovieClip(root).test.getChildAt(i) is Button1) 
-				{
-					trace("Button1 object found in movieclip");
-					var object:XML = 	<test>
-										</test>
-					object.@x = MovieClip(root).test.getChildAt(i).x;
-					object.@y = MovieClip(root).test.getChildAt(i).y;
-					xmlFile.button1.appendChild(object);
-				}
-				 //trace(MovieClip(root).test.getChildAt(i));
-			}
-			trace(xmlFile);
-			*/
-			//Save out the xml
-			if (false)
-			save();
 		}
-		
-		
 		
 		public function load()
 		{
@@ -615,11 +195,6 @@
 			refToStage.visible = false;
 		}
 		
-		public function write()
-		{
-			
-		}
-		
 		public function save()
 		{
 			var ba:ByteArray = new ByteArray();
@@ -628,10 +203,5 @@
 			var fr:FileReference = new FileReference();
 			fr.save(ba, "Data.xml");
 		}
-		
-
-			
-		
-		
 	}
 }
