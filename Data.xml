@@ -1,0 +1,100 @@
+<Data>
+  <menu>
+    <gui>
+      <button1>
+        <object type="Button1" x="278.35" y="269.8"/>
+        <object type="Button1" x="367.35" y="202.85"/>
+        <object type="Button1" x="190.35" y="204.8"/>
+        <object type="Button1" x="102.35" y="269.8"/>
+        <object type="Button1" x="190.35" y="334.8"/>
+        <object type="Button1" x="366.35" y="334.8"/>
+        <object type="Button1" x="541.25" y="202.85"/>
+        <object type="Button1" x="455.3" y="269.8"/>
+        <object type="Button1" x="541.25" y="334.8"/>
+        <object type="Button1" x="629.25" y="269.8"/>
+        <object type="Button1" x="278.35" y="399.8"/>
+        <object type="Button1" x="455.35" y="399.8"/>
+        <object type="Button1" x="366.3" y="466.8"/>
+        <object type="Button1" x="453.25" y="139.8"/>
+        <object type="Button1" x="277.25" y="137.8"/>
+      </button1>
+      <button2/>
+    </gui>
+    <art/>
+  </menu>
+  <instructions/>
+  <level_1>
+    <gui>
+      <button1>
+        <object type="Button1" x="546.1" y="115.2"/>
+        <object type="Button1" x="194.1" y="115.2"/>
+        <object type="Button1" x="370.1" y="115.2"/>
+        <object type="Button1" x="282.1" y="79.85"/>
+        <object type="Button1" x="458.1" y="79.85"/>
+        <object type="Button1" x="844.3" y="452.8"/>
+        <object type="Button1" x="949.3" y="453.8"/>
+        <object type="Button1" x="1117.3" y="408.8"/>
+        <object type="Button1" x="1288.3" y="340.8"/>
+        <object type="Button1" x="1426.25" y="407.8"/>
+        <object type="Button1" x="1559.25" y="502.8"/>
+        <object type="Button1" x="-133.65" y="-33.15"/>
+        <object type="Button1" x="-133.65" y="31.85"/>
+        <object type="Button1" x="-133.65" y="96.85"/>
+        <object type="Button1" x="-133.65" y="161.85"/>
+        <object type="Button1" x="-133.65" y="226.85"/>
+        <object type="Button1" x="-133.65" y="291.85"/>
+        <object type="Button1" x="-133.65" y="356.85"/>
+        <object type="Button1" x="1032.3" y="453.8"/>
+        <object type="Button1" x="755.3" y="483.8"/>
+        <object type="Button1" x="1203.3" y="407.8"/>
+      </button1>
+      <button2>
+        <object type="Button2" x="70.05" y="356"/>
+        <object type="Button2" x="422" y="484"/>
+        <object type="Button2" x="-134.7" y="355.8"/>
+      </button2>
+    </gui>
+    <background>
+      <object type="Button1" x="976.9" y="101"/>
+      <object type="Button1" x="1237.85" y="96"/>
+      <object type="Asset03" x="830.8" y="81.85"/>
+      <object type="Asset04" x="682.8" y="81.85"/>
+      <object type="Asset05" x="554.8" y="86.85"/>
+      <object type="Asset06" x="414.8" y="92.85"/>
+    </background>
+    <midground>
+      <object type="Asset00" x="856.75" y="16.85"/>
+      <object type="Asset01" x="1000.75" y="66.85"/>
+      <object type="Asset02" x="841.75" y="135.85"/>
+    </midground>
+    <foreground>
+      <object type="Button2" x="981.95" y="204"/>
+      <object type="Asset07" x="1030.75" y="43.85"/>
+      <object type="Asset08" x="1006.75" y="302.8"/>
+      <object type="Asset09" x="806.8" y="175.8"/>
+    </foreground>
+    <collision>
+      <object type="CollisionBoundingBox" x="-134.75" y="356" width="539.1" height="79"/>
+      <object type="CollisionBoundingBox" x="420.8" y="482.05" width="414.1" height="80.95"/>
+      <object type="CollisionBoundingBox" x="834.95" y="450.85" width="285.3" height="72.95"/>
+      <object type="CollisionBoundingBox" x="1117.3" y="408.8" width="175.95" height="72.95"/>
+      <object type="CollisionBoundingBox" x="1295.8" y="334.85" width="72.95" height="72.95"/>
+      <object type="CollisionBoundingBox" x="1431.8" y="403.85" width="72.95" height="72.95"/>
+      <object type="CollisionBoundingBox" x="1569.05" y="498.1" width="72.95" height="72.95"/>
+      <object type="CollisionBoundingBox" x="-118.6" y="-33.15" width="72.95" height="390.9"/>
+    </collision>
+    <jump_trigger>
+      <object type="AiJumpTrigger" x="347.8" y="336.85" width="41.05" height="24.9"/>
+      <object type="AiJumpTrigger" x="427.95" y="461.9" width="41.05" height="20.85"/>
+      <object type="AiJumpTrigger" x="717.85" y="459.85" width="50.95" height="26.9"/>
+      <object type="AiJumpTrigger" x="992.8" y="427.85" width="47.05" height="20.9"/>
+      <object type="AiJumpTrigger" x="1192.85" y="388.85" width="36.95" height="16.9"/>
+    </jump_trigger>
+    <stop_point>
+      <object type="StoppingPoint" x="541.85" y="406.85"/>
+      <object type="StoppingPoint" x="897.85" y="376.85"/>
+      <object type="StoppingPoint" x="1323.8" y="256.9"/>
+    </stop_point>
+  </level_1>
+  <level_2/>
+</Data>
