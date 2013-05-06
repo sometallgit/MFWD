@@ -94,10 +94,12 @@
 		
 		private function updateCollisions()
 		{
+			y -= 50;
 			for (var i = 0; i < parentState.barrierArray.length; i++)
 			{
 				parentState.barrierArray[i].resolveCollisions(this);
 			}
+			y += 50;
 			
 		}
 		

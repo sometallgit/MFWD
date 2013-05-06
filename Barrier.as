@@ -32,6 +32,7 @@
 				
 				target.x -= collision.x;
 				target.y -= collision.y;
+
 				if(collision.y) 
 				{
 					target.grounded = true;
