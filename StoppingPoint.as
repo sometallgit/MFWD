@@ -10,6 +10,8 @@
 		
 		public function StoppingPoint(_type = "flower") 
 		{
+			//Giving each stopping point a random clip on creation. The clip will center it's x to the stopping point trigger
+			//
 			//x = _x;
 			//y = _y;
 			type = _type;

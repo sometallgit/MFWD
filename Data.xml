@@ -2,23 +2,25 @@
   <menu>
     <gui>
       <button1>
-        <object type="Button1" x="278.35" y="269.8"/>
-        <object type="Button1" x="367.35" y="202.85"/>
-        <object type="Button1" x="190.35" y="204.8"/>
-        <object type="Button1" x="102.35" y="269.8"/>
-        <object type="Button1" x="190.35" y="334.8"/>
-        <object type="Button1" x="366.35" y="334.8"/>
-        <object type="Button1" x="541.25" y="202.85"/>
-        <object type="Button1" x="455.3" y="269.8"/>
-        <object type="Button1" x="541.25" y="334.8"/>
-        <object type="Button1" x="629.25" y="269.8"/>
-        <object type="Button1" x="278.35" y="399.8"/>
-        <object type="Button1" x="455.35" y="399.8"/>
-        <object type="Button1" x="366.3" y="466.8"/>
-        <object type="Button1" x="453.25" y="139.8"/>
-        <object type="Button1" x="277.25" y="137.8"/>
+        <object type="Button1" x="278.35" y="269.8" rotation="0" scaleX="1" scaleY="1" transformX="0" transformY="0" matrixA="1" matrixB="0" matrixC="0" matrixD="1" matrixTX="278.35" matrixTY="269.8"/>
+        <object type="Button1" x="367.35" y="202.85" rotation="0" scaleX="1" scaleY="1" transformX="0" transformY="0" matrixA="1" matrixB="0" matrixC="0" matrixD="1" matrixTX="367.35" matrixTY="202.85"/>
+        <object type="Button1" x="190.35" y="204.8" rotation="0" scaleX="1" scaleY="1" transformX="0" transformY="0" matrixA="1" matrixB="0" matrixC="0" matrixD="1" matrixTX="190.35" matrixTY="204.8"/>
+        <object type="Button1" x="102.35" y="269.8" rotation="0" scaleX="1" scaleY="1" transformX="0" transformY="0" matrixA="1" matrixB="0" matrixC="0" matrixD="1" matrixTX="102.35" matrixTY="269.8"/>
+        <object type="Button1" x="190.35" y="334.8" rotation="0" scaleX="1" scaleY="1" transformX="0" transformY="0" matrixA="1" matrixB="0" matrixC="0" matrixD="1" matrixTX="190.35" matrixTY="334.8"/>
+        <object type="Button1" x="366.35" y="334.8" rotation="0" scaleX="1" scaleY="1" transformX="0" transformY="0" matrixA="1" matrixB="0" matrixC="0" matrixD="1" matrixTX="366.35" matrixTY="334.8"/>
+        <object type="Button1" x="541.25" y="202.85" rotation="0" scaleX="1" scaleY="1" transformX="0" transformY="0" matrixA="1" matrixB="0" matrixC="0" matrixD="1" matrixTX="541.25" matrixTY="202.85"/>
+        <object type="Button1" x="455.3" y="269.8" rotation="0" scaleX="1" scaleY="1" transformX="0" transformY="0" matrixA="1" matrixB="0" matrixC="0" matrixD="1" matrixTX="455.3" matrixTY="269.8"/>
+        <object type="Button1" x="541.25" y="334.8" rotation="0" scaleX="1" scaleY="1" transformX="0" transformY="0" matrixA="1" matrixB="0" matrixC="0" matrixD="1" matrixTX="541.25" matrixTY="334.8"/>
+        <object type="Button1" x="629.25" y="269.8" rotation="0" scaleX="1" scaleY="1" transformX="0" transformY="0" matrixA="1" matrixB="0" matrixC="0" matrixD="1" matrixTX="629.25" matrixTY="269.8"/>
+        <object type="Button1" x="278.35" y="399.8" rotation="0" scaleX="1" scaleY="1" transformX="0" transformY="0" matrixA="1" matrixB="0" matrixC="0" matrixD="1" matrixTX="278.35" matrixTY="399.8"/>
+        <object type="Button1" x="455.35" y="399.8" rotation="0" scaleX="1" scaleY="1" transformX="0" transformY="0" matrixA="1" matrixB="0" matrixC="0" matrixD="1" matrixTX="455.35" matrixTY="399.8"/>
+        <object type="Button1" x="366.3" y="466.8" rotation="0" scaleX="1" scaleY="1" transformX="0" transformY="0" matrixA="1" matrixB="0" matrixC="0" matrixD="1" matrixTX="366.3" matrixTY="466.8"/>
+        <object type="Button1" x="453.25" y="139.8" rotation="0" scaleX="1" scaleY="1" transformX="0" transformY="0" matrixA="1" matrixB="0" matrixC="0" matrixD="1" matrixTX="453.25" matrixTY="139.8"/>
+        <object type="Button1" x="277.25" y="137.8" rotation="0" scaleX="1" scaleY="1" transformX="0" transformY="0" matrixA="1" matrixB="0" matrixC="0" matrixD="1" matrixTX="277.25" matrixTY="137.8"/>
       </button1>
-      <button2/>
+      <button2>
+        <object type="Button2" x="165.1" y="456.9" rotation="18.350448608398438" scaleX="1.4285852016117386" scaleY="1.5681967624267656" transformX="0.652984619140625" transformY="0.4497528076171875" matrixA="1.3559417724609375" matrixB="0.4497528076171875" matrixC="0.652984619140625" matrixD="1.42578125" matrixTX="165.1" matrixTY="456.9"/>
+      </button2>
     </gui>
     <art/>
   </menu>
@@ -29,25 +31,28 @@
       <button2/>
     </gui>
     <background>
-      <object type="Asset03" x="603" y="96.6"/>
-      <object type="Asset03" x="1598.95" y="-4.3"/>
+      <object type="Asset03" x="603" y="96.6" rotation="0" scaleX="1" scaleY="1" transformX="0" transformY="0" matrixA="1" matrixB="0" matrixC="0" matrixD="1" matrixTX="603" matrixTY="96.6"/>
+      <object type="Asset03" x="1598.95" y="-4.3" rotation="0" scaleX="1" scaleY="1" transformX="0" transformY="0" matrixA="1" matrixB="0" matrixC="0" matrixD="1" matrixTX="1598.95" matrixTY="-4.3"/>
     </background>
     <midground>
-      <object type="Asset02" x="3.35" y="369.55"/>
-      <object type="Asset01" x="300" y="330"/>
-      <object type="Asset01" x="541" y="330"/>
-      <object type="Asset01" x="787.5" y="331.05"/>
-      <object type="Asset01" x="1028.5" y="331.05"/>
-      <object type="Asset00" x="1390.5" y="234.1"/>
-      <object type="Asset00" x="1675" y="234.1"/>
-      <object type="Asset00" x="1957.1" y="235.3"/>
+      <object type="Asset02" x="3.35" y="369.55" rotation="0" scaleX="1" scaleY="1" transformX="0" transformY="0" matrixA="1" matrixB="0" matrixC="0" matrixD="1" matrixTX="3.35" matrixTY="369.55"/>
+      <object type="Asset01" x="300" y="330" rotation="0" scaleX="1" scaleY="1" transformX="0" transformY="0" matrixA="1" matrixB="0" matrixC="0" matrixD="1" matrixTX="300" matrixTY="330"/>
+      <object type="Asset01" x="541" y="330" rotation="0" scaleX="1" scaleY="1" transformX="0" transformY="0" matrixA="1" matrixB="0" matrixC="0" matrixD="1" matrixTX="541" matrixTY="330"/>
+      <object type="Asset01" x="787.5" y="331.05" rotation="0" scaleX="1" scaleY="1" transformX="0" transformY="0" matrixA="1" matrixB="0" matrixC="0" matrixD="1" matrixTX="787.5" matrixTY="331.05"/>
+      <object type="Asset01" x="1028.5" y="331.05" rotation="0" scaleX="1" scaleY="1" transformX="0" transformY="0" matrixA="1" matrixB="0" matrixC="0" matrixD="1" matrixTX="1028.5" matrixTY="331.05"/>
+      <object type="Asset00" x="1390.5" y="234.1" rotation="0" scaleX="1" scaleY="1" transformX="0" transformY="0" matrixA="1" matrixB="0" matrixC="0" matrixD="1" matrixTX="1390.5" matrixTY="234.1"/>
+      <object type="Asset00" x="1675" y="234.1" rotation="0" scaleX="1" scaleY="1" transformX="0" transformY="0" matrixA="1" matrixB="0" matrixC="0" matrixD="1" matrixTX="1675" matrixTY="234.1"/>
+      <object type="Asset00" x="1957.1" y="235.3" rotation="0" scaleX="1" scaleY="1" transformX="0" transformY="0" matrixA="1" matrixB="0" matrixC="0" matrixD="1" matrixTX="1957.1" matrixTY="235.3"/>
+      <object type="Asset06" x="346.3" y="-16.35" rotation="0" scaleX="0.6821136474609375" scaleY="1" transformX="0" transformY="0" matrixA="0.6821136474609375" matrixB="0" matrixC="0" matrixD="1" matrixTX="346.3" matrixTY="-16.35"/>
+      <object type="Asset06" x="891.25" y="-95.3" rotation="0" scaleX="1" scaleY="1.3113862447533398" transformX="0.05865478515625" transformY="0" matrixA="1" matrixB="0" matrixC="0.05865478515625" matrixD="1.3100738525390625" matrixTX="891.25" matrixTY="-95.3"/>
+      <object type="Asset06" x="1691.25" y="-127.35" rotation="0" scaleX="1" scaleY="1.008323020897616" transformX="-0.1292877197265625" transformY="0" matrixA="1" matrixB="0" matrixC="-0.1292877197265625" matrixD="1" matrixTX="1691.25" matrixTY="-127.35"/>
     </midground>
     <foreground>
-      <object type="Asset04" x="1055" y="500.6"/>
+      <object type="Asset04" x="1055" y="500.6" rotation="0" scaleX="1" scaleY="1" transformX="0" transformY="0" matrixA="1" matrixB="0" matrixC="0" matrixD="1" matrixTX="1055" matrixTY="500.6"/>
     </foreground>
     <static_foreground>
-      <object type="Asset05" x="178.05" y="316.35"/>
-      <object type="Asset05" x="1276" y="209.35"/>
+      <object type="Asset05" x="178.05" y="316.35" rotation="0" scaleX="1" scaleY="1" transformX="0" transformY="0" matrixA="1" matrixB="0" matrixC="0" matrixD="1" matrixTX="178.05" matrixTY="316.35"/>
+      <object type="Asset05" x="1276" y="209.35" rotation="0" scaleX="1" scaleY="1" transformX="0" transformY="0" matrixA="1" matrixB="0" matrixC="0" matrixD="1" matrixTX="1276" matrixTY="209.35"/>
     </static_foreground>
     <collision>
       <object type="CollisionBoundingBox" x="-15.2" y="348.85" width="539.1" height="79"/>
@@ -61,9 +66,9 @@
       <object type="AiJumpTrigger" x="1278.75" y="233.5" width="47.05" height="58.95"/>
     </jump_trigger>
     <stop_point>
-      <object type="StoppingPoint" x="552.85" y="258.3"/>
-      <object type="StoppingPoint" x="1019.85" y="258.3"/>
-      <object type="StoppingPoint" x="1790.6" y="141.4"/>
+      <object type="StoppingPoint" x="552.85" y="258.3" rotation="0" scaleX="1" scaleY="1" transformX="0" transformY="0" matrixA="1" matrixB="0" matrixC="0" matrixD="1" matrixTX="552.85" matrixTY="258.3"/>
+      <object type="StoppingPoint" x="1019.85" y="258.3" rotation="0" scaleX="1" scaleY="1" transformX="0" transformY="0" matrixA="1" matrixB="0" matrixC="0" matrixD="1" matrixTX="1019.85" matrixTY="258.3"/>
+      <object type="StoppingPoint" x="1790.6" y="141.4" rotation="0" scaleX="1" scaleY="1" transformX="0" transformY="0" matrixA="1" matrixB="0" matrixC="0" matrixD="1" matrixTX="1790.6" matrixTY="141.4"/>
     </stop_point>
   </level_1>
   <level_2/>

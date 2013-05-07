@@ -51,6 +51,25 @@
 			}
 		}
 		
+		
+		public function resolveCollisionsSimple(target)
+		{
+			var collision:Point = testAABB(
+										x, (x + width), y, (y + height),
+										target.x, (target.x + target.width), target.y, (target.y + target.height)
+									 );
+			if(collision) 
+			{
+				target.x -= collision.x;
+				target.y -= collision.y;
+
+				if(collision.y) 
+				{
+					target.grounded = true;
+				} 
+			}
+		}
+		
 		public function resolveCollisionsGrenade(target)
 		{
 			var collision:Point = testAABB(

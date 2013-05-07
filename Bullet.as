@@ -196,9 +196,11 @@
 				//iterate through enemy array when it exists
 				if (x > parentState.enemy.x && x < parentState.enemy.x + parentState.enemy.width && y > parentState.enemy.y && y < parentState.enemy.y + parentState.enemy.height)
 				{
+					parentState.dropWep();
 					parentState.removeChild(parentState.enemy);
 					parentState.enemy = new Enemy(40, 40, parentState, parentState.hitler);
-					parentState.addChild(parentState.enemy);
+					//parentState.addChild(parentState.enemy);
+					parentState.addChildAt(parentState.enemy, parentState.getChildIndex(parentState.player));
 				}
 			}
 			//Otherwise we came from an enemy, check only for hitler

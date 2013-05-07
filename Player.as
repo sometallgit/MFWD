@@ -22,15 +22,7 @@
 		private var isMovingDown:Boolean = false;
 		private var isMovingLeft:Boolean = false;
 		private var isMovingRight:Boolean = false;
-		
-		/*
-		//For scrolling
-		public var xOffset;
-		public var yOffset;
-		private var startX;
-		private var startY;
-		*/
-		
+				
 		public function Player(_x, _y, state)
 		{
 			trace("Player Created");
@@ -39,14 +31,8 @@
 			y = _y;
 			parentState = state;
 			
-			currentWeapon = new Weapon("RANDOM", true, this, parentState);
+			currentWeapon = new Weapon("GRENADE", true, this, parentState);
 			addChild(currentWeapon);
-			/*
-			xOffset = 0;
-			yOffset = 0;
-			startX = 0;
-			startY = 0;
-			*/
 		}
 		
 		public function update()
@@ -54,11 +40,37 @@
 			updateMovement();
 			updateCollisions()
 			currentWeapon.update();
+
 		}
 		
 		public function attack()
 		{
 			currentWeapon.fire();
+		}
+		
+		public function weaponDepleted()
+		{
+			removeChild(currentWeapon);
+			currentWeapon = new Weapon("KNIFE", true, this, parentState);
+			addChild(currentWeapon);
+		}
+		
+		public function pickupWeapon()
+		{
+			for (var i:int = 0; i < parentState.droppedWeapons.length; i++)
+			{
+				if (parentState.droppedWeapons[i].alive)
+				{
+					if (this.hitTestObject(parentState.droppedWeapons[i])) 
+					{
+						parentState.droppedWeapons[i].alive = false;
+						removeChild(currentWeapon);
+						currentWeapon = new Weapon(parentState.droppedWeapons[i].type, true, this, parentState);
+						addChild(currentWeapon);
+						return;
+					}
+				}
+			}
 		}
 		
 		//Basically the same as the mario code

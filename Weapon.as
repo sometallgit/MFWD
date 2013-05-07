@@ -17,14 +17,21 @@
 		const gunCooldownAi = 2000;
 		const grenadeCooldownAi = 3000;
 		
+		//Ammo for each of the weapons - Knife is supposed to be infinite
+		const knifeAmmo = 99999;
+		const gunAmmo = 5;
+		const grenadeAmmo = 1;
+		
 		public var type:String; //KNIFE, GUN, GRENADE, RANDOM
-		private var isPlayer:Boolean;
+		public var isPlayer:Boolean;
+		private var ammo;
 		
 		public var refToOwner;
 		public var parentState;
 		
 		public function Weapon(_type, _isPlayer, _owner, _parentState)
 		{
+			//visible = false;
 			type = _type;
 			isPlayer = _isPlayer
 			refToOwner = _owner;
@@ -39,6 +46,13 @@
 					case 2:		type = "GRENADE";	break;
 				}
 			}
+			switch (type)
+			{
+				
+				case "KNIFE": 	ammo = knifeAmmo; break;
+				case "GUN": 	ammo = gunAmmo; break;
+				case "GRENADE": ammo = grenadeAmmo; break;
+			}
 		}
 		
 		public function update()
@@ -52,6 +66,11 @@
 			{
 				parentState.bullets[i].update();
 			}
+			
+			if (ammo <= 0)
+			{
+				refToOwner.weaponDepleted();
+			}
 		}
 		
 		public function fire()
@@ -59,15 +78,18 @@
 			if (currentTime > cooldownOverTime)
 			{
 				parentState.bullets.push(new Bullet(x, y, type, isPlayer, refToOwner.directionFacing, parentState))
-				parentState.addChild(parentState.bullets[parentState.bullets.length-1]);
+				//parentState.addChild(parentState.bullets[parentState.bullets.length-1]);
+				parentState.addChildAt(parentState.bullets[parentState.bullets.length-1], parentState.getChildIndex(parentState.player));
 				//Reset the cooldown
 				if (isPlayer)
 				{
+					ammo--;
+					trace(ammo);
 					switch (type)
 					{
-						case "KNIFE":	cooldownOverTime = currentTime + knifeCooldown; trace("knife"); 	break;
-						case "GUN":		cooldownOverTime = currentTime + gunCooldown; trace("gun");		break;
-						case "GRENADE":	cooldownOverTime = currentTime + grenadeCooldown; trace("nade"); 	break;
+						case "KNIFE":	cooldownOverTime = currentTime + knifeCooldown;		break;
+						case "GUN":		cooldownOverTime = currentTime + gunCooldown;		break;
+						case "GRENADE":	cooldownOverTime = currentTime + grenadeCooldown; 	break;
 					}
 				}
 				else

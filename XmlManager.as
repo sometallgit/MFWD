@@ -3,6 +3,7 @@
 	import flash.display.MovieClip;
 	import flash.display.Stage;
 	import flash.utils.*;
+	import flash.geom.*;
 	import flash.net.*;
 	import flash.events.*;
 	
@@ -82,6 +83,17 @@
 				object.@type = 	t;
 				object.@x = 	stageAddress.getChildAt(i).x;
 				object.@y = 	stageAddress.getChildAt(i).y;
+				object.@rotation = 	stageAddress.getChildAt(i).rotation;
+				object.@scaleX = 	stageAddress.getChildAt(i).scaleX;
+				object.@scaleY = 	stageAddress.getChildAt(i).scaleY;
+				object.@transformX = 	stageAddress.getChildAt(i).transform.matrix.c;
+				object.@transformY = 	stageAddress.getChildAt(i).transform.matrix.b;
+				object.@matrixA = 	stageAddress.getChildAt(i).transform.matrix.a;
+				object.@matrixB = 	stageAddress.getChildAt(i).transform.matrix.b;
+				object.@matrixC = 	stageAddress.getChildAt(i).transform.matrix.c;
+				object.@matrixD = 	stageAddress.getChildAt(i).transform.matrix.d;
+				object.@matrixTX = 	stageAddress.getChildAt(i).transform.matrix.tx;
+				object.@matrixTY = 	stageAddress.getChildAt(i).transform.matrix.ty;
 				xmlAddress.appendChild(object);
 			}
 			

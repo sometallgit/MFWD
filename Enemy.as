@@ -47,6 +47,7 @@
 			parentState = state;
 			
 			currentWeapon = new Weapon("RANDOM", false, this, parentState);
+			
 			addChild(currentWeapon);
 			
 			switch (currentWeapon.type)
@@ -105,10 +106,8 @@
 			updateMovement();
 			updateCollisions()
 			
-			
 		}
 		
-
 		public function attack()
 		{
 			currentWeapon.fire();
