@@ -1,0 +1,31 @@
+<!-- the outer XML tag isn't referenced at all in code, but needs to exist -->
+<config>
+
+	<!-- these are the audio samples & tracks that are used by this program -->
+	<samples>
+	     
+	   	<!-- call this sound by asking for Audio.play("explode") -->
+	   	<sample>
+	   		<name>explode</name>
+	   		<file>Flashbang-Kibblesbob-899170896.mp3</file>
+	   		<volume>0.4</volume>
+	   	</sample>
+	   	
+	   	<sample>
+	   		<name>fire</name>
+	   		<file>barreta_m9-Dion_Stapper-1010051237.mp3</file>
+	   		<volume>0.9</volume>
+	   	</sample>
+
+	   	<sample>
+	   		<name>music</name>
+	   		<file>barreta_m9-Dion_Stapper-1010051237.mp3</file>	<!-- choose a better background music piece! -->
+	   		<volume>0.9</volume>
+	   		<type>loop</type>		<!-- use type loop for background music -->
+	   	</sample>
+
+	   	
+	</samples>
+	
+	
+</config>

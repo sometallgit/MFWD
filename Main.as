@@ -6,6 +6,9 @@
 	import flash.events.MouseEvent;
 	import flash.display.Stage;
 	
+	import flash.media.Sound;
+	import flash.media.SoundChannel;
+	import flash.media.SoundTransform;
 	
 	public class Main extends MovieClip
 	{
@@ -16,10 +19,15 @@
 		
 		public var xmlManager;
 		
+		private var musicTracker;	// returned from audio channel when we start playing music.  we need this so we can stop it later if we want.
+		
 		public function Main()
 		{	
 			xmlManager = new XmlManager(MovieClip(root).levelData, this);
 			//xmlManager.readStage();
+			
+			Audio.init();
+			Config.init();
 			
 			currentState = new StateMachine(this);
 			s_Menu = new S_MenuState(this);
@@ -52,6 +60,31 @@
 		private function keyDownHandler(keyEvent)
 		{
 			currentState.keyPressed(keyEvent.keyCode);
+			
+			//TESTING
+			switch(keyEvent.keyCode)
+			{
+				// a - just play fire sound effect
+				case 65: Audio.play("fire"); break;
+				
+				// b - just play explode sound effect
+				case 66: Audio.play("explode"); break;
+				
+				// c - play fire sound effect with notifaction on complete
+				case 67:
+				{
+					var c = Audio.play("fire"); 
+					c.addEventListener(Event.SOUND_COMPLETE, fireSoundComplete);
+				}
+				break;
+
+				// d - play background music
+				case 68: musicTracker = Audio.play("music"); break;
+
+				// e - stop music
+				case 69: Audio.stop(musicTracker); musicTracker = null; break;
+			}
+			
 		}
 		
 		private function keyUpHandler(keyEvent)
@@ -76,5 +109,12 @@
 			currentState = newState;
 			addChild(currentState);
 		}
+		
+		// fire sound effect complete is notified
+		private function fireSoundComplete(e : Event)
+		{
+			trace("fire sound complete");
+		}
+		
 	}
 }
