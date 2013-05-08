@@ -63,7 +63,7 @@
 			{
 				//Player movement
 				case 90:	player.startMovingUp();			break; //Z
-				case 88:	carry(); player.pickupWeapon();	break; //X
+				case 88:	hitler.carry(); player.pickupWeapon();	break; //X
 				case 67:	player.attack();				break; //C
 				case 40:	player.startMovingDown();		break; //Down arrow
 				case 37:	player.startMovingLeft();		break; //Left arrow
@@ -95,13 +95,6 @@
 				addChild(droppedWeapons[droppedWeapons.length - 1]);
 			}
 		}
-		
-		public function carry()
-		{
-			refToDocClass.currentState.hitler.carry(player.x, player.y, player.width, player.height);
-		}
-		
-		
 		
 		override public function test()
 		{

@@ -99,14 +99,14 @@
 			
 		}
 		
-		public function carry(_x, _y, _width, _height)
+		public function carry()
 		{
 			if (isCarried == true)
 			{
 				isCarried = false;
 			}
 			
-			else if (((_x + _width) > x) && (_x < (x + width)))
+			else if (this.hitTestObject(parentState.player)) 
 			{
 				isCarried = true;
 			}
