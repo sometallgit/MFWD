@@ -12,6 +12,7 @@
 		public var stopDuration:int = 2000;
 		public var currentTarget:int = 0;
 		
+		public var health:int = 100;
 		public var isCarried:Boolean = false;
 		
 		public var xVelocity:Number = 0;
@@ -49,6 +50,8 @@
 		
 		public function update()
 		{
+			MovieClip(root).debugText2.text = "Hitler's health: " + health;
+			
 			if (isCarried)
 			{
 				x = parentState.player.x;
@@ -98,6 +101,11 @@
 				isCarried = true;
 			}
 			
+		}
+		
+		public function hurt(damage:int = 10)
+		{
+			health -= damage;
 		}
 		
 		//Basically the same as the mario code

@@ -146,6 +146,7 @@
 				var sourcePoint = new Point(x, y);
 				Audio.playDynamic("grenade_explode", playerPoint, sourcePoint);
 				isAlive = false;
+				checkCollisionsGrenade();
 			}
 			if (direction == "RIGHT")
 			{
@@ -218,8 +219,41 @@
 			//If we came from the player, check only against the enemies
 			if (isPlayer)
 			{
-				//iterate through enemy array when it exists
-				if (x > parentState.enemy.x && x < parentState.enemy.x + parentState.enemy.width && y > parentState.enemy.y && y < parentState.enemy.y + parentState.enemy.height)
+				//If the weapon isn't a grenade, do a normal collision check
+				if (type != "GRENADE")
+				{
+					//iterate through enemy array when it exists
+					//if (x > parentState.enemy.x && x < parentState.enemy.x + parentState.enemy.width && y > parentState.enemy.y && y < parentState.enemy.y + parentState.enemy.height)
+					if (this.hitTestObject(parentState.enemy))
+					{
+						parentState.dropWep();
+						parentState.removeChild(parentState.enemy);
+						parentState.enemy = new Enemy(40, 40, parentState, parentState.hitler);
+						//parentState.addChild(parentState.enemy);
+						parentState.addChildAt(parentState.enemy, parentState.getChildIndex(parentState.player));
+					}
+				}
+				//Otherwise it's a special case
+			}
+			//Otherwise we came from an enemy, check only for hitler
+			else
+			{
+				if (this.hitTestObject(parentState.hitler) && type != "GRENADE")
+				{
+					isAlive = false;
+					parentState.hitler.hurt()
+				}
+			}
+		}
+		
+		private function checkCollisionsGrenade()
+		{
+			if (isPlayer)
+			{
+				var point1:Point = new Point(x, y);
+				var point2:Point = new Point(parentState.enemy.x, parentState.enemy.y);
+				var distance =  Point.distance(point1, point2);
+				if (distance < 200)
 				{
 					parentState.dropWep();
 					parentState.removeChild(parentState.enemy);
@@ -228,11 +262,21 @@
 					parentState.addChildAt(parentState.enemy, parentState.getChildIndex(parentState.player));
 				}
 			}
-			//Otherwise we came from an enemy, check only for hitler
 			else
 			{
+				var point1:Point = new Point(x, y);
+				var point2:Point = new Point(parentState.hitler.x, parentState.hitler.y);
 				
+				var distance =  Point.distance(point1, point2);
+				//Cap the distance to the max distance
+				if (distance > 350) distance = 350;
+				
+				var damagePercent = 1 - (distance / 350);
+				var damage = 20 * damagePercent;
+				parentState.hitler.hurt(damage);
 			}
+			
+		
 		}
 		
 		private function updateCollisions()

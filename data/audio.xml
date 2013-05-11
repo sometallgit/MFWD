@@ -27,60 +27,60 @@
 		<!-- When the player touches the ground for the first time after jumping -->
 		<sample>
 	   		<name>land_0</name>
-	   		<file>land_placeholder_0.mp3</file>
+	   		<file>land_0.mp3</file>
 	   		<volume>1</volume>
 	   	</sample>
 		
 		<!-- When the player/AI jumps -->
 		<sample>
 	   		<name>jump_0</name>
-	   		<file>jump_placeholder_0.mp3</file>
+	   		<file>jump_0.mp3</file>
 	   		<volume>1</volume>
 	   	</sample>
 		
 		<!-- When an attack with a knife is made -->
 		<sample>
 	   		<name>attack_knife_0</name>
-	   		<file>attack_knife_placeholder_0.mp3</file>
+	   		<file>attack_knife_0.mp3</file>
 	   		<volume>1</volume>
 	   	</sample>
 		
 		<sample>
 	   		<name>attack_knife_1</name>
-	   		<file>attack_knife_placeholder_1.mp3</file>
+	   		<file>attack_knife_1.mp3</file>
 	   		<volume>1</volume>
 	   	</sample>
 		
 		<sample>
 	   		<name>attack_knife_2</name>
-	   		<file>attack_knife_placeholder_2.mp3</file>
+	   		<file>attack_knife_2.mp3</file>
 	   		<volume>1</volume>
 	   	</sample>
 		
 		<sample>
 	   		<name>attack_knife_3</name>
-	   		<file>attack_knife_placeholder_3.mp3</file>
+	   		<file>attack_knife_3.mp3</file>
 	   		<volume>1</volume>
 	   	</sample>
 		
 		<!-- When an attack with a gun is made -->
 		<sample>
 	   		<name>attack_gun_0</name>
-	   		<file>attack_gun_placeholder_0.mp3</file>
+	   		<file>attack_gun_0.mp3</file>
 	   		<volume>1</volume>
 	   	</sample>
 		
 		<!-- When an attack with a grenade is made -->
 		<sample>
 	   		<name>attack_grenade_0</name>
-	   		<file>attack_grenade_placeholder_0.mp3</file>
+	   		<file>attack_grenade_0.mp3</file>
 	   		<volume>1</volume>
 	   	</sample>
 		
 		<!-- When a grenade explodes -->
 		<sample>
 	   		<name>grenade_explode_0</name>
-	   		<file>grenade_explode_placeholder_0.mp3</file>
+	   		<file>grenade_explode_0.mp3</file>
 	   		<volume>1</volume>
 	   	</sample>
 	   	
