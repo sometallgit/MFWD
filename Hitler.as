@@ -29,12 +29,7 @@
 		private var isMovingDown:Boolean = false;
 		private var isMovingLeft:Boolean = false;
 		private var isMovingRight:Boolean = false;
-		
-		//For scrolling
-		public var xOffset;
-		public var yOffset;
-		private var startX;
-		private var startY;
+
 		
 		public function Hitler(_x, _y, state)
 		{
@@ -43,14 +38,6 @@
 			x = _x;
 			y = _y;
 			parentState = state;
-			
-			
-			/*
-			xOffset = 0;
-			yOffset = 0;
-			startX = 0;
-			startY = 0;
-			*/
 			
 		}
 		

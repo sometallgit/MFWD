@@ -46,15 +46,13 @@
 			//keyboard event
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
 			stage.addEventListener(KeyboardEvent.KEY_UP, keyUpHandler);
-
+			
 		}
 		
 		public function enterFrameHandler(e:Event)
 		{
 			//Update function
-			//trace("update");
 			currentState.update();
-			//trace(stage.frameRate);
 		}
 		
 		private function keyDownHandler(keyEvent)

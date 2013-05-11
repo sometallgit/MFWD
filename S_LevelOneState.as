@@ -54,7 +54,7 @@
 			{
 				droppedWeapons[i].update();
 			}
-			
+			parent.setChildIndex(MovieClip(root).debugText1, 2)
 		}
 		
 		override public function keyPressed(key)
@@ -252,6 +252,8 @@
 			{
 				addChild(foregroundArray[i]);
 			}
+			
+			
 			
 		}
 		

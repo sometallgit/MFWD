@@ -2,6 +2,7 @@
 {
 	import flash.display.MovieClip;
 	import flash.utils.*;
+	import flash.geom.Point;
 	
 	public class Bullet extends MovieClip
 	{
@@ -120,6 +121,9 @@
 		{
 			if (currentTime > expireTime)
 			{
+				var playerPoint = new Point(parentState.player.x, parentState.player.y);
+				var sourcePoint = new Point(x, y);
+				Audio.playDynamic("explode", playerPoint, sourcePoint);
 				isAlive = false;
 			}
 			if (direction == "RIGHT")

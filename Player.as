@@ -1,10 +1,12 @@
 ﻿package
 {
 	import flash.display.MovieClip;
+	import flash.geom.Point;
 	
 	public class Player extends MovieClip
 	{
 		public var directionFacing:String = "RIGHT";
+		public var animationState:String;
 		public var currentWeapon;
 		
 		public var xVelocity:Number = 0;
@@ -33,6 +35,7 @@
 			
 			currentWeapon = new Weapon("GRENADE", true, this, parentState);
 			addChild(currentWeapon);
+
 		}
 		
 		public function update()
@@ -40,7 +43,38 @@
 			updateMovement();
 			updateCollisions()
 			currentWeapon.update();
-
+			
+			stateCheck();
+			
+			
+		}
+		
+		private function stateCheck()
+		{
+			if (yVelocity > 0 && directionFacing == "LEFT") animationState = "L_FALL";
+			else if (yVelocity > 0 && directionFacing == "RIGHT") animationState = "R_FALL";
+			
+			if (isMovingLeft && grounded && parentState.hitler.isCarried == false) animationState = "L_WALKING";
+			else if (directionFacing == "LEFT" && grounded && parentState.hitler.isCarried == false) animationState = "L_IDLE";
+			
+			if (isMovingLeft && grounded && parentState.hitler.isCarried == true) animationState = "L_WALKING_CARRY";
+			else if (directionFacing == "LEFT" && grounded && parentState.hitler.isCarried == true) animationState = "L_IDLE_CARRY";
+			
+			if (isMovingRight && grounded && parentState.hitler.isCarried == true) animationState = "R_WALKING_CARRY";
+			else if (directionFacing == "RIGHT" && grounded && parentState.hitler.isCarried == true) animationState = "R_IDLE_CARRY";
+			
+			//attacking idle
+			//attacking moving
+			//fall, jump carry
+			
+			if (isMovingRight && grounded && parentState.hitler.isCarried == false) animationState = "R_WALKING";
+			else if (directionFacing == "RIGHT" && grounded && parentState.hitler.isCarried == false) animationState = "R_IDLE";
+			
+			if ((isMovingUp || yVelocity < 0) && directionFacing == "LEFT") animationState = "L_JUMP";
+			else if ((isMovingUp || yVelocity < 0) && directionFacing == "RIGHT") animationState = "R_JUMP";
+			
+			
+			MovieClip(root).debugText1.text = "PLAYER ANIM STATE: " + animationState;
 		}
 		
 		public function attack()
