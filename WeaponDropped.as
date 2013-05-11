@@ -16,14 +16,14 @@
 		
 		public var alive:Boolean = true;
 		
-		public function WeaponDropped(_type, _parentState)
+		public function WeaponDropped(_type, _parentState, _x, _y)
 		{
 			currentTime = getTimer();
 			killTime = currentTime + lifeTime;
 			parentState = _parentState;
 			type = _type;
-			x = parentState.enemy.x;
-			y = parentState.enemy.y;
+			x = _x;
+			y = _y;
 			switch(type)
 			{
 				case "GUN": clip = new Gun(); break;

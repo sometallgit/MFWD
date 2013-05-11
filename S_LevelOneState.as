@@ -16,6 +16,7 @@
 		private var midgroundArray:Array = new Array();
 		private var backgroundArray:Array = new Array();
 		public var stoppingPointArray:Array = new Array();
+		public var enemies:Array = new Array();
 		
 		public var bullets:Array = new Array();
 		
@@ -24,7 +25,7 @@
 		private var button;
 		public var player;
 		public var hitler;
-		public var enemy
+		//public var enemy;
 		
 		public function S_LevelOneState(documentClass)
 		{
@@ -36,7 +37,9 @@
 			//Initialise Hitler
 			hitler = new Hitler(40, 40, this);
 			
-			enemy = new Enemy(40, 40, this, hitler);
+			enemies.push(new Enemy(this, hitler));
+			enemies.push(new Enemy(this, hitler));
+			enemies.push(new Enemy(this, hitler));
 			
 			button = new GUIButton(refToDocClass, "ENTER_MENU", new Button1());
 			addChild(button);
@@ -46,7 +49,11 @@
 		{
 			player.update();
 			hitler.update();
-			enemy.update();
+			for(var i:int = 0; i < enemies.length; i++)
+			{
+				enemies[i].update();
+			}
+			//enemy.update();
 			updateScroll();
 			button.update(mouseIsPressed);
 			
@@ -88,11 +95,11 @@
 			button.mousePressed();
 		}
 		
-		public function dropWep()
+		public function dropWep(i)
 		{
-			if (enemy.currentWeapon.type != "KNIFE")
+			if (enemies[i].currentWeapon.type != "KNIFE")
 			{
-				droppedWeapons.push(new WeaponDropped(enemy.currentWeapon.type, this));
+				droppedWeapons.push(new WeaponDropped(enemies[i].currentWeapon.type, this, enemies[i].x, enemies[i].y));
 				addChild(droppedWeapons[droppedWeapons.length - 1]);
 			}
 		}
@@ -240,7 +247,11 @@
 				addChild(stoppingPointArray[i]);
 			}
 			hitler.init();
-			addChild(enemy);
+			for (i = 0; i < enemies.length; i++)
+			{
+				addChild(enemies[i]);
+			}
+
 			addChild(hitler);
 			addChild(player);
 			

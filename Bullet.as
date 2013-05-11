@@ -8,11 +8,12 @@
 	{
 		//Grenade range ~ 600
 		private var type:String; //KNIFE, GUN, GRENADE, RANDOM
-		private var isPlayer:Boolean;
+		private var isPlayer:Boolean; //Did the bullet come from the player
 		private var direction;
 		private var isAlive:Boolean = true;
 		private var parentState;
 		
+		//The knife is a short range bullet
 		private const knifeRange:int = 75;
 		private var removeKnifeRange;
 		
@@ -36,9 +37,11 @@
 			x = startX;
 			y = startY;
 			
+			//Keep a note of how long the bullet has been alive for. This is needed for the grenade
 			currentTime = getTimer();
 			expireTime = currentTime + grenadeDieTime;
 			
+			//Set the range of the knife
 			if (type == "KNIFE" && direction == "LEFT")
 			{
 				removeKnifeRange = x - knifeRange;
@@ -50,13 +53,14 @@
 			
 			if (type == "GRENADE" && direction == "LEFT")
 			{
-				applyForce(-5, -9);
+				applyForce(-4, -10);
 			}
 			else if (type == "GRENADE" && direction == "RIGHT")
 			{
-				applyForce(5, -9);
+				applyForce(4, -10);
 			}
 			
+			//If the player was the one who used a weapon, play the sound globally
 			if (isPlayer)
 			{
 				switch (type)
@@ -66,6 +70,8 @@
 					case "GRENADE":		Audio.play("attack_grenade"); 	break;
 				}
 			}
+			
+			//Otherwise, play it dynamically
 			else
 			{
 				var playerPoint = new Point(parentState.player.x, parentState.player.y);
@@ -80,6 +86,7 @@
 			
 		}
 		
+		//Update the bullets according to what they were fired from
 		public function update()
 		{
 			currentTime = getTimer();
@@ -224,13 +231,17 @@
 				{
 					//iterate through enemy array when it exists
 					//if (x > parentState.enemy.x && x < parentState.enemy.x + parentState.enemy.width && y > parentState.enemy.y && y < parentState.enemy.y + parentState.enemy.height)
-					if (this.hitTestObject(parentState.enemy))
+					for (var i:int = 0; i < parentState.enemies.length; i++)	
 					{
-						parentState.dropWep();
-						parentState.removeChild(parentState.enemy);
-						parentState.enemy = new Enemy(40, 40, parentState, parentState.hitler);
-						//parentState.addChild(parentState.enemy);
-						parentState.addChildAt(parentState.enemy, parentState.getChildIndex(parentState.player));
+						if (this.hitTestObject(parentState.enemies[i]))
+						{
+							parentState.dropWep(i);
+							parentState.removeChild(parentState.enemies[i]);
+							parentState.enemies[i] = new Enemy(parentState, parentState.hitler);
+							//parentState.addChild(parentState.enemy);
+							parentState.addChildAt(parentState.enemies[i], parentState.getChildIndex(parentState.player));
+							isAlive = false;
+						}
 					}
 				}
 				//Otherwise it's a special case
@@ -250,16 +261,19 @@
 		{
 			if (isPlayer)
 			{
-				var point1:Point = new Point(x, y);
-				var point2:Point = new Point(parentState.enemy.x, parentState.enemy.y);
-				var distance =  Point.distance(point1, point2);
-				if (distance < 200)
+				for (var i:int = 0; i < parentState.enemies.length; i++)	
 				{
-					parentState.dropWep();
-					parentState.removeChild(parentState.enemy);
-					parentState.enemy = new Enemy(40, 40, parentState, parentState.hitler);
-					//parentState.addChild(parentState.enemy);
-					parentState.addChildAt(parentState.enemy, parentState.getChildIndex(parentState.player));
+					var point1:Point = new Point(x, y);
+					var point2:Point = new Point(parentState.enemies[i].x, parentState.enemies[i].y);
+					var distance =  Point.distance(point1, point2);
+					if (distance < 200)
+					{
+						parentState.dropWep(i);
+						parentState.removeChild(parentState.enemies[i]);
+						parentState.enemies[i] = new Enemy(parentState, parentState.hitler);
+						//parentState.addChild(parentState.enemy);
+						parentState.addChildAt(parentState.enemies[i], parentState.getChildIndex(parentState.player));
+					}
 				}
 			}
 			else

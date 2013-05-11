@@ -7,7 +7,7 @@
 	{
 
 		public var currentWeapon;
-		private var stopDistance:int;
+		private var stopDistance:int; //How close should I get to Hitler before stopping
 		
 		public var directionFacing:String = "RIGHT";
 		public var stopTime:int = 0;
@@ -31,19 +31,12 @@
 		private var isMovingLeft:Boolean = false;
 		private var isMovingRight:Boolean = false;
 		
-		//For scrolling
-		//public var xOffset;
-		//public var yOffset;
-		//private var startX;
-		//private var startY;
-		
-		public function Enemy(_x, _y, state, _target)
+		public function Enemy(state, _target)
 		{
-			trace("Enemy Created");
+			//trace("Enemy Created");
 			
 			target = _target;
-			x = _x;
-			y = _y;
+
 			parentState = state;
 			
 			currentWeapon = new Weapon("RANDOM", false, this, parentState);
@@ -53,59 +46,57 @@
 			switch (currentWeapon.type)
 			{
 				case "KNIFE": 		stopDistance = 10;	break;
-				case "GUN": 		stopDistance = 400;	break;
-				case "GRENADE": 	stopDistance = 600;	break;
+				case "GUN": 		stopDistance = 200;	break;
+				case "GRENADE": 	stopDistance = 400;	break;
 			}
 			
-			//xOffset = 0;
-			//yOffset = 0;
-			//startX = 0;
-			//startY = 0;
-			
-			
+			init();
 		}
 		
 		public function init()
 		{
-			//Manually called constructor after the XML is successfully loaded
-			//parentState.stoppingPointArray[currentTarget];
+			//Set spawn location just beyond the screen
+			var r = int(Math.random()*2);
+			y = 0;
+			switch(r)
+			{
+				case 0: 
+					x = -parentState.x - (width * 3) - 200;
+				break;
+				case 1:
+					x = 800 + -parentState.x + (width * 2) + 200;
+				break;
+			}
 		}
 		
 		public function update()
 		{
 			currentWeapon.update();
-			//if (currentTime > stopTime)
-			//{
-				if (target.x > x) directionFacing = "RIGHT";
-				if (target.x < x) directionFacing = "LEFT";
-				
-				if (target.x > x + stopDistance)
-				{
-					setConstantForce(2,0);
-					
-				}
-				else if (target.x < x - stopDistance)
-				{
-					
-					setConstantForce(-2,0);
-					
-				}
-				
-				else
-				{
-					setConstantForce(0,0);
-					attack();
-				}
-			//}
-			//else
-			//{
-				//setConstantForce(0,0);
-			//}
+
+			if (target.x > x) directionFacing = "RIGHT";
+			if (target.x < x) directionFacing = "LEFT";
+			
+			if (target.x > x + stopDistance)
+			{
+				setConstantForce(2,0);
+			}
+			else if (target.x < x - stopDistance)
+			{
+				setConstantForce(-2,0);
+			}
+			
+			else
+			{
+				setConstantForce(0,0);
+				attack();
+			}
+
 			currentTime = getTimer();
-			//trace(currentTime);
 			updateMovement();
 			updateCollisions()
 			
+			//If I get spawned outside the world, replace me
+			if (y > 600) init();
 		}
 		
 		public function attack()
