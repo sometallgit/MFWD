@@ -51,11 +51,17 @@
 		
 		private function stateCheck()
 		{
-			if (yVelocity > 0 && directionFacing == "LEFT") animationState = "L_FALL";
-			else if (yVelocity > 0 && directionFacing == "RIGHT") animationState = "R_FALL";
+			if (yVelocity > 0 && directionFacing == "LEFT" && parentState.hitler.isCarried == false) animationState = "L_FALL";
+			else if (yVelocity > 0 && directionFacing == "RIGHT" && parentState.hitler.isCarried == false) animationState = "R_FALL";
+			
+			if (yVelocity > 0 && directionFacing == "LEFT" && parentState.hitler.isCarried == true) animationState = "L_FALL_CARRY";
+			else if (yVelocity > 0 && directionFacing == "RIGHT" && parentState.hitler.isCarried == true) animationState = "R_FALL_CARRY";
 			
 			if (isMovingLeft && grounded && parentState.hitler.isCarried == false) animationState = "L_WALKING";
 			else if (directionFacing == "LEFT" && grounded && parentState.hitler.isCarried == false) animationState = "L_IDLE";
+			
+			if (isMovingRight && grounded && parentState.hitler.isCarried == false) animationState = "R_WALKING";
+			else if (directionFacing == "RIGHT" && grounded && parentState.hitler.isCarried == false) animationState = "R_IDLE";
 			
 			if (isMovingLeft && grounded && parentState.hitler.isCarried == true) animationState = "L_WALKING_CARRY";
 			else if (directionFacing == "LEFT" && grounded && parentState.hitler.isCarried == true) animationState = "L_IDLE_CARRY";
@@ -65,13 +71,17 @@
 			
 			//attacking idle
 			//attacking moving
-			//fall, jump carry
+			//make attack set a flag
+			//end of attack animation sets the flag back
+			//animationState = "ATTACK";
 			
-			if (isMovingRight && grounded && parentState.hitler.isCarried == false) animationState = "R_WALKING";
-			else if (directionFacing == "RIGHT" && grounded && parentState.hitler.isCarried == false) animationState = "R_IDLE";
 			
-			if ((isMovingUp || yVelocity < 0) && directionFacing == "LEFT") animationState = "L_JUMP";
-			else if ((isMovingUp || yVelocity < 0) && directionFacing == "RIGHT") animationState = "R_JUMP";
+			
+			if ((isMovingUp || yVelocity < 0) && directionFacing == "LEFT" && parentState.hitler.isCarried == false) animationState = "L_JUMP";
+			else if ((isMovingUp || yVelocity < 0) && directionFacing == "RIGHT" && parentState.hitler.isCarried == false) animationState = "R_JUMP";
+			
+			if ((isMovingUp || yVelocity < 0) && directionFacing == "LEFT" && parentState.hitler.isCarried == true) animationState = "L_JUMP_CARRY";
+			else if ((isMovingUp || yVelocity < 0) && directionFacing == "RIGHT" && parentState.hitler.isCarried == true) animationState = "R_JUMP_CARRY";
 			
 			
 			MovieClip(root).debugText1.text = "PLAYER ANIM STATE: " + animationState;
@@ -136,6 +146,9 @@
 			y += yVelocity + yConst;
 			
 			applyForce(0, gravity);
+			
+			//If the player starts to fall, set grounded to false
+			if (yVelocity > 1) grounded = false;
 		}
 		
 		private function updateCollisions()
@@ -176,7 +189,8 @@
 		{
 
 			if (!isMovingUp && grounded)
-				{					
+				{
+					Audio.play("jump");
 					grounded = false;
 					isMovingUp 	= true; 
 					applyForce(0, -8.5);

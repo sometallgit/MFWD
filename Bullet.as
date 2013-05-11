@@ -57,6 +57,27 @@
 				applyForce(5, -9);
 			}
 			
+			if (isPlayer)
+			{
+				switch (type)
+				{
+					case "KNIFE": 		Audio.play("attack_knife", 4); 	break;
+					case "GUN":			Audio.play("attack_gun"); 		break;
+					case "GRENADE":		Audio.play("attack_grenade"); 	break;
+				}
+			}
+			else
+			{
+				var playerPoint = new Point(parentState.player.x, parentState.player.y);
+				var sourcePoint = new Point(x, y);
+				switch (type)
+				{
+					case "KNIFE": 		Audio.playDynamic("attack_knife", playerPoint, sourcePoint, 1600, 800, 4); 	break;
+					case "GUN":			Audio.playDynamic("attack_gun", playerPoint, sourcePoint); 		break;
+					case "GRENADE":		Audio.playDynamic("attack_grenade", playerPoint, sourcePoint); 	break;
+				}
+			}
+			
 		}
 		
 		public function update()
@@ -123,7 +144,7 @@
 			{
 				var playerPoint = new Point(parentState.player.x, parentState.player.y);
 				var sourcePoint = new Point(x, y);
-				Audio.playDynamic("explode", playerPoint, sourcePoint);
+				Audio.playDynamic("grenade_explode", playerPoint, sourcePoint);
 				isAlive = false;
 			}
 			if (direction == "RIGHT")

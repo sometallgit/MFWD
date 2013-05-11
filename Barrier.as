@@ -35,6 +35,7 @@
 
 				if(collision.y) 
 				{
+					if (target.grounded == false)Audio.play("land");
 					target.grounded = true;
 					target.yVelocity = 0.1;
 				} 

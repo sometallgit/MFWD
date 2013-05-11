@@ -59,6 +59,7 @@
 		{
 			currentState.keyPressed(keyEvent.keyCode);
 			
+			
 			//TESTING
 			switch(keyEvent.keyCode)
 			{
@@ -71,8 +72,8 @@
 				// c - play fire sound effect with notifaction on complete
 				case 67:
 				{
-					var c = Audio.play("fire"); 
-					c.addEventListener(Event.SOUND_COMPLETE, fireSoundComplete);
+					//var c = Audio.play("fire"); 
+					//c.addEventListener(Event.SOUND_COMPLETE, fireSoundComplete);
 				}
 				break;
 
@@ -82,6 +83,7 @@
 				// e - stop music
 				case 69: Audio.stop(musicTracker); musicTracker = null; break;
 			}
+			
 			
 		}
 		
