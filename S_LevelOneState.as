@@ -4,6 +4,7 @@
 	import flash.display.MovieClip;
 	import flash.geom.Matrix;
 	import flash.geom.*;
+	import flash.utils.*;
 	
 	public class S_LevelOneState extends StateMachine
 	{
@@ -25,7 +26,6 @@
 		private var button;
 		public var player;
 		public var hitler;
-		//public var enemy;
 		
 		public function S_LevelOneState(documentClass)
 		{
@@ -42,40 +42,83 @@
 			enemies.push(new Enemy(this, hitler));
 			
 			button = new GUIButton(refToDocClass, "ENTER_MENU", new Button1());
-			addChild(button);
+			
+		}
+		
+		public function reset()
+		{
+			x = 0;
+			var i:int = 0;
+			for (i = 0; i < backgroundArray.length; i++)		{				removeChild(backgroundArray[i]);		}
+			for (i = 0; i < midgroundArray.length; i++)			{				removeChild(midgroundArray[i]);			}
+			for (i = 0; i < stoppingPointArray.length; i++)		{				removeChild(stoppingPointArray[i]);		}			
+			for (i = 0; i < enemies.length; i++)				{				removeChild(enemies[i]);				}
+			removeChild(hitler);
+			removeChild(player);
+			for (i = 0; i < staticForegroundArray.length; i++)	{				removeChild(staticForegroundArray[i]);	}
+			for (i = 0; i < foregroundArray.length; i++)		{				removeChild(foregroundArray[i]);		}
+			for (i = 0; i < bullets.length; i++)				{				removeChild(bullets[i]);				}
+			
+			barrierArray = new Array();
+			jumpTriggerArray = new Array();
+			foregroundArray = new Array();
+			staticForegroundArray = new Array(); //Non parallaxing layer
+			midgroundArray = new Array();
+			backgroundArray = new Array();
+			stoppingPointArray = new Array();
+			enemies = new Array();
+		
+			bullets = new Array();
+		
+			droppedWeapons = new Array();
+			
+			player = new Player(40, 40, this);
+			hitler = new Hitler(40, 40, this);
+			
+			enemies.push(new Enemy(this, hitler));
+			enemies.push(new Enemy(this, hitler));
+			enemies.push(new Enemy(this, hitler));
+			
+			removeChild(button);
+			button = new GUIButton(refToDocClass, "ENTER_MENU", new Button1());
+			
+			buildFromXML();
 		}
 		
 		override public function update()
 		{
+			//Stop annoying duplicate variable warning
+			var i:int;
+			
 			player.update();
 			hitler.update();
-			for(var i:int = 0; i < enemies.length; i++)
+			for(i = 0; i < enemies.length; i++)
 			{
 				enemies[i].update();
 			}
-			//enemy.update();
 			updateScroll();
 			button.update(mouseIsPressed);
 			
-			for(var i:int = 0; i < droppedWeapons.length; i++)
+			for(i = 0; i < droppedWeapons.length; i++)
 			{
 				droppedWeapons[i].update();
 			}
-			parent.setChildIndex(MovieClip(root).debugText1, 3)
-			parent.setChildIndex(MovieClip(root).debugText2, 3)
+			parent.setChildIndex(MovieClip(root).debugText1, 4)
+			parent.setChildIndex(MovieClip(root).debugText2, 4)
+			parent.setChildIndex(MovieClip(root).debugText3, 4)
 		}
 		
+		//Get player input
 		override public function keyPressed(key)
 		{
 			switch(key)
 			{
-				//Player movement
-				case 90:	player.startMovingUp();			break; //Z
+				case 90:	player.startMovingUp();					break; //Z
 				case 88:	hitler.carry(); player.pickupWeapon();	break; //X
-				case 67:	player.attack();				break; //C
-				case 40:	player.startMovingDown();		break; //Down arrow
-				case 37:	player.startMovingLeft();		break; //Left arrow
-				case 39:	player.startMovingRight();		break; //Right arrow
+				case 67:	player.attack();						break; //C
+				case 40:	player.startMovingDown();				break; //Down arrow
+				case 37:	player.startMovingLeft();				break; //Left arrow
+				case 39:	player.startMovingRight();				break; //Right arrow
 			}
 		}
 		
@@ -90,11 +133,13 @@
 			}
 		}
 		
+		//Get mouse input
 		override public function mousePressed()
 		{
 			button.mousePressed();
 		}
 		
+		//When an enemy is killed, instantiate a new dropped weapon with the type of what they were carrying. With the exception of the knife
 		public function dropWep(i)
 		{
 			if (enemies[i].currentWeapon.type != "KNIFE")
@@ -103,12 +148,13 @@
 				addChild(droppedWeapons[droppedWeapons.length - 1]);
 			}
 		}
-		
+		/*
 		override public function test()
 		{
 			trace("overridden");
 			trace(refToDocClass);
 		}
+		*/
 		
 		private function updateScroll()
 		{
@@ -138,6 +184,7 @@
 			}
 		}
 		
+		//Move through each of the sections on the XML file and push a new instance of what is found into the respective array
 		public function buildFromXML()
 		{
 			var item:XML;
@@ -196,7 +243,7 @@
 			{
 				function createAssetGeneric()
 				{
-					layerArray[layerArray.length-1].transform.matrix = new Matrix(layerArray[layerArray.length-1].transform.matrix.a = xmlObject.@matrixA,
+					layerArray[layerArray.length-1].transform.matrix = new Matrix(	  layerArray[layerArray.length-1].transform.matrix.a = xmlObject.@matrixA,
 																					  layerArray[layerArray.length-1].transform.matrix.b = xmlObject.@matrixB,
 																					  layerArray[layerArray.length-1].transform.matrix.c = xmlObject.@matrixC,
 																					  layerArray[layerArray.length-1].transform.matrix.d = xmlObject.@matrixD,
@@ -229,6 +276,7 @@
 
 		}
 		
+		//Populate the newly created arrays
 		private function addToStage()
 		{
 			var i:int = 0;
@@ -265,6 +313,7 @@
 				addChild(foregroundArray[i]);
 			}
 			
+			addChild(button);
 			
 			
 		}

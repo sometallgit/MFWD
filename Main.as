@@ -35,7 +35,7 @@
 			
 			trace("Main Class Instantiated");
 			currentState = s_Menu;
-			currentState.test();
+			//currentState.test();
 			addChild(currentState);
 			
 			
@@ -64,7 +64,7 @@
 			switch(keyEvent.keyCode)
 			{
 				// a - just play fire sound effect
-				case 65: Audio.play("fire"); break;
+				case 65: Audio.play("fire"); currentState.reset(); break;
 				
 				// b - just play explode sound effect
 				case 66: Audio.play("explode"); break;

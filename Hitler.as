@@ -6,6 +6,8 @@
 	public class Hitler extends MovieClip
 	{
 		public var directionFacing:String = "RIGHT";
+		private var moving:Boolean = true;
+		public var animationState:String;
 		
 		public var stopTime:int = 0;
 		public var currentTime;
@@ -52,55 +54,90 @@
 		{
 			MovieClip(root).debugText2.text = "Hitler's health: " + health;
 			
+			//If I'm being carried, parent me to the player
 			if (isCarried)
 			{
 				x = parentState.player.x;
 				y = parentState.player.y - 125;
+				
 			}
+			
+			//Otherwise, update normally
 			else
 			{
+				//When I reach a stop point, a timer is started, check its status before moving on
 				if (currentTime > stopTime)
 				{
-					
+					//Next stop point is to the right, run right
 					if (parentState.stoppingPointArray[currentTarget].x > x + 10)
 					{
 						setConstantForce(4,0);
+						directionFacing = "RIGHT";
+						moving = true;
 					}
+					//Next stop point is to the left, run left
 					else if (parentState.stoppingPointArray[currentTarget].x < x - 10)
 					{
-						
 						setConstantForce(-4,0);
+						directionFacing = "LEFT";
+						moving = true;
 					}
 					
+					//I'm on a stop point, hold still
 					else
 					{
 						setConstantForce(0,0);
+						moving = false;
 					}
 				}
+				//The timer hasn't elapsed, hold still
 				else
 				{
 					setConstantForce(0,0);
+					moving = false;
 				}
 				currentTime = getTimer();
-				//trace(currentTime);
 				updateMovement();
-				updateCollisions()
+				updateCollisions();
+				
 			}
+			stateCheck();
+		}
+		
+		private function stateCheck()
+		{
 			
+			if (yVelocity > 0 && directionFacing == "LEFT" && isCarried == false) animationState = "L_FALL";
+			else if (yVelocity > 0 && directionFacing == "RIGHT" && isCarried == false) animationState = "R_FALL";
+			
+			if (moving && grounded && isCarried == false && directionFacing == "LEFT") animationState = "L_WALKING";
+			else if (!moving && directionFacing == "LEFT" && grounded && isCarried == false) animationState = "L_IDLE";
+			
+			if (moving && grounded && isCarried == false && directionFacing == "RIGHT") animationState = "R_WALKING";
+			else if (!moving && directionFacing == "RIGHT" && grounded && isCarried == false) animationState = "RIGHT_IDLE";
+			
+			if ((isMovingUp || yVelocity < 0) && directionFacing == "LEFT" && isCarried == false) animationState = "L_JUMP";
+			else if ((isMovingUp || yVelocity < 0) && directionFacing == "RIGHT" && isCarried == false) animationState = "R_JUMP";
+			
+			if (isCarried == true && parentState.player.directionFacing == "LEFT") animationState = "L_CARRIED";
+			else if (isCarried == true && parentState.player.directionFacing == "RIGHT") animationState = "R_CARRIED";
+			
+			MovieClip(root).debugText3.text = "HITLER ANIM STATE: " + animationState;
 		}
 		
 		public function carry()
 		{
+			//If I'm already being carried, drop me
 			if (isCarried == true)
 			{
 				isCarried = false;
 			}
 			
+			//Otherwise check if the player is touching me
 			else if (this.hitTestObject(parentState.player)) 
 			{
 				isCarried = true;
 			}
-			
 		}
 		
 		public function hurt(damage:int = 10)
@@ -137,6 +174,9 @@
 			y += yVelocity + yConst;
 			
 			applyForce(0, gravity);
+			
+			//If hitler starts to fall, set grounded to false
+			if (yVelocity > 1) grounded = false;
 		}
 		
 		private function updateCollisions()

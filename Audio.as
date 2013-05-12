@@ -73,7 +73,7 @@
 			if (!instance.sampleAudio) return;
 
 			var sound = instance.sampleAudio[name];
-			if (!sound) {trace "NO SOUND NAMED >>" + name + "<<"; return; }
+			if (!sound) {trace ("NO SOUND NAMED >>" + name + "<<"); return; }
 			
 			var volume : Number = instance.sampleConfig[name].volume;
 			var repeats : int = (instance.sampleConfig[name].type == "loop") ? int.MAX_VALUE : 0;	// looping sound plays 2 billion times, otherwise once
@@ -96,7 +96,7 @@
 			if (!instance.sampleAudio) return;
 
 			var sound = instance.sampleAudio[name];
-			if (!sound) {trace "NO SOUND NAMED >>" + name + "<<"; return; }
+			if (!sound) {trace ("NO SOUND NAMED >>" + name + "<<"); return; }
 			
 			var point1:Point = new Point(player.x, player.y);
 			var point2:Point = new Point(source.x, source.y);

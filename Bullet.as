@@ -259,13 +259,18 @@
 		
 		private function checkCollisionsGrenade()
 		{
+			//Stop annoying duplicate variable warning
+			var point1:Point;
+			var point2:Point
+			var distance;
+			
 			if (isPlayer)
 			{
 				for (var i:int = 0; i < parentState.enemies.length; i++)	
 				{
-					var point1:Point = new Point(x, y);
-					var point2:Point = new Point(parentState.enemies[i].x, parentState.enemies[i].y);
-					var distance =  Point.distance(point1, point2);
+					point1 = new Point(x, y);
+					point2 = new Point(parentState.enemies[i].x, parentState.enemies[i].y);
+					distance =  Point.distance(point1, point2);
 					if (distance < 200)
 					{
 						parentState.dropWep(i);
@@ -278,10 +283,10 @@
 			}
 			else
 			{
-				var point1:Point = new Point(x, y);
-				var point2:Point = new Point(parentState.hitler.x, parentState.hitler.y);
+				point1 = new Point(x, y);
+				point2 = new Point(parentState.hitler.x, parentState.hitler.y);
 				
-				var distance =  Point.distance(point1, point2);
+				distance =  Point.distance(point1, point2);
 				//Cap the distance to the max distance
 				if (distance > 350) distance = 350;
 				

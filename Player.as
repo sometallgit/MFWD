@@ -7,6 +7,7 @@
 	{
 		public var directionFacing:String = "RIGHT";
 		public var animationState:String;
+		public var lastAnimationState:String;
 		public var currentWeapon;
 		
 		public var xVelocity:Number = 0;
@@ -51,6 +52,8 @@
 		
 		private function stateCheck()
 		{
+			
+			lastAnimationState = animationState;
 			if (yVelocity > 0 && directionFacing == "LEFT" && parentState.hitler.isCarried == false) animationState = "L_FALL";
 			else if (yVelocity > 0 && directionFacing == "RIGHT" && parentState.hitler.isCarried == false) animationState = "R_FALL";
 			
@@ -85,6 +88,9 @@
 			
 			
 			MovieClip(root).debugText1.text = "PLAYER ANIM STATE: " + animationState;
+			//Only set the new animation if there was a change in the state
+			if (lastAnimationState != animationState) trace ("animation change");
+			
 		}
 		
 		public function attack()
