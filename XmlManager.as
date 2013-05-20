@@ -48,6 +48,18 @@
 								</level_1>
 								
 								<level_2>
+									<gui>
+										<button1></button1>									
+										<button2></button2>
+									</gui>
+									
+									<background></background>
+									<midground></midground>
+									<foreground></foreground>
+									<static_foreground></static_foreground>
+									<collision></collision>
+									<jump_trigger></jump_trigger>
+									<stop_point></stop_point>
 								</level_2>
 																
 							</Data>;
@@ -188,6 +200,71 @@
 				
 				checkType(refToStage.level1_static_foreground, xmlFile.level_1.static_foreground);
 			}
+			
+			
+			//==========================================
+			//================LEVEL 02==================
+			//==========================================
+			for(i = 0;i<refToStage.level2.numChildren;i++)
+			{
+				object = 	<object>
+							</object>
+				
+				//==========================================
+				//================Midground==================
+				//==========================================
+				checkType(refToStage.level2, xmlFile.level_2.midground);
+				
+				//==========================================
+				//================Collision=================
+				//==========================================
+				if (refToStage.level2.getChildAt(i) is CollisionBoundingBox)	{					appendXMLScalable("CollisionBoundingBox", refToStage.level2, xmlFile.level_2.collision);		}
+				
+				//==========================================
+				//==============Jump Trigger================
+				//==========================================
+				if (refToStage.level2.getChildAt(i) is AiJumpTrigger)			{					appendXMLScalable("AiJumpTrigger", refToStage.level2, xmlFile.level_2.jump_trigger);			}
+				
+				//==========================================
+				//===============Stop Point=================
+				//==========================================
+				if (refToStage.level2.getChildAt(i) is StoppingPoint)			{					appendXML("StoppingPoint", refToStage.level2, xmlFile.level_2.stop_point);		}
+				
+			}
+			
+			//==========================================
+			//===========LEVEL02 Foreground=============
+			//==========================================
+			for(i = 0;i<refToStage.level2_foreground.numChildren;i++)
+			{
+				object = 	<object>
+							</object>
+				
+				checkType(refToStage.level2_foreground, xmlFile.level_2.foreground);
+			}
+			
+			//==========================================
+			//===========LEVEL02 Background=============
+			//==========================================
+			for(i = 0;i<refToStage.level2_background.numChildren;i++)
+			{
+				object = 	<object>
+							</object>
+				
+				checkType(refToStage.level2_background, xmlFile.level_2.background);
+			}
+			
+			//==========================================
+			//=====LEVEL02 Static Foreground============
+			//==========================================
+			for(i = 0;i<refToStage.level2_static_foreground.numChildren;i++)
+			{
+				object = 	<object>
+							</object>
+				
+				checkType(refToStage.level2_static_foreground, xmlFile.level_2.static_foreground);
+			}
+			
 		}
 		
 		public function load()
@@ -203,6 +280,7 @@
 			//Once the external xml file has loaded, tell the states to grab a copy
 			refToDocClass.s_Menu.buildFromXML();
 			refToDocClass.s_LevelOne.buildFromXML();
+			refToDocClass.s_LevelTwo.buildFromXML();
 			//Remove the level movieclip
 			refToStage.visible = false;
 		}

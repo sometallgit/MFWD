@@ -6,10 +6,10 @@
 	import flash.geom.*;
 	import flash.utils.*;
 	
-	public class S_LevelOneState extends GameState
+	public class S_LevelTwoState extends GameState
 	{
 
-		override public function S_LevelOneState(documentClass)
+		override public function S_LevelTwoState(documentClass)
 		{
 			
 			refToDocClass = documentClass;
@@ -27,73 +27,57 @@
 			
 		}
 		
-		override public function endLevel()
-		{
-			//trace("The current state has no endLevel() defined");
-			Config.getScore(enemiesKilled, levelTime, hitler.health, 1)
-			
-			//if (this is S_LevelOneState)
-			//{
-				refToDocClass.changeStateTo(refToDocClass.s_EndLevel);
-			//}
-		}
-		
-		override public function reset()
-		{
-			refToDocClass.reset();
-		}
-		
 		//Move through each of the sections on the XML file and push a new instance of what is found into the respective array
 		override public function buildFromXML()
 		{
 			var item:XML;
-			for each(item in refToDocClass.xmlManager.xmlFile.level_1.gui.button1.object) 
+			for each(item in refToDocClass.xmlManager.xmlFile.level_2.gui.button1.object) 
 			{ 
 				create(item, midgroundArray);
 			}
 			//button2
-			for each(item in refToDocClass.xmlManager.xmlFile.level_1.gui.button2.object) 
+			for each(item in refToDocClass.xmlManager.xmlFile.level_2.gui.button2.object) 
 			{ 
 				create(item, midgroundArray);
 			}
 			
-			for each(item in refToDocClass.xmlManager.xmlFile.level_1.midground.object) 
+			for each(item in refToDocClass.xmlManager.xmlFile.level_2.midground.object) 
 			{ 
 				create(item, midgroundArray);
 			}
 			
 			//stopping point
-			for each(item in refToDocClass.xmlManager.xmlFile.level_1.stop_point.object) 
+			for each(item in refToDocClass.xmlManager.xmlFile.level_2.stop_point.object) 
 			{ 
 				create(item, stoppingPointArray);
 			}
 			
 			//CollisionBoundingBox
-			for each(item in refToDocClass.xmlManager.xmlFile.level_1.collision.object) 
+			for each(item in refToDocClass.xmlManager.xmlFile.level_2.collision.object) 
 			{ 
 				barrierArray.push(new Barrier(item.@x, item.@y, item.@width, item.@height))
 			}
 			
 			//JumpTrigger
-			for each(item in refToDocClass.xmlManager.xmlFile.level_1.jump_trigger.object) 
+			for each(item in refToDocClass.xmlManager.xmlFile.level_2.jump_trigger.object) 
 			{ 
 				jumpTriggerArray.push(new JumpTrigger(item.@x, item.@y, item.@width, item.@height))
 			}
 			
 			//foreground
-			for each(item in refToDocClass.xmlManager.xmlFile.level_1.foreground.object) 
+			for each(item in refToDocClass.xmlManager.xmlFile.level_2.foreground.object) 
 			{ 
 				create(item, foregroundArray);
 			}
 			
 			//static foreground
-			for each(item in refToDocClass.xmlManager.xmlFile.level_1.static_foreground.object) 
+			for each(item in refToDocClass.xmlManager.xmlFile.level_2.static_foreground.object) 
 			{ 
 				create(item, staticForegroundArray);
 			}
 			
 			//background
-			for each(item in refToDocClass.xmlManager.xmlFile.level_1.background.object) 
+			for each(item in refToDocClass.xmlManager.xmlFile.level_2.background.object) 
 			{ 
 				create(item, backgroundArray);
 			}

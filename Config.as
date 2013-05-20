@@ -11,9 +11,17 @@
 
 	public class Config
 	{
-		public static var enemiesKilled:int = 0;
-		public static var completionTime:int = 0;
-		public static var hitlerHealth:int = 0;
+		public static var enemiesKilledLevel1:int = 0;
+		public static var completionTimeLevel1:int = 0;
+		public static var hitlerHealthLevel1:int = 0;
+		
+		public static var enemiesKilledLevel2:int = 0;
+		public static var completionTimeLevel2:int = 0;
+		public static var hitlerHealthLevel2:int = 0;
+		
+		public static var enemiesKilledLevel3:int = 0;
+		public static var completionTimeLevel3:int = 0;
+		public static var hitlerHealthLevel3:int = 0;
 		
 		public static const enemyKilledPoint = 10;
 		public static const timeScore = 1;
@@ -21,16 +29,46 @@
 		
 		public static function clear()
 		{
-			enemiesKilled = 0;
-			completionTime = 0;
-			hitlerHealth = 0;
+			enemiesKilledLevel1 = 0;
+			completionTimeLevel1 = 0;
+			hitlerHealthLevel1 = 0;
+			
+			enemiesKilledLevel2 = 0;
+			completionTimeLevel2 = 0;
+			hitlerHealthLevel2 = 0;
+			
+			enemiesKilledLevel3 = 0;
+			completionTimeLevel3 = 0;
+			hitlerHealthLevel3 = 0;
 		}
 		
-		public static function getScore(e, c, h)
+		public static function getScore(e, c, h, l:int)
 		{
-			enemiesKilled = e;
-			completionTime = c;
-			hitlerHealth = h;
+			//record the level states according to which level just ended
+			switch(l)
+			{
+				case 1:
+					enemiesKilledLevel1 = e;	
+					completionTimeLevel1 = c;		
+					hitlerHealthLevel1 = h;
+				break;
+				
+				case 2:
+					enemiesKilledLevel2 = e;
+					completionTimeLevel2 = c;
+					hitlerHealthLevel2 = h;
+				break;
+				
+				case 3:
+					enemiesKilledLevel3 = e;
+					completionTimeLevel3 = c;
+					hitlerHealthLevel3 = h;
+				break;
+				
+				default:
+					trace("Incorrect level number given in Config.getScore()");
+				break;
+			}
 		}
 		
 		// public static, so it can be accessed from anywhere as "Audio.ready"

@@ -9,6 +9,8 @@
 	import flash.media.Sound;
 	import flash.media.SoundChannel;
 	import flash.media.SoundTransform;
+	import flash.text.TextFormat;
+	import flash.text.*;
 	
 	public class Main extends MovieClip
 	{
@@ -16,10 +18,20 @@
 		public var currentState;
 		public var s_Menu;
 		public var s_LevelOne;
+		public var s_LevelTwo;
+		public var s_EndLevel;
 		
 		public var xmlManager;
 		
 		private var musicTracker;	// returned from audio channel when we start playing music.  we need this so we can stop it later if we want.
+		
+		var temp;
+		var myFormat:TextFormat = new TextFormat();
+		var myText:TextField = new TextField();
+		
+		
+		
+		public var soundComplete:Boolean = true;
 		
 		public function Main()
 		{	
@@ -32,12 +44,20 @@
 			currentState = new StateMachine(this);
 			s_Menu = new S_MenuState(this);
 			s_LevelOne = new S_LevelOneState(this);
+			s_LevelTwo = new S_LevelTwoState(this);
+			s_EndLevel = new EndLevelState(this);
 			
 			trace("Main Class Instantiated");
 			currentState = s_Menu;
 			//currentState.test();
 			addChild(currentState);
 			
+			myFormat.align = TextFormatAlign.CENTER;
+			myFormat.size = 30;
+			myText.width = 400;
+			myText.text = 'This is a test of allignment';
+			myText.setTextFormat(myFormat);
+			addChild(myText);
 			
 			//Event listeners
 			stage.addEventListener(Event.ENTER_FRAME, enterFrameHandler);
@@ -53,18 +73,26 @@
 		{
 			//Update function
 			currentState.update();
+			
+			if (currentState.numChildren != temp)
+			{
+				setChildIndex(myText, getChildIndex(currentState));
+				myText.text = currentState.numChildren;
+				myText.setTextFormat(myFormat);
+				temp = currentState.numChildren;
+			}
 		}
 		
 		private function keyDownHandler(keyEvent)
 		{
 			currentState.keyPressed(keyEvent.keyCode);
 			
-			
+			/*
 			//TESTING
 			switch(keyEvent.keyCode)
 			{
 				// a - just play fire sound effect
-				case 65: Audio.play("fire"); currentState.reset(); break;
+				case 65: Audio.play("fire"); currentState.reset(); currentState.buildFromXML(); break;
 				
 				// b - just play explode sound effect
 				case 66: Audio.play("explode"); break;
@@ -72,8 +100,13 @@
 				// c - play fire sound effect with notifaction on complete
 				case 67:
 				{
-					//var c = Audio.play("fire"); 
-					//c.addEventListener(Event.SOUND_COMPLETE, fireSoundComplete);
+					if (soundComplete)
+					{
+						var c = Audio.play("fire");
+						soundComplete = false;
+						c.addEventListener(Event.SOUND_COMPLETE, fireSoundComplete);
+					} 
+					
 				}
 				break;
 
@@ -83,7 +116,7 @@
 				// e - stop music
 				case 69: Audio.stop(musicTracker); musicTracker = null; break;
 			}
-			
+			*/
 			
 		}
 		
@@ -110,10 +143,27 @@
 			addChild(currentState);
 		}
 		
+		public function reset()
+		{
+			removeChild(currentState);
+			if (currentState is S_MenuState) currentState = new  S_MenuState(this);
+			if (currentState is S_LevelOneState) 
+			{
+				
+				currentState = new  S_LevelOneState(this); 
+				currentState.buildFromXML()
+				
+			}
+			if (currentState is S_LevelTwoState) currentState = new  S_LevelTwoState(this);
+			if (currentState is EndLevelState) currentState = new  EndLevelState(this);
+			addChild(currentState);
+		}
+		
 		// fire sound effect complete is notified
 		private function fireSoundComplete(e : Event)
 		{
 			trace("fire sound complete");
+			soundComplete = true;
 		}
 		
 	}

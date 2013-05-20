@@ -18,7 +18,11 @@
 		{
 		}
 		
-
+		public function endLevel()
+		{
+			trace("The current state has no endLevel() defined");
+		}
+		
 		public function keyPressed(key)
 		{
 			

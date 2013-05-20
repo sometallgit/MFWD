@@ -106,7 +106,7 @@
 		
 		private function stateCheck()
 		{
-			
+			//Set the animation state accordingly
 			if (yVelocity > 0 && directionFacing == "LEFT" && isCarried == false) animationState = "L_FALL";
 			else if (yVelocity > 0 && directionFacing == "RIGHT" && isCarried == false) animationState = "R_FALL";
 			
@@ -202,10 +202,12 @@
 			stopTime = currentTime + stopDuration;
 			//trace(stopTime);
 			
-			//trace(parentState.stoppingPointArray[currentTarget].x)
+			//If we're at the last stop point in the level, end the level
 			if (currentTarget == parentState.stoppingPointArray.length -1)
 			{
-				currentTarget = 0;
+				parentState.reset();
+				parentState.endLevel();
+				//currentTarget = 0;
 			}
 			else
 			{

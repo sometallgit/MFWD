@@ -235,6 +235,7 @@
 					{
 						if (this.hitTestObject(parentState.enemies[i]))
 						{
+							parentState.enemiesKilled++;
 							parentState.dropWep(i);
 							parentState.removeChild(parentState.enemies[i]);
 							parentState.enemies[i] = new Enemy(parentState, parentState.hitler);
@@ -273,6 +274,7 @@
 					distance =  Point.distance(point1, point2);
 					if (distance < 200)
 					{
+						parentState.enemiesKilled++;
 						parentState.dropWep(i);
 						parentState.removeChild(parentState.enemies[i]);
 						parentState.enemies[i] = new Enemy(parentState, parentState.hitler);
