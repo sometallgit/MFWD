@@ -27,6 +27,8 @@
 		public static const timeScore = 1;
 		public static const healthScore = 1;
 		
+		public static var totalScore;
+		
 		public static function clear()
 		{
 			enemiesKilledLevel1 = 0;

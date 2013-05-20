@@ -1,6 +1,8 @@
 ﻿package
 {
 	import flash.display.MovieClip;
+	import flash.utils.*;
+	import flash.text.*;
 	
 	public class EndLevelState extends StateMachine
 	{
@@ -8,21 +10,36 @@
 		public var levelIndex:int = 0;
 		
 		private var refToDocClass;
-		//private var enemiesKilledLevel;
-		//private var completionTimeLevel;
-		//private var hitlerHealthLevel;
+		private var enemiesKilledLevel;
+		private var completionTimeLevel;
+		private var hitlerHealthLevel;
 		
-		private var enemiesKilledLevel1;
-		private var completionTimeLevel1;
-		private var hitlerHealthLevel1;
+		public var scoreFormat:TextFormat = new TextFormat();
+		public var enemiesKilledText:TextField = new TextField();
+		public var completionTimeText:TextField = new TextField();
+		public var hitlerHealthText:TextField = new TextField();
+		public var totalText:TextField = new TextField();
+		public var advanceText:TextField = new TextField();
+		
+		private var currentTime:int;
+		private var scoreIncrementTime:int;
+		
+		//Which is the next text item to be updated
+		private var textIndex:int = 0;
+		
+		//private var enemiesKilledLevel1;
+		//private var completionTimeLevel1;
+		//private var hitlerHealthLevel1;
 
-		private var enemiesKilledLevel2;
-		private var completionTimeLevel2;
-		private var hitlerHealthLevel2;
+		//private var enemiesKilledLevel2;
+		//private var completionTimeLevel2;
+		//private var hitlerHealthLevel2;
 			
-		private var enemiesKilledLevel3;
-		private var completionTimeLevel3;
-		private var hitlerHealthLevel3;
+		//private var enemiesKilledLevel3;
+		//private var completionTimeLevel3;
+		//private var hitlerHealthLevel3;
+		
+		private var counterFinished:Boolean;
 		
 		public function EndLevelState(documentClass)
 		{
@@ -30,6 +47,36 @@
 			refToDocClass = documentClass;
 			
 			//When this state is transitioned to, get
+			
+			scoreFormat.align = TextFormatAlign.CENTER;
+			scoreFormat.size = 20;
+			
+			enemiesKilledText.text = "Enemies Killed: 0";
+			completionTimeText.text = "Completion Time: 0";
+			hitlerHealthText.text = "Health Remaining: 0";
+			totalText.text = "Total: 0";
+
+			
+			enemiesKilledText.width = 800;
+			enemiesKilledText.y = 80;
+			
+			completionTimeText.width = 800;
+			completionTimeText.y = 160;
+			
+			hitlerHealthText.width = 800;
+			hitlerHealthText.y = 240;
+			
+			totalText.width = 800;
+			totalText.y = 320;
+			
+			advanceText.width = 800;
+			advanceText.y = 400;
+			
+			addChild(enemiesKilledText);
+			addChild(completionTimeText);
+			addChild(hitlerHealthText);
+			addChild(totalText);
+			addChild(advanceText);
 		}
 		
 		public function buildScore(l)
@@ -38,45 +85,102 @@
 			switch(l)
 			{
 				case 1:
-					enemiesKilledLevel1 = Config.enemiesKilledLevel1;
-					completionTimeLevel1 = Config.completionTimeLevel1;
-					hitlerHealthLevel1 = Config.hitlerHealthLevel1;
+					enemiesKilledLevel = Config.enemiesKilledLevel1;
+					completionTimeLevel = Config.completionTimeLevel1;
+					hitlerHealthLevel = Config.hitlerHealthLevel1;
+					levelIndex = 1;
 				break;
 				
 				case 2:
-					enemiesKilledLevel2 = Config.enemiesKilledLevel2;
-					completionTimeLevel2 = Config.completionTimeLevel2;
-					hitlerHealthLevel2 = Config.hitlerHealthLevel2;
+					enemiesKilledLevel = Config.enemiesKilledLevel2;
+					completionTimeLevel = Config.completionTimeLevel2;
+					hitlerHealthLevel = Config.hitlerHealthLevel2;
+					levelIndex = 2;
 				break;
 				
 				case 3:
-					enemiesKilledLevel3 = Config.enemiesKilledLevel2;
-					completionTimeLevel3 = Config.completionTimeLevel3;
-					hitlerHealthLevel3 = Config.hitlerHealthLevel3;
+					enemiesKilledLevel = Config.enemiesKilledLevel2;
+					completionTimeLevel = Config.completionTimeLevel3;
+					hitlerHealthLevel = Config.hitlerHealthLevel3;
+					levelIndex = 3;
 				break;
 				
 				default:
 					trace("Incorrect level number given in EndLevelState.buildScore()");
 				break;
 			}
-			levelIndex = l;
+			//Set the timer
+			scoreIncrementTime = getTimer + 1500;
+			//Don't let the player exit the state till we're done
+			counterFinished = false;
+			//Reset the text index
+			textIndex = 0;
+
 		}
 		
 		override public function update()
 		{
-			//Print score
-			//parent.setChildIndex(MovieClip(root).scoreText1, 7)
-			//parent.setChildIndex(MovieClip(root).scoreText2, 7)
-			//parent.setChildIndex(MovieClip(root).scoreText3, 7)
+			//Get the time
+			currentTime = getTimer();
 			
-			//MovieClip(root).scoreText1.text = "TEST";
-			//MovieClip(root).scoreText2.text = "TEST";
-			//MovieClip(root).scoreText3.text = "TEST";
+			//If it's time to update the next score item
+			if (currentTime > scoreIncrementTime)
+			{
+				switch (textIndex)
+				{
+					//Empty index to give a delay before the scores start populating
+					case 0:
+						textIndex++;
+					break;
+					
+					case 1:
+						enemiesKilledText.text = "Enemies Killed: " + enemiesKilledLevel.toString();
+						textIndex++;
+					break;
+					
+					case 2:
+						var completionTime = (completionTimeLevel / 1000)
+						completionTimeText.text = "Completion Time: " + completionTime.toString();
+						textIndex++
+					break;
+					
+					case 3:
+						hitlerHealthText.text = "Health Remaining: " + hitlerHealthLevel.toString();
+						textIndex++
+					break;
+					
+					case 4:
+						totalText.text = "Total: " + (enemiesKilledLevel + hitlerHealthLevel + (completionTimeLevel / 1000)).toString();
+						Config.totalScore += enemiesKilledLevel + hitlerHealthLevel + (completionTimeLevel / 1000);
+						//if counting is done, let the player advance
+						counterFinished = true;
+						//increment the textIndex to stop score retallying
+						textIndex++;
+						
+						//Let the player know they can advance
+						advanceText.text = "Press any key... Or not, I'm not the boss of you..."
+					break;
+				}
+				//Reset the timer
+				scoreIncrementTime = currentTime + 750;
+				
+			}
+			//Print score
+			//enemiesKilledLevel
+			
+			enemiesKilledText.setTextFormat(scoreFormat);
+			completionTimeText.setTextFormat(scoreFormat);
+			hitlerHealthText.setTextFormat(scoreFormat);
+			totalText.setTextFormat(scoreFormat);
+			advanceText.setTextFormat(scoreFormat);
+			
+			
 		}
 		
 		override public function keyPressed(key)
 		{
-			trace("level change");
+			//trace("level change");
+			if (!counterFinished) return;
 			//Advance to next level
 			switch(levelIndex)
 			{

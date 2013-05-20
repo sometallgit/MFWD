@@ -1,10 +1,12 @@
 ﻿package
 {
-	
 	import flash.display.MovieClip;
 	import flash.geom.Matrix;
 	import flash.geom.*;
 	import flash.utils.*;
+	import flash.text.*;
+	import flash.display.*;
+	import flash.filters.*;
 	
 	public class GameState extends StateMachine
 	{
@@ -32,6 +34,16 @@
 		public var button;
 		public var player;
 		public var hitler;
+		
+		//Text object used for debugging
+		public var debugFormat:TextFormat = new TextFormat();
+		public var debugText1:TextField = new TextField();
+		public var debugText2:TextField = new TextField();
+		public var debugText3:TextField = new TextField();
+		
+		//Make the text a bit easier to see
+		public var outline:GlowFilter=new GlowFilter(0xFFFFFF,1.0,2.0,2.0,10);
+		
 		
 		public function GameState(documentClass = null)
 		{
@@ -118,6 +130,7 @@
 			//parent.setChildIndex(MovieClip(root).debugText1, 7)
 			//parent.setChildIndex(MovieClip(root).debugText2, 7)
 			//parent.setChildIndex(MovieClip(root).debugText3, 7)
+			
 		}
 		
 		//Get player input

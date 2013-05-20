@@ -9,7 +9,7 @@
 	import flash.media.Sound;
 	import flash.media.SoundChannel;
 	import flash.media.SoundTransform;
-	import flash.text.TextFormat;
+
 	import flash.text.*;
 	
 	public class Main extends MovieClip
@@ -57,6 +57,7 @@
 			myText.width = 400;
 			myText.text = 'This is a test of allignment';
 			myText.setTextFormat(myFormat);
+			myText.selectable = false;
 			addChild(myText);
 			
 			//Event listeners
@@ -136,11 +137,26 @@
 		}
 		
 		//Make the state machine switch the currently active state
-		public function changeStateTo(newState)
+		public function changeStateTo(newState, index = 0)
 		{
+			//If changing from one of the game level level states, reset them before switching so they're ready to reused
+			if (currentState is S_LevelOneState) 
+			{
+				s_LevelOne = new S_LevelOneState(this);
+				s_LevelOne.buildFromXML();
+			}
+			else if (currentState is S_LevelTwoState) 
+			{
+				s_LevelTwo = new S_LevelTwoState(this);
+				s_LevelTwo.buildFromXML();
+			}
+			
 			removeChild(currentState);
 			currentState = newState;
 			addChild(currentState);
+			
+			//If transitioning to an end level state, tell it which level we just came from
+			if (currentState is EndLevelState) currentState.buildScore(index);
 		}
 		
 		public function reset()

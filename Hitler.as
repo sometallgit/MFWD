@@ -52,7 +52,12 @@
 		
 		public function update()
 		{
-			MovieClip(root).debugText2.text = "Hitler's health: " + health;
+			//MovieClip(root).debugText3.text = "Hitler's health: " + health;
+			parentState.debugText3.text = "Hitler's health: " + health;
+			parentState.debugText3.x = x - (parentState.debugText3.width/2);
+			parentState.debugText3.y = y + 20;
+			
+			parentState.debugText3.setTextFormat(parentState.debugFormat);
 			
 			//If I'm being carried, parent me to the player
 			if (isCarried)
@@ -122,7 +127,13 @@
 			if (isCarried == true && parentState.player.directionFacing == "LEFT") animationState = "L_CARRIED";
 			else if (isCarried == true && parentState.player.directionFacing == "RIGHT") animationState = "R_CARRIED";
 			
-			MovieClip(root).debugText3.text = "HITLER ANIM STATE: " + animationState;
+			//MovieClip(root).debugText3.text = "HITLER ANIM STATE: " + animationState;
+			
+			parentState.debugText2.text = "HITLER ANIM STATE: " + animationState;
+			parentState.debugText2.x = x - (parentState.debugText2.width/2);
+			parentState.debugText2.y = y;
+			
+			parentState.debugText2.setTextFormat(parentState.debugFormat);
 		}
 		
 		public function carry()
@@ -205,7 +216,7 @@
 			//If we're at the last stop point in the level, end the level
 			if (currentTarget == parentState.stoppingPointArray.length -1)
 			{
-				parentState.reset();
+				//parentState.reset();
 				parentState.endLevel();
 				//currentTarget = 0;
 			}

@@ -104,11 +104,11 @@
 			var volumeDistance = distance;
 			if (volumeDistance > maxVolumeDistance) volumeDistance = maxVolumeDistance;
 			var volume = 1 - (volumeDistance / maxVolumeDistance);
-			trace("Volume: " + volume);
+			//trace("Volume: " + volume);
 			//trace(volume);
 			if (point1.x > point2.x) distance = -distance;
 			var pan = distance / maxPanDistance;
-			trace ("Pan: " +pan);
+			//trace ("Pan: " +pan);
 			
 			volume *= instance.sampleConfig[name].volume;
 			var repeats : int = (instance.sampleConfig[name].type == "loop") ? int.MAX_VALUE : 0;	// looping sound plays 2 billion times, otherwise once

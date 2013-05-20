@@ -25,6 +25,7 @@
 		private var isMovingDown:Boolean = false;
 		private var isMovingLeft:Boolean = false;
 		private var isMovingRight:Boolean = false;
+		
 				
 		public function Player(_x, _y, state)
 		{
@@ -36,7 +37,6 @@
 			
 			currentWeapon = new Weapon("GRENADE", true, this, parentState);
 			addChild(currentWeapon);
-
 		}
 		
 		public function update()
@@ -45,15 +45,15 @@
 			updateCollisions()
 			currentWeapon.update();
 			
+			//Apply the appropriate animation to the player
 			stateCheck();
-			
-			
 		}
 		
 		private function stateCheck()
 		{
-			
+			//Keep a track of what the last animation state was to stop the same animation constantly restarting
 			lastAnimationState = animationState;
+			
 			if (yVelocity > 0 && directionFacing == "LEFT" && parentState.hitler.isCarried == false) animationState = "L_FALL";
 			else if (yVelocity > 0 && directionFacing == "RIGHT" && parentState.hitler.isCarried == false) animationState = "R_FALL";
 			
@@ -78,8 +78,6 @@
 			//end of attack animation sets the flag back
 			//animationState = "ATTACK";
 			
-			
-			
 			if ((isMovingUp || yVelocity < 0) && directionFacing == "LEFT" && parentState.hitler.isCarried == false) animationState = "L_JUMP";
 			else if ((isMovingUp || yVelocity < 0) && directionFacing == "RIGHT" && parentState.hitler.isCarried == false) animationState = "R_JUMP";
 			
@@ -87,10 +85,18 @@
 			else if ((isMovingUp || yVelocity < 0) && directionFacing == "RIGHT" && parentState.hitler.isCarried == true) animationState = "R_JUMP_CARRY";
 			
 			
-			MovieClip(root).debugText1.text = "PLAYER ANIM STATE: " + animationState;
-			//Only set the new animation if there was a change in the state
-			if (lastAnimationState != animationState) trace ("animation change");
+			//MovieClip(root).debugText1.text = "PLAYER ANIM STATE: " + animationState;
+			parentState.debugText1.text = "PLAYER ANIM STATE: " + animationState;
+			parentState.debugText1.x = x - (parentState.debugText1.width/2);
+			parentState.debugText1.y = y;
 			
+			parentState.debugText1.setTextFormat(parentState.debugFormat);
+			//Only set the new animation if there was a change in the state
+			if (lastAnimationState != animationState)
+			{
+				//trace ("animation change");
+				//Player goto and play animationState.
+			}
 		}
 		
 		public function attack()
@@ -98,6 +104,7 @@
 			currentWeapon.fire();
 		}
 		
+		//When the current weapon runs out of ammo, give the player a knife
 		public function weaponDepleted()
 		{
 			removeChild(currentWeapon);

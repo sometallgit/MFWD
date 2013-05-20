@@ -1,14 +1,14 @@
 ﻿package
 {
-	
 	import flash.display.MovieClip;
 	import flash.geom.Matrix;
 	import flash.geom.*;
 	import flash.utils.*;
+	import flash.text.*;
+	import flash.filters.*;
 	
 	public class S_LevelOneState extends GameState
 	{
-
 		override public function S_LevelOneState(documentClass)
 		{
 			
@@ -25,6 +25,24 @@
 			
 			button = new GUIButton(refToDocClass, "ENTER_MENU", new Button1());
 			
+			debugFormat.align = TextFormatAlign.CENTER;
+			debugFormat.size = 20;
+			debugText1.width = 400;
+			debugText2.width = 400;
+			debugText3.width = 400;
+			
+			outline.quality=BitmapFilterQuality.MEDIUM;
+			
+			debugText1.filters=[outline];
+			debugText2.filters=[outline];
+			debugText3.filters=[outline];
+			
+			//debugText1.text = 'This is a test of allignment';
+			//debugText1.setTextFormat(debugFormat);
+			addChild(debugText1);
+			addChild(debugText2);
+			addChild(debugText3);
+			
 		}
 		
 		override public function endLevel()
@@ -32,10 +50,8 @@
 			//trace("The current state has no endLevel() defined");
 			Config.getScore(enemiesKilled, levelTime, hitler.health, 1)
 			
-			//if (this is S_LevelOneState)
-			//{
-				refToDocClass.changeStateTo(refToDocClass.s_EndLevel);
-			//}
+			refToDocClass.changeStateTo(refToDocClass.s_EndLevel, 1);
+
 		}
 		
 		override public function reset()
@@ -132,6 +148,9 @@
 			}
 			
 			addToStage();
+			setChildIndex(debugText1, getChildIndex(player));
+			setChildIndex(debugText2, getChildIndex(player));
+			setChildIndex(debugText3, getChildIndex(player));
 
 		}
 		
