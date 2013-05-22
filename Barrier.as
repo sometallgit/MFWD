@@ -2,12 +2,14 @@
 {
 	import flash.geom.Point;
 	
+	//When CollisionBoundingBox object is made on the stage, its properties are transferred over to an instance of the barrier class
 	public class Barrier
 	{
 		public var x:Number;
 		public var y:Number;
 		public var width:Number; 
 		public var height:Number;
+		
 		public function Barrier(_x, _y, _width, _height)
 		{
 			x = _x;
@@ -16,11 +18,7 @@
 			height = _height;
 		}
 		
-		public function update()
-		{
-			
-		}
-		
+		//Run AABB collision detection against complex objects such as the player and hitler and enemies
 		public function resolveCollisions(target)
 		{
 			var collision:Point = testAABB(
@@ -35,7 +33,7 @@
 
 				if(collision.y) 
 				{
-					if (target.grounded == false)Audio.play("land");
+					if (target.grounded == false)Audio.play("land", 5);
 					target.grounded = true;
 					target.yVelocity = 0.1;
 				} 
@@ -87,6 +85,7 @@
 					target.yVelocity = -target.yVelocity *0.25;
 					//target
 					target.xVelocity *= 0.25;
+					target.bounce();
 				} 
 				else 
 				{

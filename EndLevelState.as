@@ -136,21 +136,24 @@
 					case 1:
 						enemiesKilledText.text = "Enemies Killed: " + enemiesKilledLevel.toString();
 						textIndex++;
+						Audio.play("score_build");
 					break;
 					
 					case 2:
 						var completionTime = (completionTimeLevel / 1000)
 						completionTimeText.text = "Completion Time: " + completionTime.toString();
 						textIndex++
+						Audio.play("score_build");
 					break;
 					
 					case 3:
 						hitlerHealthText.text = "Health Remaining: " + hitlerHealthLevel.toString();
 						textIndex++
+						Audio.play("score_build");
 					break;
 					
 					case 4:
-						totalText.text = "Total: " + (enemiesKilledLevel + hitlerHealthLevel + (completionTimeLevel / 1000)).toString();
+						totalText.text = "Total: " + ((enemiesKilledLevel * 10) + hitlerHealthLevel + (completionTimeLevel / 1000)).toString();
 						Config.totalScore += enemiesKilledLevel + hitlerHealthLevel + (completionTimeLevel / 1000);
 						//if counting is done, let the player advance
 						counterFinished = true;
@@ -159,6 +162,7 @@
 						
 						//Let the player know they can advance
 						advanceText.text = "Press any key... Or not, I'm not the boss of you..."
+						Audio.play("score_final");
 					break;
 				}
 				//Reset the timer

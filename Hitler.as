@@ -36,18 +36,16 @@
 		
 		public function Hitler(_x, _y, state)
 		{
-			trace("Hitler Created");
-			
 			x = _x;
 			y = _y;
 			parentState = state;
-			
 		}
 		
 		public function init()
 		{
 			//Manually called constructor after the XML is successfully loaded
-			parentState.stoppingPointArray[currentTarget];
+			
+			parentState.stoppingPointArray[currentTarget]; //TODO: Figure out what this does - I don't remember
 		}
 		
 		public function update()

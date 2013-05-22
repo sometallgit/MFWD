@@ -29,8 +29,6 @@
 				
 		public function Player(_x, _y, state)
 		{
-			trace("Player Created");
-			
 			x = _x;
 			y = _y;
 			parentState = state;
@@ -203,7 +201,7 @@
 
 			if (!isMovingUp && grounded)
 				{
-					Audio.play("jump");
+					Audio.play("jump", 3);
 					grounded = false;
 					isMovingUp 	= true; 
 					applyForce(0, -8.5);

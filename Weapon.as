@@ -84,7 +84,7 @@
 				if (isPlayer)
 				{
 					ammo--;
-					trace(ammo);
+					//trace(ammo);
 					switch (type)
 					{
 						case "KNIFE":	cooldownOverTime = currentTime + knifeCooldown;		break;

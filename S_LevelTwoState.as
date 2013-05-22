@@ -24,6 +24,8 @@
 			enemies.push(new Enemy(this, hitler));
 			
 			button = new GUIButton(refToDocClass, "ENTER_MENU", new Button1());
+			muteSoundButton = new GUIButton(refToDocClass, "MUTE_SOUNDS", new Button1());
+			muteSoundButton.x = 400;
 			
 		}
 		

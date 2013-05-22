@@ -3,87 +3,176 @@
 
 	<!-- these are the audio samples & tracks that are used by this program -->
 	<samples>
-	     
-	   	<!-- call this sound by asking for Audio.play("explode") -->
-	   	<sample>
-	   		<name>explode_0</name>
-	   		<file>Flashbang-Kibblesbob-899170896.mp3</file>
-	   		<volume>0.4</volume>
-	   	</sample>
-	   	
-	   	<sample>
-	   		<name>fire_0</name>
-	   		<file>barreta_m9-Dion_Stapper-1010051237.mp3</file>
-	   		<volume>0.9</volume>
-	   	</sample>
 		
-		<sample>
-	   		<name>music_0</name>
-	   		<file>barreta_m9-Dion_Stapper-1010051237.mp3</file>	<!-- choose a better background music piece! -->
-	   		<volume>0.9</volume>
-	   		<type>loop</type>		<!-- use type loop for background music -->
-	   	</sample>
+		
 		
 		<!-- When the player touches the ground for the first time after jumping -->
 		<sample>
 	   		<name>land_0</name>
 	   		<file>land_0.mp3</file>
-	   		<volume>1</volume>
+	   		<volume>0.5</volume>
+	   	</sample>
+		
+		<sample>
+	   		<name>land_1</name>
+	   		<file>land_1.mp3</file>
+	   		<volume>0.5</volume>
+	   	</sample>
+		
+		<sample>
+	   		<name>land_2</name>
+	   		<file>land_2.mp3</file>
+	   		<volume>0.5</volume>
+	   	</sample>
+		
+		<sample>
+	   		<name>land_3</name>
+	   		<file>land_3.mp3</file>
+	   		<volume>0.5</volume>
+	   	</sample>
+		
+		<sample>
+	   		<name>land_4</name>
+	   		<file>land_4.mp3</file>
+	   		<volume>0.5</volume>
 	   	</sample>
 		
 		<!-- When the player/AI jumps -->
 		<sample>
 	   		<name>jump_0</name>
-	   		<file>jump_0.mp3</file>
-	   		<volume>1</volume>
+	   		<file>Jump_0.mp3</file>
+	   		<volume>0.5</volume>
+	   	</sample>
+		
+		<sample>
+	   		<name>jump_1</name>
+	   		<file>Jump_1.mp3</file>
+	   		<volume>0.5</volume>
+	   	</sample>
+		
+		<sample>
+	   		<name>jump_2</name>
+	   		<file>Jump_2.mp3</file>
+	   		<volume>0.5</volume>
 	   	</sample>
 		
 		<!-- When an attack with a knife is made -->
 		<sample>
 	   		<name>attack_knife_0</name>
-	   		<file>attack_knife_0.mp3</file>
+	   		<file>Knife_0.mp3</file>
 	   		<volume>1</volume>
 	   	</sample>
 		
 		<sample>
 	   		<name>attack_knife_1</name>
-	   		<file>attack_knife_1.mp3</file>
+	   		<file>Knife_1.mp3</file>
 	   		<volume>1</volume>
 	   	</sample>
 		
 		<sample>
 	   		<name>attack_knife_2</name>
-	   		<file>attack_knife_2.mp3</file>
-	   		<volume>1</volume>
-	   	</sample>
-		
-		<sample>
-	   		<name>attack_knife_3</name>
-	   		<file>attack_knife_3.mp3</file>
+	   		<file>Knife_2.mp3</file>
 	   		<volume>1</volume>
 	   	</sample>
 		
 		<!-- When an attack with a gun is made -->
 		<sample>
 	   		<name>attack_gun_0</name>
-	   		<file>attack_gun_0.mp3</file>
-	   		<volume>1</volume>
+	   		<file>Rifle_Shot_0.mp3</file>
+	   		<volume>0.6</volume>
+	   	</sample>
+		
+		<sample>
+	   		<name>attack_gun_1</name>
+	   		<file>Rifle_Shot_1.mp3</file>
+	   		<volume>0.6</volume>
+	   	</sample>
+		
+		<sample>
+	   		<name>attack_gun_2</name>
+	   		<file>Rifle_Shot_2.mp3</file>
+	   		<volume>0.6</volume>
 	   	</sample>
 		
 		<!-- When an attack with a grenade is made -->
 		<sample>
 	   		<name>attack_grenade_0</name>
-	   		<file>attack_grenade_0.mp3</file>
+	   		<file>Grenade_Throw_0.mp3</file>
+	   		<volume>1</volume>
+	   	</sample>
+		
+		<sample>
+	   		<name>attack_grenade_1</name>
+	   		<file>Grenade_Throw_1.mp3</file>
 	   		<volume>1</volume>
 	   	</sample>
 		
 		<!-- When a grenade explodes -->
 		<sample>
 	   		<name>grenade_explode_0</name>
-	   		<file>grenade_explode_0.mp3</file>
+	   		<file>Grenade_Explosion_0.mp3</file>
+	   		<volume>1</volume>
+	   	</sample>
+		
+		<sample>
+	   		<name>grenade_explode_1</name>
+	   		<file>Grenade_Explosion_1.mp3</file>
+	   		<volume>1</volume>
+	   	</sample>
+		
+		<!-- When a grenade bounces on the ground -->
+		<sample>
+	   		<name>grenade_bounce_0</name>
+	   		<file>Grenade_Bounce_0.mp3</file>
+	   		<volume>1</volume>
+	   	</sample>
+		
+		<sample>
+	   		<name>grenade_bounce_1</name>
+	   		<file>Grenade_Bounce_1.mp3</file>
+	   		<volume>1</volume>
+	   	</sample>
+		
+		<sample>
+	   		<name>grenade_bounce_2</name>
+	   		<file>Grenade_Bounce_2.mp3</file>
+	   		<volume>1</volume>
+	   	</sample>
+		
+		<sample>
+	   		<name>grenade_bounce_3</name>
+	   		<file>Grenade_Bounce_3.mp3</file>
 	   		<volume>1</volume>
 	   	</sample>
 	   	
+		<!-- When a score is incremented -->
+		<sample>
+	   		<name>score_build_0</name>
+	   		<file>Game_Score_Build.mp3</file>
+	   		<volume>1</volume>
+	   	</sample>
+		
+		<!-- When a score is finalised -->
+		<sample>
+	   		<name>score_final_0</name>
+	   		<file>Game_Score_Final.mp3</file>
+	   		<volume>1</volume>
+	   	</sample>
+		
+		<!-- When a button is moused over -->
+		<sample>
+	   		<name>button_0</name>
+	   		<file>UI_Scroll_Sound.mp3</file>
+	   		<volume>1</volume>
+	   	</sample>
+		
+		<!-- background music -->
+		<sample>
+	   		<name>music_0</name>
+	   		<file>Music_0.mp3</file>	
+	   		<volume>1.5</volume>
+	   		<type>loop</type>		<!-- use type loop for background music -->
+	   	</sample>
 	</samples>
 	
 	

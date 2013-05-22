@@ -51,18 +51,20 @@
 		}
 
 		
-		public static function playSound(numVariations:int = 0)
-		{
-			var r = int(Math.random()*numVariations);
+		//public static function playSound(numVariations:int = 0)
+		//{
+			//var r = int(Math.random()*numVariations);
 			
 			//name += "_" + r; 
-		}
+		//}
 		
 		// create the audio manager object
 		// this follows a "Singleton" pattern
 		// audio object is created once & accessible globally in the program
 		public static function play(name : String, numVariations = 0)
 		{
+			//If the game is muted, return
+			if (Config.muteSounds) return;
 			
 			var r = int(Math.random()*numVariations);
 			
@@ -86,6 +88,8 @@
 		//Take a point to the player and the sound source, apply a falloff to the volume and pan the audio based on the distance and direction
 		public static function playDynamic(name : String, player:Point, source:Point, maxVolumeDistance = 1600, maxPanDistance = 800, numVariations = 0)
 		{
+			//If the game is muted, return
+			if (Config.muteSounds) return;
 			
 			var r = int(Math.random()*numVariations);
 			

@@ -4,22 +4,25 @@
 	import flash.utils.*;
 	import flash.geom.Point;
 	
+	//When weapons are attacked with, they instantiate a bullet
+	//The bullets behave differently depending on what created them
 	public class Bullet extends MovieClip
 	{
-		//Grenade range ~ 600
 		private var type:String; //KNIFE, GUN, GRENADE, RANDOM
 		private var isPlayer:Boolean; //Did the bullet come from the player
 		private var direction;
 		private var isAlive:Boolean = true;
 		private var parentState;
 		
-		//The knife is a short range bullet
+		//The knife is a short range bullet that removes itself after it travels a small distance
 		private const knifeRange:int = 75;
 		private var removeKnifeRange;
 		
+		//Used by the grenade to know when to blow up
 		private var currentTime;
 		private var expireTime;
 		private const grenadeDieTime:int = 3000;
+		private var bounceSoundPlayed:Boolean = false;
 		
 		public var xVelocity:Number = 0;
 		public var yVelocity:Number = 0;
@@ -51,6 +54,7 @@
 				removeKnifeRange = x + knifeRange;
 			}
 			
+			//Send the grenade on its way
 			if (type == "GRENADE" && direction == "LEFT")
 			{
 				applyForce(-4, -10);
@@ -65,22 +69,22 @@
 			{
 				switch (type)
 				{
-					case "KNIFE": 		Audio.play("attack_knife", 4); 	break;
-					case "GUN":			Audio.play("attack_gun"); 		break;
-					case "GRENADE":		Audio.play("attack_grenade"); 	break;
+					case "KNIFE": 		Audio.play("attack_knife", 3); 	break;
+					case "GUN":			Audio.play("attack_gun", 3); 		break;
+					case "GRENADE":		Audio.play("attack_grenade", 2); 	break;
 				}
 			}
 			
-			//Otherwise, play it dynamically
+			//Otherwise it came from an enemy somewhere in the world so play it dynamically
 			else
 			{
 				var playerPoint = new Point(parentState.player.x, parentState.player.y);
 				var sourcePoint = new Point(x, y);
 				switch (type)
 				{
-					case "KNIFE": 		Audio.playDynamic("attack_knife", playerPoint, sourcePoint, 1600, 800, 4); 	break;
-					case "GUN":			Audio.playDynamic("attack_gun", playerPoint, sourcePoint); 		break;
-					case "GRENADE":		Audio.playDynamic("attack_grenade", playerPoint, sourcePoint); 	break;
+					case "KNIFE": 		Audio.playDynamic("attack_knife", playerPoint, sourcePoint, 1600, 800, 3); 	break;
+					case "GUN":			Audio.playDynamic("attack_gun", playerPoint, sourcePoint, 1600, 800, 3); 		break;
+					case "GRENADE":		Audio.playDynamic("attack_grenade", playerPoint, sourcePoint, 1600, 800, 2); 	break;
 				}
 			}
 			
@@ -101,6 +105,7 @@
 			}
 			else
 			{
+				//I'm dead
 				visible = false;
 			}
 		}
@@ -123,6 +128,7 @@
 			}
 			else
 			{
+				//I'm dead
 				isAlive = false;
 			}
 		}
@@ -151,7 +157,7 @@
 			{
 				var playerPoint = new Point(parentState.player.x, parentState.player.y);
 				var sourcePoint = new Point(x, y);
-				Audio.playDynamic("grenade_explode", playerPoint, sourcePoint);
+				Audio.playDynamic("grenade_explode", playerPoint, sourcePoint, 1600, 800, 2);
 				isAlive = false;
 				checkCollisionsGrenade();
 			}
@@ -194,6 +200,7 @@
 				if(tempVelocity < 0) 
 				{
 					yVelocity = -yVelocity;
+					trace("bounce");
 				}
 			}
 	
@@ -305,6 +312,19 @@
 			for (var i = 0; i < parentState.barrierArray.length; i++)
 			{
 				parentState.barrierArray[i].resolveCollisionsGrenade(this);
+			}
+			
+		}
+		
+		//Play the grenade bounce sound once
+		public function bounce()
+		{
+			if (!bounceSoundPlayed)
+			{
+				var playerPoint = new Point(parentState.player.x, parentState.player.y);
+				var sourcePoint = new Point(x, y);
+				Audio.playDynamic("grenade_bounce", playerPoint, sourcePoint, 1600, 800, 4);
+				bounceSoundPlayed = true;
 			}
 			
 		}

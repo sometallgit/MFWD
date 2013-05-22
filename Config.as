@@ -11,6 +11,12 @@
 
 	public class Config
 	{
+		//Global flag for muting sounds
+		public static var muteSounds:Boolean = false;
+		public static var muteMusic:Boolean = false;
+		//store the audio channel for the music so it can be stopped at any time
+		public static var musicTracker;
+		
 		public static var enemiesKilledLevel1:int = 0;
 		public static var completionTimeLevel1:int = 0;
 		public static var hitlerHealthLevel1:int = 0;

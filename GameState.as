@@ -32,6 +32,7 @@
 		public var droppedWeapons:Array = new Array();
 		
 		public var button;
+		public var muteSoundButton;
 		public var player;
 		public var hitler;
 		
@@ -58,6 +59,9 @@
 			//hitler = new Hitler(40, 40, this);
 			
 			//button = new GUIButton(refToDocClass, "ENTER_MENU", new Button1());
+			muteSoundButton = new GUIButton(refToDocClass, "MUTE_SOUNDS", new Button1());
+			muteSoundButton.x = 400;
+			
 			
 		}
 		
@@ -122,6 +126,7 @@
 			}
 			updateScroll();
 			button.update(mouseIsPressed);
+			muteSoundButton.update(mouseIsPressed);
 			
 			for(i = 0; i < droppedWeapons.length; i++)
 			{
@@ -162,6 +167,7 @@
 		override public function mousePressed()
 		{
 			button.mousePressed();
+			muteSoundButton.mousePressed();
 		}
 		
 		//When an enemy is killed, instantiate a new dropped weapon with the type of what they were carrying. With the exception of the knife
@@ -343,7 +349,7 @@
 			}
 			
 			addChild(button);
-			
+			addChild(muteSoundButton);
 			
 		}
 		

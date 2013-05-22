@@ -3,17 +3,20 @@
 	import flash.display.MovieClip;
 	import flash.utils.*;
 	
+	//The enemy class
 	public class Enemy extends MovieClip
 	{
-
-		public var currentWeapon;
+		public var currentWeapon; //What weapon am I holding
 		private var stopDistance:int; //How close should I get to Hitler before stopping
 		
+		private var moving:Boolean; //Am I moving
+		public var animationState:String;
 		public var directionFacing:String = "RIGHT";
+		
 		public var stopTime:int = 0;
 		public var currentTime;
 		public var stopDuration:int = 2000;
-		public var target;
+		public var target; //Who am I chasing
 		
 		public var xVelocity:Number = 0;
 		public var yVelocity:Number = 0;
@@ -26,23 +29,19 @@
 		private var parentState;
 		
 		//Has a movement key been pressed/released?
-		private var isMovingUp:Boolean = false;
-		private var isMovingDown:Boolean = false;
-		private var isMovingLeft:Boolean = false;
-		private var isMovingRight:Boolean = false;
+		//private var isMovingUp:Boolean = false;
+		//private var isMovingDown:Boolean = false;
+		//private var isMovingLeft:Boolean = false;
+		//private var isMovingRight:Boolean = false;
 		
 		public function Enemy(state, _target)
 		{
-			//trace("Enemy Created");
-			
 			target = _target;
-
 			parentState = state;
-			
 			currentWeapon = new Weapon("RANDOM", false, this, parentState);
-			
 			addChild(currentWeapon);
 			
+			//Assign the stop distance based on which weapon the enemy is holding
 			switch (currentWeapon.type)
 			{
 				case "KNIFE": 		stopDistance = 10;	break;
@@ -56,6 +55,7 @@
 		public function init()
 		{
 			//Set spawn location just beyond the screen
+			//TODO: Increase this range once the level is a decent size
 			var r = int(Math.random()*2);
 			y = 0;
 			switch(r)
@@ -72,23 +72,29 @@
 		public function update()
 		{
 			currentWeapon.update();
-
+			
+			//Turn to face the target (hitler)
 			if (target.x > x) directionFacing = "RIGHT";
 			if (target.x < x) directionFacing = "LEFT";
 			
+			//Make a B-Line to the target
 			if (target.x > x + stopDistance)
 			{
 				setConstantForce(2,0);
+				moving = true;
 			}
 			else if (target.x < x - stopDistance)
 			{
 				setConstantForce(-2,0);
+				moving = true;
 			}
 			
+			//In attacking range, stop
 			else
 			{
 				setConstantForce(0,0);
 				attack();
+				moving = false;
 			}
 
 			currentTime = getTimer();
@@ -97,10 +103,32 @@
 			
 			//If I get spawned outside the world, replace me
 			if (y > 600) init();
+			
+			stateCheck();
+		}
+		
+		private function stateCheck()
+		{
+			//Set the animation state accordingly
+			if (yVelocity > 0 && directionFacing == "LEFT") animationState = "L_FALL";
+			else if (yVelocity > 0 && directionFacing == "RIGHT") animationState = "R_FALL";
+			
+			if (moving && grounded && directionFacing == "LEFT") animationState = "L_WALKING";
+			else if (!moving && directionFacing == "LEFT" && grounded) animationState = "L_IDLE";
+			
+			if (moving && grounded && directionFacing == "RIGHT") animationState = "R_WALKING";
+			else if (!moving && directionFacing == "RIGHT" && grounded) animationState = "RIGHT_IDLE";
+			
+			if (yVelocity < 0 && directionFacing == "LEFT") animationState = "L_JUMP";
+			else if (yVelocity < 0 && directionFacing == "RIGHT") animationState = "R_JUMP";
+			
+			trace("ANIM STATE: " + animationState);
+			
 		}
 		
 		public function attack()
 		{
+			//TODO: Introduce a delay (wind up) to attacking for balancing
 			currentWeapon.fire();
 		}
 		
@@ -133,16 +161,20 @@
 			y += yVelocity + yConst;
 			
 			applyForce(0, gravity);
+			
+			//If the enemy starts to fall, set grounded to false
+			if (yVelocity > 1) grounded = false;
 		}
 		
 		private function updateCollisions()
 		{
 			var i:int = 0;
+			//Check for walls
 			for (i = 0; i < parentState.barrierArray.length; i++)
 			{
 				parentState.barrierArray[i].resolveCollisions(this);
 			}
-			
+			//Check for jump triggers
 			for (i = 0; i < parentState.jumpTriggerArray.length; i++)
 			{
 				parentState.jumpTriggerArray[i].resolveCollisions(this);
@@ -152,23 +184,6 @@
 			
 		}
 		
-		/*public function atStopPoint()
-		{
-			//trace("collision");
-			stopTime = currentTime + stopDuration;
-			//trace(stopTime);
-			
-			//trace(parentState.stoppingPointArray[currentTarget].x)
-			if (currentTarget == parentState.stoppingPointArray.length -1)
-			{
-				currentTarget = 0;
-			}
-			else
-			{
-				currentTarget++;
-			}
-			
-		}*/
 		
 		public function resetYVelocity()
 		{
@@ -193,6 +208,7 @@
 			yConst += aY;
 		}
 		
+		/*
 		public function startMovingUp()		
 		{
 
@@ -247,6 +263,6 @@
 			//playerClip = new Player();
 			//addChild(playerClip);
 		}
-		
+		*/
 	}
 }

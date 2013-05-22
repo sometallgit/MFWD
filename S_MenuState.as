@@ -7,6 +7,7 @@
 	{
 		private var refToDocClass;
 		private var button;
+		private var muteSoundButton;
 		private var testArray = new Array();
 		
 		public function S_MenuState(documentClass)
@@ -15,12 +16,19 @@
 			
 			//Create GUI
 			button = new GUIButton(refToDocClass, "ENTER_GAME", new Button1());
+			muteSoundButton = new GUIButton(refToDocClass, "MUTE_MUSIC", new Button1());
+			muteSoundButton.x = 400;
+			muteSoundButton.startX = 400;
+			//muteSoundButton.y = 200;
+			
 			addChild(button);			
+			addChild(muteSoundButton);
 		}
 		
 		override public function update()
 		{
 			button.update(mouseIsPressed);
+			muteSoundButton.update(mouseIsPressed);
 		}
 		
 		override public function keyPressed(key)
@@ -36,6 +44,7 @@
 		override public function mousePressed()
 		{
 			button.mousePressed();
+			muteSoundButton.mousePressed();
 		}
 		
 		override public function test()

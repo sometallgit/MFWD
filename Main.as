@@ -87,7 +87,6 @@
 		private function keyDownHandler(keyEvent)
 		{
 			currentState.keyPressed(keyEvent.keyCode);
-			
 			/*
 			//TESTING
 			switch(keyEvent.keyCode)
@@ -139,14 +138,18 @@
 		//Make the state machine switch the currently active state
 		public function changeStateTo(newState, index = 0)
 		{
+			
 			//If changing from one of the game level level states, reset them before switching so they're ready to reused
+			//Stop the music, too
 			if (currentState is S_LevelOneState) 
 			{
+				Audio.stop(Config.musicTracker);
 				s_LevelOne = new S_LevelOneState(this);
 				s_LevelOne.buildFromXML();
 			}
 			else if (currentState is S_LevelTwoState) 
 			{
+				Audio.stop(Config.musicTracker);
 				s_LevelTwo = new S_LevelTwoState(this);
 				s_LevelTwo.buildFromXML();
 			}
@@ -157,6 +160,10 @@
 			
 			//If transitioning to an end level state, tell it which level we just came from
 			if (currentState is EndLevelState) currentState.buildScore(index);
+			
+			if (currentState is S_LevelOneState) Config.musicTracker = Audio.play("music");
+			if (currentState is S_LevelTwoState) Config.musicTracker = Audio.play("music");
+			
 		}
 		
 		public function reset()

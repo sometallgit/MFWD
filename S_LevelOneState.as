@@ -20,10 +20,13 @@
 			hitler = new Hitler(40, 40, this);
 			
 			enemies.push(new Enemy(this, hitler));
-			enemies.push(new Enemy(this, hitler));
-			enemies.push(new Enemy(this, hitler));
+			//enemies.push(new Enemy(this, hitler));
+			//enemies.push(new Enemy(this, hitler));
 			
 			button = new GUIButton(refToDocClass, "ENTER_MENU", new Button1());
+			muteSoundButton = new GUIButton(refToDocClass, "MUTE_SOUNDS", new Button1());
+			muteSoundButton.x = 400;
+			muteSoundButton.startX = 400;
 			
 			debugFormat.align = TextFormatAlign.CENTER;
 			debugFormat.size = 20;
@@ -151,6 +154,8 @@
 			setChildIndex(debugText1, getChildIndex(player));
 			setChildIndex(debugText2, getChildIndex(player));
 			setChildIndex(debugText3, getChildIndex(player));
+			
+			addChild(muteSoundButton);
 
 		}
 		
