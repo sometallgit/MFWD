@@ -122,7 +122,7 @@
 			if (yVelocity < 0 && directionFacing == "LEFT") animationState = "L_JUMP";
 			else if (yVelocity < 0 && directionFacing == "RIGHT") animationState = "R_JUMP";
 			
-			trace("ANIM STATE: " + animationState);
+			//trace("ANIM STATE: " + animationState);
 			
 		}
 		

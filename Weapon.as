@@ -5,8 +5,8 @@
 	
 	public class Weapon extends MovieClip
 	{
-		private var currentTime = 0;
-		private var cooldownOverTime = 0;
+		public var currentTime = 0;
+		public var cooldownOverTime = 0;
 		//The time between attacking depending on the weapon
 		const knifeCooldown = 50;
 		const gunCooldown = 1000;
@@ -24,7 +24,7 @@
 		
 		public var type:String; //KNIFE, GUN, GRENADE, RANDOM
 		public var isPlayer:Boolean;
-		private var ammo;
+		public var ammo;
 		
 		public var refToOwner;
 		public var parentState;
@@ -71,13 +71,15 @@
 			{
 				refToOwner.weaponDepleted();
 			}
+			
 		}
 		
 		public function fire()
 		{
 			if (currentTime > cooldownOverTime)
 			{
-				parentState.bullets.push(new Bullet(x, y, type, isPlayer, refToOwner.directionFacing, parentState))
+				//TODO: Add a proper offset for the bullet pos
+				parentState.bullets.push(new Bullet(parent.x, parent.y, type, isPlayer, refToOwner.directionFacing, parentState))
 				//parentState.addChild(parentState.bullets[parentState.bullets.length-1]);
 				parentState.addChildAt(parentState.bullets[parentState.bullets.length-1], parentState.getChildIndex(parentState.player));
 				//Reset the cooldown

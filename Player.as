@@ -8,6 +8,8 @@
 		public var directionFacing:String = "RIGHT";
 		public var animationState:String;
 		public var lastAnimationState:String;
+		public var attackFinished:Boolean = true;
+		public var animationBeforeAttack;
 		public var currentWeapon;
 		
 		public var xVelocity:Number = 0;
@@ -35,6 +37,9 @@
 			
 			currentWeapon = new Weapon("GRENADE", true, this, parentState);
 			addChild(currentWeapon);
+			
+			scaleX = 0.8;
+			scaleY = 0.8;
 		}
 		
 		public function update()
@@ -44,7 +49,7 @@
 			currentWeapon.update();
 			
 			//Apply the appropriate animation to the player
-			stateCheck();
+			if (attackFinished) stateCheck();
 		}
 		
 		private function stateCheck()
@@ -59,10 +64,10 @@
 			else if (yVelocity > 0 && directionFacing == "RIGHT" && parentState.hitler.isCarried == true) animationState = "R_FALL_CARRY";
 			
 			if (isMovingLeft && grounded && parentState.hitler.isCarried == false) animationState = "L_WALKING";
-			else if (directionFacing == "LEFT" && grounded && parentState.hitler.isCarried == false) animationState = "L_IDLE";
+			//else if (directionFacing == "LEFT" && grounded && parentState.hitler.isCarried == false) animationState = "L_IDLE";
 			
 			if (isMovingRight && grounded && parentState.hitler.isCarried == false) animationState = "R_WALKING";
-			else if (directionFacing == "RIGHT" && grounded && parentState.hitler.isCarried == false) animationState = "R_IDLE";
+			//else if (directionFacing == "RIGHT" && grounded && parentState.hitler.isCarried == false) animationState = "R_IDLE";
 			
 			if (isMovingLeft && grounded && parentState.hitler.isCarried == true) animationState = "L_WALKING_CARRY";
 			else if (directionFacing == "LEFT" && grounded && parentState.hitler.isCarried == true) animationState = "L_IDLE_CARRY";
@@ -82,6 +87,32 @@
 			if ((isMovingUp || yVelocity < 0) && directionFacing == "LEFT" && parentState.hitler.isCarried == true) animationState = "L_JUMP_CARRY";
 			else if ((isMovingUp || yVelocity < 0) && directionFacing == "RIGHT" && parentState.hitler.isCarried == true) animationState = "R_JUMP_CARRY";
 			
+			if (currentWeapon.type == "KNIFE")
+			{
+				if (isMovingLeft && grounded && parentState.hitler.isCarried == false) animationState = "L_WALKING_KNIFE";
+				else if (directionFacing == "LEFT" && grounded && parentState.hitler.isCarried == false) animationState = "L_IDLE_KNIFE";
+				
+				if (isMovingRight && grounded && parentState.hitler.isCarried == false) animationState = "R_WALKING_KNIFE";
+				else if (directionFacing == "RIGHT" && grounded && parentState.hitler.isCarried == false) animationState = "R_IDLE_KNIFE";
+			}
+			
+			else if (currentWeapon.type == "GUN")
+			{
+				if (isMovingLeft && grounded && parentState.hitler.isCarried == false) animationState = "L_WALKING_RIFLE";
+				else if (directionFacing == "LEFT" && grounded && parentState.hitler.isCarried == false) animationState = "L_IDLE_RIFLE";
+				
+				if (isMovingRight && grounded && parentState.hitler.isCarried == false) animationState = "R_WALKING_RIFLE";
+				else if (directionFacing == "RIGHT" && grounded && parentState.hitler.isCarried == false) animationState = "R_IDLE_RIFLE";
+			}
+			
+			else if (currentWeapon.type == "GRENADE")
+			{
+				if (isMovingLeft && grounded && parentState.hitler.isCarried == false) animationState = "L_WALKING_GRENADE";
+				else if (directionFacing == "LEFT" && grounded && parentState.hitler.isCarried == false) animationState = "L_IDLE_GRENADE";
+				
+				if (isMovingRight && grounded && parentState.hitler.isCarried == false) animationState = "R_WALKING_GRENADE";
+				else if (directionFacing == "RIGHT" && grounded && parentState.hitler.isCarried == false) animationState = "R_IDLE_GRENADE";
+			}
 			
 			//MovieClip(root).debugText1.text = "PLAYER ANIM STATE: " + animationState;
 			parentState.debugText1.text = "PLAYER ANIM STATE: " + animationState;
@@ -93,13 +124,61 @@
 			if (lastAnimationState != animationState)
 			{
 				//trace ("animation change");
-				//Player goto and play animationState.
+				gotoAndPlay(animationState);
+			}
+		}
+		
+		private function startAttackAnimation()
+		{
+			animationBeforeAttack = animationState;
+
+			if (currentWeapon.type == "KNIFE")
+			{
+				if (isMovingRight && parentState.hitler.isCarried == false) gotoAndPlay("R_ATTACK_KNIFE");
+				if (isMovingLeft && parentState.hitler.isCarried == false) gotoAndPlay("L_ATTACK_KNIFE");
+				
+				if (!isMovingRight && directionFacing == "RIGHT" && parentState.hitler.isCarried == false) gotoAndPlay("R_ATTACK_KNIFE");
+				if (!isMovingLeft && directionFacing == "LEFT" && parentState.hitler.isCarried == false) gotoAndPlay("L_ATTACK_KNIFE");
+			}
+			
+			else if (currentWeapon.type == "GUN")
+			{
+				if (isMovingRight && parentState.hitler.isCarried == false) gotoAndPlay("R_ATTACK_RIFLE");
+				if (isMovingLeft && parentState.hitler.isCarried == false) gotoAndPlay("L_ATTACK_RIFLE");
+				
+				if (!isMovingRight && directionFacing == "RIGHT" && parentState.hitler.isCarried == false) gotoAndPlay("R_IDLE_ATTACK_RIFLE");
+				if (!isMovingLeft && directionFacing == "LEFT" && parentState.hitler.isCarried == false) gotoAndPlay("L_IDLE_ATTACK_RIFLE");
+			}
+			
+			else if (currentWeapon.type == "GRENADE")
+			{
+				if (isMovingRight && parentState.hitler.isCarried == false) gotoAndPlay("R_ATTACK_GRENADE");
+				if (isMovingLeft && parentState.hitler.isCarried == false) gotoAndPlay("L_ATTACK_GRENADE");
+				
+				if (!isMovingRight && directionFacing == "RIGHT" && parentState.hitler.isCarried == false) gotoAndPlay("R_ATTACK_GRENADE");
+				if (!isMovingLeft && directionFacing == "LEFT" && parentState.hitler.isCarried == false) gotoAndPlay("L_ATTACK_GRENADE");
 			}
 		}
 		
 		public function attack()
 		{
 			currentWeapon.fire();
+			
+			//Override the current animation checking with an immediate attack animation and record what the animation was before the attack started
+			//So it can be returned to after the attack finishes
+			attackFinished = false;
+			if (currentWeapon.ammo < 0)
+			{
+				attackFinished = true;
+				stateCheck();
+				return;
+			}
+			if (animationState != animationBeforeAttack && (currentWeapon.currentTime > currentWeapon.cooldownOverTime)) 
+			{
+				animationBeforeAttack = animationState;
+				
+			}
+			startAttackAnimation();
 		}
 		
 		//When the current weapon runs out of ammo, give the player a knife
@@ -159,7 +238,7 @@
 			applyForce(0, gravity);
 			
 			//If the player starts to fall, set grounded to false
-			if (yVelocity > 1) grounded = false;
+			if (yVelocity > 3) grounded = false;
 		}
 		
 		private function updateCollisions()

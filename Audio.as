@@ -40,7 +40,9 @@
 		// associative array - string name of sample is index, holds sound data object
 		private var sampleAudio : Array = new Array;
 		
-		
+		//The channel for every triggered sound effect gets pushed into an array so that they can be stopped instantly
+		//When the player presses the mute button
+		private static var soundList: Array = new Array();
 		
 		// create the audio manager object
 		// this follows a "Singleton" pattern
@@ -63,9 +65,10 @@
 		// audio object is created once & accessible globally in the program
 		public static function play(name : String, numVariations = 0)
 		{
-			//If the game is muted, return
-			if (Config.muteSounds) return;
-			
+			//If the game is muted and it wasn't a song that was triggered, return
+			if (Config.muteSounds && name != "music") return;
+			//If the music is muted and it was a song that was triggered, return
+			if (Config.muteMusic && name == "music") return;
 			var r = int(Math.random()*numVariations);
 			
 			name = name + "_" + r;
@@ -82,6 +85,7 @@
 			
 			var startTime : Number = 0;
 			var channel = sound.play(startTime, repeats, new SoundTransform(volume,0));
+			if (name != "music_0") soundList.push(channel); //Push the sound channel into an array so we can stop them immediately when the player mutes the game
 			return channel;
 		}
 		
@@ -119,6 +123,7 @@
 			
 			var startTime : Number = 0;
 			var channel = sound.play(startTime, repeats, new SoundTransform(volume,pan));
+			soundList.push(channel); //Push the sound channel into an array so we can stop them immediately when the player mutes the game
 			return channel;
 		}
 
@@ -127,6 +132,20 @@
 		{
 			if (channel == null) return;
 			channel.stop();
+		}
+		
+		//Stop all the playing sound effects immediately when the player mutes the game
+		public static function stopAll()
+		{
+			for (var i:int = 0; i < soundList.length; i++)
+			{
+				//Stop every sound effect channel
+				soundList[i].stop();
+				//Set it to null for the garbage collector
+				soundList[i] = null;
+			}
+			//Clear the array that is now full of null pointers
+			soundList = new Array();
 		}
 
 		

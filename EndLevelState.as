@@ -192,8 +192,19 @@
 					refToDocClass.changeStateTo(refToDocClass.s_LevelTwo);
 				break;
 				
+				case 2: 
+					refToDocClass.changeStateTo(refToDocClass.s_LevelThree);
+				break;
+				
+				case 3:
+					//TODO: Transition to game over screen
+					trace("Insert transition to game over screen");
+					//Take me back to the menu temporarily 
+					refToDocClass.changeStateTo(refToDocClass.s_Menu);
+				break;
+				
 				default:
-				refToDocClass.changeStateTo(refToDocClass.s_LevelTwo);
+					refToDocClass.changeStateTo(refToDocClass.s_LevelTwo);
 					//trace("end level state error");
 				break;
 			}

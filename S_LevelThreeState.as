@@ -8,9 +8,9 @@
 	import flash.text.*;
 	import flash.filters.*;
 	
-	public class S_LevelTwoState extends GameState
+	public class S_LevelThreeState extends GameState
 	{
-		override public function S_LevelTwoState(documentClass)
+		override public function S_LevelThreeState(documentClass)
 		{
 			
 			refToDocClass = documentClass;
@@ -21,8 +21,8 @@
 			hitler = new Hitler(40, 40, this);
 			
 			enemies.push(new Enemy(this, hitler));
-			enemies.push(new Enemy(this, hitler));
-			enemies.push(new Enemy(this, hitler));
+			//enemies.push(new Enemy(this, hitler));
+			//enemies.push(new Enemy(this, hitler));
 			
 			button = new GUIButton(refToDocClass, "ENTER_MENU", new Button1());
 			muteSoundButton = new GUIButton(refToDocClass, "MUTE_SOUNDS", new Button1());
@@ -52,15 +52,16 @@
 		override public function endLevel()
 		{
 			//Before we transition away from this state, flush the scores to the Config class so they can be retrieved
-			Config.getScore(enemiesKilled, levelTime, hitler.health, 2);
+			Config.getScore(enemiesKilled, levelTime, hitler.health, 3);
 			//Tell the document class to transition to the next state
-			refToDocClass.changeStateTo(refToDocClass.s_EndLevel, 2);
+			refToDocClass.changeStateTo(refToDocClass.s_EndLevel, 3);
 		}
 		
 		//TODO: Delete me
 		/*
 		override public function reset()
 		{
+			trace("RESET");
 			refToDocClass.reset();
 		}
 		*/
@@ -69,53 +70,53 @@
 		override public function buildFromXML()
 		{
 			var item:XML;
-			for each(item in refToDocClass.xmlManager.xmlFile.level_2.gui.button1.object) 
+			for each(item in refToDocClass.xmlManager.xmlFile.level_3.gui.button1.object) 
 			{ 
 				create(item, midgroundArray);
 			}
 			//button2
-			for each(item in refToDocClass.xmlManager.xmlFile.level_2.gui.button2.object) 
+			for each(item in refToDocClass.xmlManager.xmlFile.level_3.gui.button2.object) 
 			{ 
 				create(item, midgroundArray);
 			}
 			
-			for each(item in refToDocClass.xmlManager.xmlFile.level_2.midground.object) 
+			for each(item in refToDocClass.xmlManager.xmlFile.level_3.midground.object) 
 			{ 
 				create(item, midgroundArray);
 			}
 			
 			//stopping point
-			for each(item in refToDocClass.xmlManager.xmlFile.level_2.stop_point.object) 
+			for each(item in refToDocClass.xmlManager.xmlFile.level_3.stop_point.object) 
 			{ 
 				create(item, stoppingPointArray);
 			}
 			
 			//CollisionBoundingBox
-			for each(item in refToDocClass.xmlManager.xmlFile.level_2.collision.object) 
+			for each(item in refToDocClass.xmlManager.xmlFile.level_3.collision.object) 
 			{ 
 				barrierArray.push(new Barrier(item.@x, item.@y, item.@width, item.@height))
 			}
 			
 			//JumpTrigger
-			for each(item in refToDocClass.xmlManager.xmlFile.level_2.jump_trigger.object) 
+			for each(item in refToDocClass.xmlManager.xmlFile.level_3.jump_trigger.object) 
 			{ 
 				jumpTriggerArray.push(new JumpTrigger(item.@x, item.@y, item.@width, item.@height))
 			}
 			
 			//foreground
-			for each(item in refToDocClass.xmlManager.xmlFile.level_2.foreground.object) 
+			for each(item in refToDocClass.xmlManager.xmlFile.level_3.foreground.object) 
 			{ 
 				create(item, foregroundArray);
 			}
 			
 			//static foreground
-			for each(item in refToDocClass.xmlManager.xmlFile.level_2.static_foreground.object) 
+			for each(item in refToDocClass.xmlManager.xmlFile.level_3.static_foreground.object) 
 			{ 
 				create(item, staticForegroundArray);
 			}
 			
 			//background
-			for each(item in refToDocClass.xmlManager.xmlFile.level_2.background.object) 
+			for each(item in refToDocClass.xmlManager.xmlFile.level_3.background.object) 
 			{ 
 				create(item, backgroundArray);
 			}
@@ -157,6 +158,8 @@
 			setChildIndex(debugText1, getChildIndex(player));
 			setChildIndex(debugText2, getChildIndex(player));
 			setChildIndex(debugText3, getChildIndex(player));
+			
+			addChild(muteSoundButton);
 
 		}
 		

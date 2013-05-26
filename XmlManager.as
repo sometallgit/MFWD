@@ -7,6 +7,11 @@
 	import flash.net.*;
 	import flash.events.*;
 	
+	//Because working with the stage makes me cry, the XML Manager reads the levels created on the stage, dumps the position
+	//and type of everything and then rebuilds the level in code using the XML file. This allows the levels to be created
+	//on the stage without making me pull my hair out
+	
+	//TODO: Clean up XML structure. Add newgrounds URL to the URL Loader
 	public class XmlManager extends MovieClip
 	{
 		public var xmlFile:XML;
@@ -14,6 +19,8 @@
 		var xmlLoader = new URLLoader();
 		var refToDocClass
 		
+		//If the readStage() function is uncommented, this empty xml object will be populated as it reads the stage
+		//If load() is uncommented, the xml object is replaced by the xml file that the URL loader brings in
 		public function XmlManager(stage, refToDoc)
 		{
 			refToStage = stage;
@@ -61,8 +68,26 @@
 									<jump_trigger></jump_trigger>
 									<stop_point></stop_point>
 								</level_2>
+								
+								<level_3>
+									<gui>
+										<button1></button1>									
+										<button2></button2>
+									</gui>
+									
+									<background></background>
+									<midground></midground>
+									<foreground></foreground>
+									<static_foreground></static_foreground>
+									<collision></collision>
+									<jump_trigger></jump_trigger>
+									<stop_point></stop_point>
+								</level_3>
 																
 							</Data>;
+			//TODO: Move this into a flag held in the config xml
+			//To generate and dump an XML file, uncomment readStage() and save() and comment load()
+			//Do the opposite to load an already generated xml file
 			//readStage();
 			//save();
 			load();
@@ -265,6 +290,69 @@
 				checkType(refToStage.level2_static_foreground, xmlFile.level_2.static_foreground);
 			}
 			
+			//==========================================
+			//================LEVEL 03==================
+			//==========================================
+			for(i = 0;i<refToStage.level3.numChildren;i++)
+			{
+				object = 	<object>
+							</object>
+				
+				//==========================================
+				//================Midground==================
+				//==========================================
+				checkType(refToStage.level3, xmlFile.level_3.midground);
+				
+				//==========================================
+				//================Collision=================
+				//==========================================
+				if (refToStage.level3.getChildAt(i) is CollisionBoundingBox)	{					appendXMLScalable("CollisionBoundingBox", refToStage.level3, xmlFile.level_3.collision);		}
+				
+				//==========================================
+				//==============Jump Trigger================
+				//==========================================
+				if (refToStage.level3.getChildAt(i) is AiJumpTrigger)			{					appendXMLScalable("AiJumpTrigger", refToStage.level3, xmlFile.level_3.jump_trigger);			}
+				
+				//==========================================
+				//===============Stop Point=================
+				//==========================================
+				if (refToStage.level3.getChildAt(i) is StoppingPoint)			{					appendXML("StoppingPoint", refToStage.level3, xmlFile.level_3.stop_point);		}
+				
+			}
+			
+			//==========================================
+			//===========LEVEL03 Foreground=============
+			//==========================================
+			for(i = 0;i<refToStage.level3_foreground.numChildren;i++)
+			{
+				object = 	<object>
+							</object>
+				
+				checkType(refToStage.level3_foreground, xmlFile.level_3.foreground);
+			}
+			
+			//==========================================
+			//===========LEVEL03 Background=============
+			//==========================================
+			for(i = 0;i<refToStage.level3_background.numChildren;i++)
+			{
+				object = 	<object>
+							</object>
+				
+				checkType(refToStage.level3_background, xmlFile.level_3.background);
+			}
+			
+			//==========================================
+			//=====LEVEL03 Static Foreground============
+			//==========================================
+			for(i = 0;i<refToStage.level3_static_foreground.numChildren;i++)
+			{
+				object = 	<object>
+							</object>
+				
+				checkType(refToStage.level3_static_foreground, xmlFile.level_3.static_foreground);
+			}
+			
 		}
 		
 		public function load()
@@ -281,6 +369,8 @@
 			refToDocClass.s_Menu.buildFromXML();
 			refToDocClass.s_LevelOne.buildFromXML();
 			refToDocClass.s_LevelTwo.buildFromXML();
+			refToDocClass.s_LevelThree.buildFromXML();
+			//TODO: Change visible to remove child
 			//Remove the level movieclip
 			refToStage.visible = false;
 		}

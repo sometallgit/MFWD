@@ -21,10 +21,23 @@
 		//Run AABB collision detection against complex objects such as the player and hitler and enemies
 		public function resolveCollisions(target)
 		{
-			var collision:Point = testAABB(
+			//TODO: Clean this up
+			if (target is Hitler || target is Player)
+			{
+				var collision:Point = testAABB(
+										x, (x + width), y, (y + height),
+										target.x - (target.width / 2), (target.x + (target.width/2)), (target.y - (target.height/2)), (target.y + (target.height/2))
+									 );
+			}
+			
+			else
+			{
+				var collision:Point = testAABB(
 										x, (x + width), y, (y + height),
 										target.x, (target.x + target.width), target.y, (target.y + target.height)
 									 );
+			}
+			
 			if(collision) 
 			{
 				

@@ -4,6 +4,7 @@
 	import flash.geom.Matrix;
 	import flash.geom.*;
 	import flash.utils.*;
+	//Used for text TODO: Remove - Probably
 	import flash.text.*;
 	import flash.filters.*;
 	
@@ -50,17 +51,20 @@
 		
 		override public function endLevel()
 		{
-			//trace("The current state has no endLevel() defined");
-			Config.getScore(enemiesKilled, levelTime, hitler.health, 1)
-			
+			//Before we transition away from this state, flush the scores to the Config class so they can be retrieved
+			Config.getScore(enemiesKilled, levelTime, hitler.health, 1);
+			//Tell the document class to transition to the next state
 			refToDocClass.changeStateTo(refToDocClass.s_EndLevel, 1);
-
 		}
 		
+		//TODO: Delete me
+		/*
 		override public function reset()
 		{
+			trace("RESET");
 			refToDocClass.reset();
 		}
+		*/
 		
 		//Move through each of the sections on the XML file and push a new instance of what is found into the respective array
 		override public function buildFromXML()

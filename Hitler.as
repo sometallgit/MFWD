@@ -39,6 +39,10 @@
 			x = _x;
 			y = _y;
 			parentState = state;
+			
+			//Mental note: Next project establish a proper scale guide
+			scaleX = 0.75;
+			scaleY = 0.75;
 		}
 		
 		public function init()
@@ -132,6 +136,18 @@
 			parentState.debugText2.y = y;
 			
 			parentState.debugText2.setTextFormat(parentState.debugFormat);
+			
+			//When the player picks up hitler, set him to invisible
+			if (animationState == "L_CARRIED" || animationState == "R_CARRIED")
+			{
+				visible = false;
+			}
+			else
+			{
+				visible = true;;
+				gotoAndPlay(animationState);
+			}
+			
 		}
 		
 		public function carry()
@@ -185,7 +201,7 @@
 			applyForce(0, gravity);
 			
 			//If hitler starts to fall, set grounded to false
-			if (yVelocity > 1) grounded = false;
+			if (yVelocity > 3) grounded = false;
 		}
 		
 		private function updateCollisions()

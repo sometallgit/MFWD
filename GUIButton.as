@@ -1,6 +1,6 @@
 ﻿package
 {
-	import flash.display.MovieClip
+	import flash.display.MovieClip;
 	
 	//I know flash has its own built in button type 
 	
@@ -95,6 +95,7 @@
 				case "MUTE_SOUNDS":
 					//invert mute setting
 					Config.muteSounds = !Config.muteSounds;
+					if (Config.muteSounds) Audio.stopAll();
 				break;
 				case "MUTE_MUSIC":
 					//invert mute setting
