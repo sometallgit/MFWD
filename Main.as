@@ -11,19 +11,12 @@
 	import flash.media.SoundChannel;
 	import flash.media.SoundTransform;
 	
-	//The Newgrounds API
-	import com.newgrounds.*;
-	import com.newgrounds.components.*;
-
 	//Text stuff
 	//TODO: Probably remove this
 	import flash.text.*;
 	
 	public class Main extends MovieClip
 	{
-		//TODO: Probably move this into a static variable in the config class
-		var scoreBrowser:ScoreBrowser = new ScoreBrowser();
-		
 		//Various States for the state machine
 		public var currentState;
 		public var s_Menu;
@@ -31,6 +24,7 @@
 		public var s_LevelTwo;
 		public var s_LevelThree;
 		public var s_EndLevel;
+		public var s_GameOver;
 		
 		public var xmlManager;
 		
@@ -44,9 +38,6 @@
 		
 		public function Main()
 		{	
-			//initialise the newgrounds scorebrowser
-			//scoreBrowser = new ScoreBrowser();
-			
 			xmlManager = new XmlManager(MovieClip(root).levelData, this);
 			//xmlManager.readStage();
 			
@@ -59,6 +50,7 @@
 			s_LevelTwo = new S_LevelTwoState(this);
 			s_LevelThree = new S_LevelThreeState(this);
 			s_EndLevel = new EndLevelState(this);
+			s_GameOver = new S_GameOverState(this);
 			
 			trace("Main Class Instantiated");
 			currentState = s_Menu;
@@ -138,17 +130,14 @@
 			switch(keyEvent.keyCode)
 			{
 				case 65: 
-					API.postScore("FuhrersDayOff", 1);
+					
 					trace("score submitted");
 				break
 				
 				case 66:
 					trace("Showing scores");
 					
-					scoreBrowser.scoreBoardName = "Score Board Name";
-					scoreBrowser.period = ScoreBoard.ALL_TIME;
-					scoreBrowser.loadScores();
-					addChild(scoreBrowser);
+					
 				break;
 			}
 			
@@ -196,6 +185,13 @@
 			}
 			//Reset the endlevel state if changing from there
 			if (currentState is EndLevelState)	s_EndLevel = new EndLevelState(this);
+			
+			//Zero the scores after coming from the game over screen
+			if (currentState is S_GameOverState)
+			{
+				s_GameOver = new S_GameOverState(this);
+				Config.clear();
+			}
 			
 			removeChild(currentState);
 			currentState = newState;

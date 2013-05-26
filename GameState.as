@@ -274,7 +274,12 @@
 				create(item, backgroundArray);
 			}
 			
-			function create(xmlObject, layerArray)
+			addToStage();
+
+		}
+		
+		//Used to build the level arrays
+		public function create(xmlObject, layerArray)
 			{
 				function createAssetGeneric()
 				{
@@ -306,10 +311,6 @@
 					default:	trace("The type '" + xmlObject.@type.toString() + "' is not a recognised type. Add a definition for it.");			break;
 				}
 			}
-			
-			addToStage();
-
-		}
 		
 		//Populate the newly created arrays
 		public function addToStage()

@@ -28,10 +28,12 @@
 			xmlFile = 		<Data>
 								
 								<menu>
+									/*
 									<gui>
 										<button1></button1>									
 										<button2></button2>
 									</gui>
+									*/
 									<art></art>
 									
 								</menu>
@@ -40,11 +42,12 @@
 								</instructions>
 								
 								<level_1>
+									/*
 									<gui>
 										<button1></button1>									
 										<button2></button2>
 									</gui>
-									
+									*/
 									<background></background>
 									<midground></midground>
 									<foreground></foreground>
@@ -55,11 +58,12 @@
 								</level_1>
 								
 								<level_2>
+									/*
 									<gui>
 										<button1></button1>									
 										<button2></button2>
 									</gui>
-									
+									*/
 									<background></background>
 									<midground></midground>
 									<foreground></foreground>
@@ -70,11 +74,12 @@
 								</level_2>
 								
 								<level_3>
+									/*
 									<gui>
 										<button1></button1>									
 										<button2></button2>
 									</gui>
-									
+									*/
 									<background></background>
 									<midground></midground>
 									<foreground></foreground>
@@ -101,8 +106,8 @@
 			
 			function checkType(stageAddress, xmlAddress)
 			{
-				if (stageAddress.getChildAt(i) is Button1)		appendXML("Button1", stageAddress, xmlAddress);
-				if (stageAddress.getChildAt(i) is Button2)		appendXML("Button2", stageAddress, xmlAddress);
+				//if (stageAddress.getChildAt(i) is Button1)		appendXML("Button1", stageAddress, xmlAddress);
+				//if (stageAddress.getChildAt(i) is Button2)		appendXML("Button2", stageAddress, xmlAddress);
 				if (stageAddress.getChildAt(i) is Asset00)		appendXML("Asset00", stageAddress, xmlAddress);
 				if (stageAddress.getChildAt(i) is Asset01)		appendXML("Asset01", stageAddress, xmlAddress);
 				if (stageAddress.getChildAt(i) is Asset02)		appendXML("Asset02", stageAddress, xmlAddress);
@@ -151,7 +156,7 @@
 			{
 				object = 	<object>
 							</object>
-				
+				/*
 				//==========================================
 				//================Button01==================
 				//==========================================
@@ -161,6 +166,7 @@
 				//================Button02==================
 				//==========================================
 				if (refToStage.menu.getChildAt(i) is Button2)					{					appendXML("Button2", refToStage.menu, xmlFile.menu.gui.button2);			}
+				*/
 			}
 			
 			//==========================================
@@ -236,7 +242,7 @@
 							</object>
 				
 				//==========================================
-				//================Midground==================
+				//================Midground=================
 				//==========================================
 				checkType(refToStage.level2, xmlFile.level_2.midground);
 				

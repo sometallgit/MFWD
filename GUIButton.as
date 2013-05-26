@@ -2,7 +2,7 @@
 {
 	import flash.display.MovieClip;
 	
-	//I know flash has its own built in button type 
+	//I know flash has its own built in button type but I'm too lazy to figure it out
 	
 	public class GUIButton extends MovieClip
 	{
@@ -13,17 +13,16 @@
 		private var pressed:Boolean = false;
 		public var startX;
 		public var startY;
-		
 		public var soundPlayed:Boolean = false;
 		
+		//Assign the newly created button with a function and a movielip
+		//TODO: Mouseover States
 		public function GUIButton(documentClass, f, c)
 		{
 			refToDocClass = documentClass
 			func = f;
 			clip = c;
-			
 			addChild(clip);
-			
 			startX = x;
 			startY = y;
 		}
@@ -32,7 +31,6 @@
 		{
 			//Update buttons to stay on their relative coordinates
 			x = startX + -refToDocClass.currentState.x;
-
 			
 			//if ((mouseX + -refToDocClass.currentState.x) > x && ((mouseX + -refToDocClass.currentState.x) < (x + width)) && mouseY > y && mouseY < y + height) - //Old method of testing for the mouse only worked if the x and y of the button wasn't changed
 			if (this.hitTestPoint((mouseX + x - (-refToDocClass.currentState.x)), (mouseY + y)))
@@ -49,31 +47,14 @@
 				mouseHover = false;
 				soundPlayed = false;
 			}
-			
-			//Testing
-			//if (func == "MUTE_SOUNDS")
-			//{
-				//trace("x1: " + startX + ", x2: " + (startX + width));
-				//trace(mouseX + x - (-refToDocClass.currentState.x));
-			//}
 		}
-		
+		//Called whenever the parent state's event listener detects a mousedown event
 		public function mousePressed()
 		{
 			if (this.hitTestPoint((mouseX + x - (-refToDocClass.currentState.x)), (mouseY + y)))
 			{
 				doFunction();
-			}
-			
-			//if ((((mouseX + x) + (startX - x) + (-refToDocClass.currentState.x)) > x) && (((mouseX + x) + (-refToDocClass.currentState.x)) < (x + width)) && mouseY > y && mouseY < y + height)
-			//{
-				//doFunction();
-			//}
-			//if (this.hitTestPoint((mouseX + x), (mouseY + y)))
-			//{
-				//doFunction();
-			//}
-			
+			}	
 		}
 		
 		private function doFunction()
@@ -107,8 +88,6 @@
 					trace("Button Error in doFunction()");
 				break;
 			}
-			
 		}
-		
 	}
 }

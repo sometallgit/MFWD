@@ -4,6 +4,10 @@
 
 	import flash.net.*;	
 	
+	//The Newgrounds API
+	import com.newgrounds.*;
+	import com.newgrounds.components.*;
+	
 // parameters that could be added
 //		retrigger : when called a 2nd time while already playing : restart (stops current), ignore (let current play), overlap (start multiple instances)
 //		memory : resident (load at startup), demand (load when needed and keep), purge (on complete)
@@ -11,32 +15,39 @@
 
 	public class Config
 	{
+		//initialise the newgrounds scorebrowser
+		public static var scoreBrowser:ScoreBrowser = new ScoreBrowser();
+		
 		//Global flag for muting sounds
 		public static var muteSounds:Boolean = false;
 		public static var muteMusic:Boolean = false;
 		//store the audio channel for the music so it can be stopped at any time
 		public static var musicTracker;
 		
+		//The variables that the score is calculated with for level 1
 		public static var enemiesKilledLevel1:int = 0;
 		public static var completionTimeLevel1:int = 0;
 		public static var hitlerHealthLevel1:int = 0;
-		
+		//The variables that the score is calculated with for level 2
 		public static var enemiesKilledLevel2:int = 0;
 		public static var completionTimeLevel2:int = 0;
 		public static var hitlerHealthLevel2:int = 0;
-		
+		//The variables that the score is calculated with for level 3
 		public static var enemiesKilledLevel3:int = 0;
 		public static var completionTimeLevel3:int = 0;
 		public static var hitlerHealthLevel3:int = 0;
 		
+		//Temporary variables that take the information from one of the level states and are copied to the variables above
 		public static const enemyKilledPoint = 10;
 		public static const timeScore = 1;
 		public static const healthScore = 1;
 		
-		public static var totalScore;
+		public static var totalScore:int = 0;
 		
+		//TODO: Check this is called
 		public static function clear()
 		{
+			trace("CLEAR() HAS BEEN CALLED AND IS NOT A DUD FUNCTION");
 			enemiesKilledLevel1 = 0;
 			completionTimeLevel1 = 0;
 			hitlerHealthLevel1 = 0;
@@ -48,6 +59,8 @@
 			enemiesKilledLevel3 = 0;
 			completionTimeLevel3 = 0;
 			hitlerHealthLevel3 = 0;
+			
+			totalScore = 0;
 		}
 		
 		public static function getScore(e, c, h, l:int)

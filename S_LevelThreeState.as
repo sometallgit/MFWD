@@ -70,6 +70,7 @@
 		override public function buildFromXML()
 		{
 			var item:XML;
+			/*
 			for each(item in refToDocClass.xmlManager.xmlFile.level_3.gui.button1.object) 
 			{ 
 				create(item, midgroundArray);
@@ -79,7 +80,7 @@
 			{ 
 				create(item, midgroundArray);
 			}
-			
+			*/
 			for each(item in refToDocClass.xmlManager.xmlFile.level_3.midground.object) 
 			{ 
 				create(item, midgroundArray);
@@ -119,39 +120,6 @@
 			for each(item in refToDocClass.xmlManager.xmlFile.level_3.background.object) 
 			{ 
 				create(item, backgroundArray);
-			}
-			
-			function create(xmlObject, layerArray)
-			{
-				function createAssetGeneric()
-				{
-					layerArray[layerArray.length-1].transform.matrix = new Matrix(	  layerArray[layerArray.length-1].transform.matrix.a = xmlObject.@matrixA,
-																					  layerArray[layerArray.length-1].transform.matrix.b = xmlObject.@matrixB,
-																					  layerArray[layerArray.length-1].transform.matrix.c = xmlObject.@matrixC,
-																					  layerArray[layerArray.length-1].transform.matrix.d = xmlObject.@matrixD,
-																					  layerArray[layerArray.length-1].transform.matrix.tx = xmlObject.@matrixTX,
-																					  layerArray[layerArray.length-1].transform.matrix.ty = xmlObject.@matrixTY)
-					layerArray[layerArray.length-1].cacheAsBitmap = true;
-				}
-				
-				
-				switch(xmlObject.@type.toString())
-				{
-					case "Button1":						layerArray.push(new Button1());						createAssetGeneric();					break;
-					case "Button2":						layerArray.push(new Button2());						createAssetGeneric();					break;
-					case "StoppingPoint":				layerArray.push(new StoppingPoint());				createAssetGeneric();					break;
-					case "Asset00":						layerArray.push(new Asset00());						createAssetGeneric();					break;
-					case "Asset01":						layerArray.push(new Asset01());						createAssetGeneric();					break;
-					case "Asset02":						layerArray.push(new Asset02());						createAssetGeneric();					break;
-					case "Asset03":						layerArray.push(new Asset03());						createAssetGeneric();					break;
-					case "Asset04":						layerArray.push(new Asset04());						createAssetGeneric();					break;
-					case "Asset05":						layerArray.push(new Asset05());						createAssetGeneric();					break;
-					case "Asset06":						layerArray.push(new Asset06());						createAssetGeneric();					break;
-					case "Asset07":						layerArray.push(new Asset07());						createAssetGeneric();					break;
-					case "Asset08":						layerArray.push(new Asset08());						createAssetGeneric();					break;
-					case "Asset09":						layerArray.push(new Asset09());						createAssetGeneric();					break;
-					default:	trace("The type '" + xmlObject.@type.toString() + "' is not a recognised type. Add a definition for it.");			break;
-				}
 			}
 			
 			addToStage();

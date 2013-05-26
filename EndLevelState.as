@@ -153,8 +153,8 @@
 					break;
 					
 					case 4:
-						totalText.text = "Total: " + ((enemiesKilledLevel * 10) + hitlerHealthLevel + (completionTimeLevel / 1000)).toString();
-						Config.totalScore += enemiesKilledLevel + hitlerHealthLevel + (completionTimeLevel / 1000);
+						totalText.text = "Total: " + int(((enemiesKilledLevel * 10) + hitlerHealthLevel + (completionTimeLevel / 1000))).toString();
+						Config.totalScore += int((enemiesKilledLevel * 10) + hitlerHealthLevel + (completionTimeLevel / 1000));
 						//if counting is done, let the player advance
 						counterFinished = true;
 						//increment the textIndex to stop score retallying
@@ -197,10 +197,8 @@
 				break;
 				
 				case 3:
-					//TODO: Transition to game over screen
-					trace("Insert transition to game over screen");
-					//Take me back to the menu temporarily 
-					refToDocClass.changeStateTo(refToDocClass.s_Menu);
+					//Transition to game over screen
+					refToDocClass.changeStateTo(refToDocClass.s_GameOver);
 				break;
 				
 				default:

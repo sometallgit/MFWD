@@ -1,6 +1,6 @@
 ﻿package
 {
-	
+	//TODO: Clean this up
 	import flash.display.MovieClip;
 	
 	public class S_MenuState extends StateMachine
@@ -72,6 +72,7 @@
 			{
 				switch(xmlObject.@type.toString())
 				{
+					/*
 					case "Button1":
 						testArray.push(new Button1());
 						testArray[testArray.length-1].x = xmlObject.@x;
@@ -85,6 +86,7 @@
 					case "dog":
 						trace("dog");
 					break;
+					*/
 					default:
 						trace("The type '" + xmlObject.@type.toString() + "' is not a recognised type. Add a definition for it.");
 					break;
