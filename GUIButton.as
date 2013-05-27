@@ -47,6 +47,9 @@
 				mouseHover = false;
 				soundPlayed = false;
 			}
+			
+			if (mouseHover) clip.gotoAndStop("2");
+			else clip.gotoAndStop("1");
 		}
 		//Called whenever the parent state's event listener detects a mousedown event
 		public function mousePressed()
@@ -67,8 +70,13 @@
 				case "ENTER_MENU":
 					refToDocClass.changeStateTo(refToDocClass.s_Menu);
 				break;
-				case "ENTER_INSTRUCTIONS":
-					//do this
+				case "ENTER_HELP":
+					//Enter the help menu
+					refToDocClass.changeStateTo(refToDocClass.s_Help);
+				break;
+				case "ENTER_CREDITS":
+					//Enter the credits menu
+					refToDocClass.changeStateTo(refToDocClass.s_Credits);
 				break;
 				case "ENTER_GAME":
 					refToDocClass.changeStateTo(refToDocClass.s_LevelOne);
@@ -81,9 +89,10 @@
 				case "MUTE_MUSIC":
 					//invert mute setting
 					Config.muteMusic = !Config.muteMusic;
-					if (Config.muteMusic) Config.musicTracker = Audio.play("music");
+					if (!Config.muteMusic) Config.musicTracker = Audio.play("music");
 					else Audio.stop(Config.musicTracker);
 				break;
+				
 				default:
 					trace("Button Error in doFunction()");
 				break;

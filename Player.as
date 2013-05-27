@@ -11,7 +11,6 @@
 		public var attackFinished:Boolean = true;
 		public var animationBeforeAttack;
 		public var currentWeapon;
-		
 		public var xVelocity:Number = 0;
 		public var yVelocity:Number = 0;
 		private var maxVelocity:Number = 16;
@@ -162,6 +161,7 @@
 		
 		public function attack()
 		{
+			if (parentState.hitler.isCarried) return;
 			currentWeapon.fire();
 			
 			//Override the current animation checking with an immediate attack animation and record what the animation was before the attack started

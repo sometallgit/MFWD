@@ -19,15 +19,21 @@
 			
 			//Initialise Hitler
 			hitler = new Hitler(40, 40, this);
-			
+			hud = new HUD(this);
 			enemies.push(new Enemy(this, hitler));
 			enemies.push(new Enemy(this, hitler));
 			enemies.push(new Enemy(this, hitler));
 			
 			button = new GUIButton(refToDocClass, "ENTER_MENU", new Button1());
-			muteSoundButton = new GUIButton(refToDocClass, "MUTE_SOUNDS", new Button1());
-			muteSoundButton.x = 400;
-			muteSoundButton.startX = 400;
+			muteSoundButton = new GUIButton(refToDocClass, "MUTE_SOUNDS", new ButtonSound());
+			muteSoundButton.x = 727.8;
+			muteSoundButton.startX = 727.8;
+			muteSoundButton.y = 14.6;
+			
+			muteMusicButton = new GUIButton(refToDocClass, "MUTE_MUSIC", new ButtonMusic());
+			muteMusicButton.x = 662.8;
+			muteMusicButton.startX = 662.8;
+			muteMusicButton.y = 14.6;
 			
 			debugFormat.align = TextFormatAlign.CENTER;
 			debugFormat.size = 20;
@@ -57,29 +63,11 @@
 			refToDocClass.changeStateTo(refToDocClass.s_EndLevel, 2);
 		}
 		
-		//TODO: Delete me
-		/*
-		override public function reset()
-		{
-			refToDocClass.reset();
-		}
-		*/
-		
 		//Move through each of the sections on the XML file and push a new instance of what is found into the respective array
 		override public function buildFromXML()
 		{
 			var item:XML;
-			/*
-			for each(item in refToDocClass.xmlManager.xmlFile.level_2.gui.button1.object) 
-			{ 
-				create(item, midgroundArray);
-			}
-			//button2
-			for each(item in refToDocClass.xmlManager.xmlFile.level_2.gui.button2.object) 
-			{ 
-				create(item, midgroundArray);
-			}
-			*/
+
 			for each(item in refToDocClass.xmlManager.xmlFile.level_2.midground.object) 
 			{ 
 				create(item, midgroundArray);
@@ -115,6 +103,12 @@
 				create(item, staticForegroundArray);
 			}
 			
+			//static background
+			for each(item in refToDocClass.xmlManager.xmlFile.level_2.static_background.object) 
+			{ 
+				create(item, staticBackgroundArray);
+			}
+			
 			//background
 			for each(item in refToDocClass.xmlManager.xmlFile.level_2.background.object) 
 			{ 
@@ -127,6 +121,5 @@
 			setChildIndex(debugText3, getChildIndex(player));
 
 		}
-		
 	}
 }

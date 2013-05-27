@@ -22,6 +22,7 @@
 		public var jumpTriggerArray:Array = new Array();
 		public var foregroundArray:Array = new Array();
 		public var staticForegroundArray:Array = new Array(); //Non parallaxing layer
+		public var staticBackgroundArray:Array = new Array(); //Non parallaxing layer
 		public var midgroundArray:Array = new Array();
 		public var backgroundArray:Array = new Array();
 		public var stoppingPointArray:Array = new Array();
@@ -33,8 +34,11 @@
 		
 		public var button;
 		public var muteSoundButton;
+		public var muteMusicButton;
 		public var player;
 		public var hitler;
+		
+		public var hud; 
 		
 		//Text object used for debugging
 		public var debugFormat:TextFormat = new TextFormat();
@@ -61,10 +65,11 @@
 			//button = new GUIButton(refToDocClass, "ENTER_MENU", new Button1());
 			muteSoundButton = new GUIButton(refToDocClass, "MUTE_SOUNDS", new Button1());
 			muteSoundButton.x = 400;
-			
+			hud = new HUD(this);
 			
 		}
 		
+		/*
 		public function reset()
 		{
 			currentTime = getTimer();
@@ -80,6 +85,7 @@
 			removeChild(hitler);
 			removeChild(player);
 			for (i = 0; i < staticForegroundArray.length; i++)	{				removeChild(staticForegroundArray[i]);	}
+			for (i = 0; i < staticBackgroundArray.length; i++)	{				removeChild(staticBackgroundArray[i]);	}
 			for (i = 0; i < foregroundArray.length; i++)		{				removeChild(foregroundArray[i]);		}
 			for (i = 0; i < bullets.length; i++)				{				removeChild(bullets[i]);				}
 			
@@ -87,6 +93,7 @@
 			jumpTriggerArray = new Array();
 			foregroundArray = new Array();
 			staticForegroundArray = new Array(); //Non parallaxing layer
+			staticBackgroundArray = new Array(); //Non parallaxing layer
 			midgroundArray = new Array();
 			backgroundArray = new Array();
 			stoppingPointArray = new Array();
@@ -108,6 +115,7 @@
 			
 			buildFromXML();
 		}
+		*/
 		
 		override public function update()
 		{
@@ -120,6 +128,7 @@
 			
 			player.update();
 			hitler.update();
+			hud.update();
 			for(i = 0; i < enemies.length; i++)
 			{
 				enemies[i].update();
@@ -127,6 +136,7 @@
 			updateScroll();
 			button.update(mouseIsPressed);
 			muteSoundButton.update(mouseIsPressed);
+			muteMusicButton.update(mouseIsPressed);
 			
 			for(i = 0; i < droppedWeapons.length; i++)
 			{
@@ -135,7 +145,12 @@
 			//parent.setChildIndex(MovieClip(root).debugText1, 7)
 			//parent.setChildIndex(MovieClip(root).debugText2, 7)
 			//parent.setChildIndex(MovieClip(root).debugText3, 7)
-			
+		}
+		
+		//Reset the start time for the level
+		public function resetLevelTimer()
+		{
+			startTime = getTimer();
 		}
 		
 		//Get player input
@@ -168,6 +183,7 @@
 		{
 			button.mousePressed();
 			muteSoundButton.mousePressed();
+			muteMusicButton.mousePressed();
 		}
 		
 		//When an enemy is killed, instantiate a new dropped weapon with the type of what they were carrying. With the exception of the knife
@@ -182,13 +198,6 @@
 		
 		override public function endLevel()
 		{
-			//trace("The current state has no endLevel() defined");
-			//Config.getScore(enemiesKilled, levelTime, hitler.health)
-			
-			//if (this is S_LevelOneState)
-			//{
-				//refToDocClass.changeStateTo(refToDocClass.s_Menu);
-			//}
 		}
 		
 		public function updateScroll()
@@ -207,6 +216,12 @@
 			function updateParallax(moveAmount)
 			{
 				var i:int = 0;
+				hud.x -= moveAmount;
+				for (i = 0; i < staticBackgroundArray.length; i++)
+				{
+					staticBackgroundArray[i].x -= moveAmount;
+				}
+				
 				for (i = 0; i < backgroundArray.length; i++)
 				{
 					backgroundArray[i].x -= moveAmount*0.3;
@@ -222,60 +237,7 @@
 		//Move through each of the sections on the XML file and push a new instance of what is found into the respective array
 		public function buildFromXML()
 		{
-			var item:XML;
-			for each(item in refToDocClass.xmlManager.xmlFile.level_1.gui.button1.object) 
-			{ 
-				create(item, midgroundArray);
-			}
-			//button2
-			for each(item in refToDocClass.xmlManager.xmlFile.level_1.gui.button2.object) 
-			{ 
-				create(item, midgroundArray);
-			}
-			
-			for each(item in refToDocClass.xmlManager.xmlFile.level_1.midground.object) 
-			{ 
-				create(item, midgroundArray);
-			}
-			
-			//stopping point
-			for each(item in refToDocClass.xmlManager.xmlFile.level_1.stop_point.object) 
-			{ 
-				create(item, stoppingPointArray);
-			}
-			
-			//CollisionBoundingBox
-			for each(item in refToDocClass.xmlManager.xmlFile.level_1.collision.object) 
-			{ 
-				barrierArray.push(new Barrier(item.@x, item.@y, item.@width, item.@height))
-			}
-			
-			//JumpTrigger
-			for each(item in refToDocClass.xmlManager.xmlFile.level_1.jump_trigger.object) 
-			{ 
-				jumpTriggerArray.push(new JumpTrigger(item.@x, item.@y, item.@width, item.@height))
-			}
-			
-			//foreground
-			for each(item in refToDocClass.xmlManager.xmlFile.level_1.foreground.object) 
-			{ 
-				create(item, foregroundArray);
-			}
-			
-			//static foreground
-			for each(item in refToDocClass.xmlManager.xmlFile.level_1.static_foreground.object) 
-			{ 
-				create(item, staticForegroundArray);
-			}
-			
-			//background
-			for each(item in refToDocClass.xmlManager.xmlFile.level_1.background.object) 
-			{ 
-				create(item, backgroundArray);
-			}
-			
 			addToStage();
-
 		}
 		
 		//Used to build the level arrays
@@ -292,7 +254,7 @@
 					layerArray[layerArray.length-1].cacheAsBitmap = true;
 				}
 				
-				
+				//...Yeah... I know what you're thinking. It makes me cry too.
 				switch(xmlObject.@type.toString())
 				{
 					case "Button1":						layerArray.push(new Button1());						createAssetGeneric();					break;
@@ -308,6 +270,95 @@
 					case "Asset07":						layerArray.push(new Asset07());						createAssetGeneric();					break;
 					case "Asset08":						layerArray.push(new Asset08());						createAssetGeneric();					break;
 					case "Asset09":						layerArray.push(new Asset09());						createAssetGeneric();					break;
+					case "Asset10":						layerArray.push(new Asset10());						createAssetGeneric();					break;
+					case "Asset11":						layerArray.push(new Asset11());						createAssetGeneric();					break;
+					case "Asset12":						layerArray.push(new Asset12());						createAssetGeneric();					break;
+					case "Asset13":						layerArray.push(new Asset13());						createAssetGeneric();					break;
+					case "Asset14":						layerArray.push(new Asset14());						createAssetGeneric();					break;
+					case "Asset15":						layerArray.push(new Asset15());						createAssetGeneric();					break;
+					case "Asset16":						layerArray.push(new Asset16());						createAssetGeneric();					break;
+					case "Asset17":						layerArray.push(new Asset17());						createAssetGeneric();					break;
+					case "Asset18":						layerArray.push(new Asset18());						createAssetGeneric();					break;
+					case "Asset19":						layerArray.push(new Asset19());						createAssetGeneric();					break;
+					case "Asset20":						layerArray.push(new Asset20());						createAssetGeneric();					break;
+					case "Asset21":						layerArray.push(new Asset21());						createAssetGeneric();					break;
+					case "Asset22":						layerArray.push(new Asset22());						createAssetGeneric();					break;
+					case "Asset23":						layerArray.push(new Asset23());						createAssetGeneric();					break;
+					case "Asset24":						layerArray.push(new Asset24());						createAssetGeneric();					break;
+					case "Asset25":						layerArray.push(new Asset25());						createAssetGeneric();					break;
+					case "Asset26":						layerArray.push(new Asset26());						createAssetGeneric();					break;
+					case "Asset27":						layerArray.push(new Asset27());						createAssetGeneric();					break;
+					case "Asset28":						layerArray.push(new Asset28());						createAssetGeneric();					break;
+					case "Asset29":						layerArray.push(new Asset29());						createAssetGeneric();					break;
+					case "Asset30":						layerArray.push(new Asset30());						createAssetGeneric();					break;
+					case "Asset31":						layerArray.push(new Asset31());						createAssetGeneric();					break;
+					case "Asset32":						layerArray.push(new Asset32());						createAssetGeneric();					break;
+					case "Asset33":						layerArray.push(new Asset33());						createAssetGeneric();					break;
+					case "Asset34":						layerArray.push(new Asset34());						createAssetGeneric();					break;
+					case "Asset35":						layerArray.push(new Asset35());						createAssetGeneric();					break;
+					case "Asset36":						layerArray.push(new Asset36());						createAssetGeneric();					break;
+					case "Asset37":						layerArray.push(new Asset37());						createAssetGeneric();					break;
+					case "Asset38":						layerArray.push(new Asset38());						createAssetGeneric();					break;
+					case "Asset39":						layerArray.push(new Asset39());						createAssetGeneric();					break;
+					case "Asset40":						layerArray.push(new Asset40());						createAssetGeneric();					break;
+					case "Asset41":						layerArray.push(new Asset41());						createAssetGeneric();					break;
+					case "Asset42":						layerArray.push(new Asset42());						createAssetGeneric();					break;
+					case "Asset43":						layerArray.push(new Asset43());						createAssetGeneric();					break;
+					case "Asset44":						layerArray.push(new Asset44());						createAssetGeneric();					break;
+					case "Asset45":						layerArray.push(new Asset45());						createAssetGeneric();					break;
+					case "Asset46":						layerArray.push(new Asset46());						createAssetGeneric();					break;
+					case "Asset47":						layerArray.push(new Asset47());						createAssetGeneric();					break;
+					case "Asset48":						layerArray.push(new Asset48());						createAssetGeneric();					break;
+					case "Asset49":						layerArray.push(new Asset49());						createAssetGeneric();					break;
+					case "Asset50":						layerArray.push(new Asset50());						createAssetGeneric();					break;
+					case "Asset51":						layerArray.push(new Asset51());						createAssetGeneric();					break;
+					case "Asset52":						layerArray.push(new Asset52());						createAssetGeneric();					break;
+					case "Asset53":						layerArray.push(new Asset53());						createAssetGeneric();					break;
+					case "Asset54":						layerArray.push(new Asset54());						createAssetGeneric();					break;
+					case "Asset55":						layerArray.push(new Asset55());						createAssetGeneric();					break;
+					case "Asset56":						layerArray.push(new Asset56());						createAssetGeneric();					break;
+					case "Asset57":						layerArray.push(new Asset57());						createAssetGeneric();					break;
+					case "Asset58":						layerArray.push(new Asset58());						createAssetGeneric();					break;
+					case "Asset59":						layerArray.push(new Asset59());						createAssetGeneric();					break;
+					case "Asset60":						layerArray.push(new Asset60());						createAssetGeneric();					break;
+					case "Asset61":						layerArray.push(new Asset61());						createAssetGeneric();					break;
+					case "Asset62":						layerArray.push(new Asset62());						createAssetGeneric();					break;
+					case "Asset63":						layerArray.push(new Asset63());						createAssetGeneric();					break;
+					case "Asset64":						layerArray.push(new Asset64());						createAssetGeneric();					break;
+					case "Asset65":						layerArray.push(new Asset65());						createAssetGeneric();					break;
+					case "Asset66":						layerArray.push(new Asset66());						createAssetGeneric();					break;
+					case "Asset67":						layerArray.push(new Asset67());						createAssetGeneric();					break;
+					case "Asset68":						layerArray.push(new Asset68());						createAssetGeneric();					break;
+					case "Asset69":						layerArray.push(new Asset69());						createAssetGeneric();					break;
+					case "Asset70":						layerArray.push(new Asset70());						createAssetGeneric();					break;
+					case "Asset71":						layerArray.push(new Asset71());						createAssetGeneric();					break;
+					case "Asset72":						layerArray.push(new Asset72());						createAssetGeneric();					break;
+					case "Asset73":						layerArray.push(new Asset73());						createAssetGeneric();					break;
+					case "Asset74":						layerArray.push(new Asset74());						createAssetGeneric();					break;
+					case "Asset75":						layerArray.push(new Asset75());						createAssetGeneric();					break;		
+					case "Asset76":						layerArray.push(new Asset76());						createAssetGeneric();					break;
+					/*case "Asset77":						layerArray.push(new Asset77());						createAssetGeneric();					break;
+					case "Asset78":						layerArray.push(new Asset78());						createAssetGeneric();					break;
+					case "Asset79":						layerArray.push(new Asset79());						createAssetGeneric();					break;
+					case "Asset80":						layerArray.push(new Asset80());						createAssetGeneric();					break;
+					case "Asset81":						layerArray.push(new Asset81());						createAssetGeneric();					break;
+					case "Asset82":						layerArray.push(new Asset82());						createAssetGeneric();					break;
+					case "Asset83":						layerArray.push(new Asset83());						createAssetGeneric();					break;
+					case "Asset84":						layerArray.push(new Asset84());						createAssetGeneric();					break;
+					case "Asset85":						layerArray.push(new Asset85());						createAssetGeneric();					break;
+					case "Asset86":						layerArray.push(new Asset86());						createAssetGeneric();					break;
+					case "Asset87":						layerArray.push(new Asset87());						createAssetGeneric();					break;
+					case "Asset88":						layerArray.push(new Asset88());						createAssetGeneric();					break;
+					case "Asset89":						layerArray.push(new Asset89());						createAssetGeneric();					break;
+					case "Asset90":						layerArray.push(new Asset90());						createAssetGeneric();					break;
+					case "Asset91":						layerArray.push(new Asset91());						createAssetGeneric();					break;
+					case "Asset92":						layerArray.push(new Asset92());						createAssetGeneric();					break;
+					case "Asset93":						layerArray.push(new Asset93());						createAssetGeneric();					break;
+					case "Asset94":						layerArray.push(new Asset94());						createAssetGeneric();					break;
+					case "Asset95":						layerArray.push(new Asset95());						createAssetGeneric();					break;
+					case "Asset96":						layerArray.push(new Asset96());						createAssetGeneric();					break;
+					case "Asset97":						layerArray.push(new Asset97());						createAssetGeneric();					break;
+					*/
 					default:	trace("The type '" + xmlObject.@type.toString() + "' is not a recognised type. Add a definition for it.");			break;
 				}
 			}
@@ -316,6 +367,12 @@
 		public function addToStage()
 		{
 			var i:int = 0;
+			
+			for (i = 0; i < staticBackgroundArray.length; i++)
+			{
+				addChild(staticBackgroundArray[i]);
+			}
+			
 			for (i = 0; i < backgroundArray.length; i++)
 			{
 				addChild(backgroundArray[i]);
@@ -351,8 +408,8 @@
 			
 			addChild(button);
 			addChild(muteSoundButton);
-			
+			addChild(muteMusicButton);
+			addChild(hud);
 		}
-		
 	}
 }

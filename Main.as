@@ -20,6 +20,8 @@
 		//Various States for the state machine
 		public var currentState;
 		public var s_Menu;
+		public var s_Help;
+		public var s_Credits;
 		public var s_LevelOne;
 		public var s_LevelTwo;
 		public var s_LevelThree;
@@ -51,6 +53,8 @@
 			s_LevelThree = new S_LevelThreeState(this);
 			s_EndLevel = new EndLevelState(this);
 			s_GameOver = new S_GameOverState(this);
+			s_Help = new S_HelpState(this);
+			s_Credits = new S_CreditsState(this);
 			
 			trace("Main Class Instantiated");
 			currentState = s_Menu;
@@ -201,11 +205,24 @@
 			if (currentState is EndLevelState) currentState.buildScore(index);
 			
 			//Start the music at the beginning of a level
-			if (currentState is S_LevelOneState) Config.musicTracker = Audio.play("music");
-			if (currentState is S_LevelTwoState) Config.musicTracker = Audio.play("music");
-			if (currentState is S_LevelThreeState) Config.musicTracker = Audio.play("music");
+			if (currentState is S_LevelOneState)
+			{
+				Config.musicTracker = Audio.play("music");
+				currentState.resetLevelTimer()
+			}
+			if (currentState is S_LevelTwoState) 
+			{
+				Config.musicTracker = Audio.play("music");
+				currentState.resetLevelTimer()
+			}
+			if (currentState is S_LevelThreeState) 
+			{
+				Config.musicTracker = Audio.play("music");
+				currentState.resetLevelTimer()
+			}
 		}
 		
+		/*
 		//TODO: Remove this if needed
 		public function reset()
 		{
@@ -230,6 +247,6 @@
 			trace("fire sound complete");
 			soundComplete = true;
 		}
-		
+		*/
 	}
 }

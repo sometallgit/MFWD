@@ -24,6 +24,8 @@
 		private var currentTime:int;
 		private var scoreIncrementTime:int;
 		
+		private var scoreBackground;
+		
 		//Which is the next text item to be updated
 		private var textIndex:int = 0;
 		
@@ -50,6 +52,7 @@
 			
 			scoreFormat.align = TextFormatAlign.CENTER;
 			scoreFormat.size = 20;
+			scoreFormat.color = 0xFFFFFF;
 			
 			enemiesKilledText.text = "Enemies Killed: 0";
 			completionTimeText.text = "Completion Time: 0";
@@ -72,6 +75,9 @@
 			advanceText.width = 800;
 			advanceText.y = 400;
 			
+			scoreBackground = new ScoreBackground();
+			
+			addChild(scoreBackground);
 			addChild(enemiesKilledText);
 			addChild(completionTimeText);
 			addChild(hitlerHealthText);
@@ -99,7 +105,7 @@
 				break;
 				
 				case 3:
-					enemiesKilledLevel = Config.enemiesKilledLevel2;
+					enemiesKilledLevel = Config.enemiesKilledLevel3;
 					completionTimeLevel = Config.completionTimeLevel3;
 					hitlerHealthLevel = Config.hitlerHealthLevel3;
 					levelIndex = 3;
@@ -161,7 +167,7 @@
 						textIndex++;
 						
 						//Let the player know they can advance
-						advanceText.text = "Press any key... Or not, I'm not the boss of you..."
+						advanceText.text = "Press any key to advance..."
 						Audio.play("score_final");
 					break;
 				}

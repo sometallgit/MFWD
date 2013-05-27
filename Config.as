@@ -38,6 +38,7 @@
 		public static var hitlerHealthLevel3:int = 0;
 		
 		//Temporary variables that take the information from one of the level states and are copied to the variables above
+		//TODO: No they're not. I don't think these are even used
 		public static const enemyKilledPoint = 10;
 		public static const timeScore = 1;
 		public static const healthScore = 1;
