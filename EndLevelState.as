@@ -3,7 +3,7 @@
 	import flash.display.MovieClip;
 	import flash.utils.*;
 	import flash.text.*;
-	
+		
 	public class EndLevelState extends StateMachine
 	{
 		//How it knows which score to pull from the config
@@ -29,18 +29,6 @@
 		//Which is the next text item to be updated
 		private var textIndex:int = 0;
 		
-		//private var enemiesKilledLevel1;
-		//private var completionTimeLevel1;
-		//private var hitlerHealthLevel1;
-
-		//private var enemiesKilledLevel2;
-		//private var completionTimeLevel2;
-		//private var hitlerHealthLevel2;
-			
-		//private var enemiesKilledLevel3;
-		//private var completionTimeLevel3;
-		//private var hitlerHealthLevel3;
-		
 		private var counterFinished:Boolean;
 		
 		public function EndLevelState(documentClass)
@@ -59,7 +47,6 @@
 			hitlerHealthText.text = "Health Remaining: 0";
 			totalText.text = "Total: 0";
 
-			
 			enemiesKilledText.width = 800;
 			enemiesKilledText.y = 80;
 			
@@ -189,7 +176,6 @@
 		
 		override public function keyPressed(key)
 		{
-			//trace("level change");
 			if (!counterFinished) return;
 			//Advance to next level
 			switch(levelIndex)
@@ -208,8 +194,8 @@
 				break;
 				
 				default:
-					refToDocClass.changeStateTo(refToDocClass.s_LevelTwo);
-					//trace("end level state error");
+					//refToDocClass.changeStateTo(refToDocClass.s_LevelTwo);
+					trace("end level state error");
 				break;
 			}
 		}

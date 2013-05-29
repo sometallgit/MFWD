@@ -51,14 +51,6 @@
 		{
 			if (!instance) instance = new Audio();
 		}
-
-		
-		//public static function playSound(numVariations:int = 0)
-		//{
-			//var r = int(Math.random()*numVariations);
-			
-			//name += "_" + r; 
-		//}
 		
 		// create the audio manager object
 		// this follows a "Singleton" pattern
@@ -166,7 +158,8 @@
 		{
 			trace ("loading audio config");
 			audioConfigLoader = new URLLoader();
-			audioConfigLoader.load(new URLRequest("data/audio.xml"));
+			if (Main.loadFromNet) audioConfigLoader.load(new URLRequest("https://dl.dropboxusercontent.com/s/55g755xojlq0z2n/audio.xml?token_hash=AAGzVcD4PLaoAnQN8yhe0o1uKgRJ7-KA91hk5_0x3JprfQ&dl=1"));
+			//if (!Main.loadFromNet) audioConfigLoader.load(new URLRequest("data/audio.xml"));
 			audioConfigLoader.addEventListener(Event.COMPLETE, loadAudioConfigDone);
 		}
 
@@ -208,7 +201,8 @@
 			for (var key in sampleConfig)
 			{
 				trace (key + "  :: " + sampleConfig[key].file + " VOL:" + sampleConfig[key].volume);
-				var path = "data/audio/" + sampleConfig[key].file;
+				if (Main.loadFromNet) var path = sampleConfig[key].url;
+				//if (!Main.loadFromNet) var path = "data/audio/" + sampleConfig[key].file;
 				var sound = new Sound();
 				loadSoundFromFile(sound, path);
 				sampleAudio[key] = sound;	// NB, it's still loading, but it will load to here

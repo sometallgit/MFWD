@@ -1,6 +1,5 @@
 ﻿package  
 {
-	
 	import flash.display.MovieClip;
 	import flash.geom.*;
 	
@@ -11,10 +10,8 @@
 		public function StoppingPoint(_type = "flower") 
 		{
 			//Giving each stopping point a random clip on creation. The clip will center it's x to the stopping point trigger
-			//
-			//x = _x;
-			//y = _y;
 			type = _type;
+			visible = false;
 		}
 		
 		public function resolveCollisions(target)
@@ -27,11 +24,6 @@
 			{
 				
 				target.atStopPoint();
-			}
-			else
-			{
-				//collided = false;
-				//target.grounded = false;
 			}
 		}
 		
@@ -77,7 +69,5 @@
 				return new Point(xFix, yFix);
 			}
 		}
-		
 	}
-	
 }

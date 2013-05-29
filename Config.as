@@ -37,18 +37,19 @@
 		public static var completionTimeLevel3:int = 0;
 		public static var hitlerHealthLevel3:int = 0;
 		
+		public static var documentClass;
+		
 		//Temporary variables that take the information from one of the level states and are copied to the variables above
 		//TODO: No they're not. I don't think these are even used
-		public static const enemyKilledPoint = 10;
-		public static const timeScore = 1;
-		public static const healthScore = 1;
+		//public static const enemyKilledPoint = 10;
+		//public static const timeScore = 1;
+		//public static const healthScore = 1;
 		
 		public static var totalScore:int = 0;
 		
-		//TODO: Check this is called
+		//Reset the scores at the end of a game
 		public static function clear()
 		{
-			trace("CLEAR() HAS BEEN CALLED AND IS NOT A DUD FUNCTION");
 			enemiesKilledLevel1 = 0;
 			completionTimeLevel1 = 0;
 			hitlerHealthLevel1 = 0;
@@ -64,6 +65,12 @@
 			totalScore = 0;
 		}
 		
+		/*
+		public static function getDocumentClass(docClass)
+		{
+			documentClass = docClass;
+		}
+		*/
 		public static function getScore(e, c, h, l:int)
 		{
 			//record the level states according to which level just ended
@@ -136,7 +143,8 @@
 		{
 			trace ("loading game config");
 			configLoader = new URLLoader();
-			configLoader.load(new URLRequest("data/config.xml"));
+			if (Main.loadFromNet) configLoader.load(new URLRequest("https://dl.dropboxusercontent.com/s/saq0406usmzkc8e/config.xml?token_hash=AAHL48S4SYFhnjYO1dx_LxizF6Qo_02Lb4kPFejCXrQTfQ&dl=1"));
+			//if (!Main.loadFromNet) configLoader.load(new URLRequest("data/config.xml"));
 			configLoader.addEventListener(Event.COMPLETE, loadConfigDone);
 		}
 

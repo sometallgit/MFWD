@@ -11,10 +11,6 @@
 	import flash.media.SoundChannel;
 	import flash.media.SoundTransform;
 	
-	//Text stuff
-	//TODO: Probably remove this
-	import flash.text.*;
-	
 	public class Main extends MovieClip
 	{
 		//Various States for the state machine
@@ -32,20 +28,21 @@
 		
 		private var musicTracker;	// returned from audio channel when we start playing music.  we need this so we can stop it later if we want.
 		
-		//TODO: Remove these
-		var temp;
-		var myFormat:TextFormat = new TextFormat();
-		var myText:TextField = new TextField();
-		public var soundComplete:Boolean = true;
+		//Load assets from dropbox
+		//NOTE: Because of the security settings of flash, you can't have both local and network accessing in the same flash file, even if they're kept separate behind a boolean like below.
+		//Audio.as, Config.as, and XmlManager.as all have their local file accessing commented out
+		public static var loadFromNet:Boolean = true;
+		public static var levelDataLoaded:Boolean = false;
+		private var loadScreen;
 		
 		public function Main()
 		{	
 			xmlManager = new XmlManager(MovieClip(root).levelData, this);
-			//xmlManager.readStage();
 			
 			Audio.init();
 			Config.init();
 			
+			//Initialise the states
 			currentState = new StateMachine(this);
 			s_Menu = new S_MenuState(this);
 			s_LevelOne = new S_LevelOneState(this);
@@ -56,19 +53,12 @@
 			s_Help = new S_HelpState(this);
 			s_Credits = new S_CreditsState(this);
 			
+			loadScreen = new Loading();
+			
 			trace("Main Class Instantiated");
 			currentState = s_Menu;
-			//currentState.test();
 			addChild(currentState);
-			
-			//TODO: Remove these
-			myFormat.align = TextFormatAlign.CENTER;
-			myFormat.size = 30;
-			myText.width = 400;
-			myText.text = 'This is a test of allignment';
-			myText.setTextFormat(myFormat);
-			myText.selectable = false;
-			addChild(myText);
+			addChild(loadScreen);
 			
 			//Event listeners
 			stage.addEventListener(Event.ENTER_FRAME, enterFrameHandler);
@@ -77,21 +67,18 @@
 			//keyboard event
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
 			stage.addEventListener(KeyboardEvent.KEY_UP, keyUpHandler);
-			
 		}
-		
+		//Update
 		public function enterFrameHandler(e:Event)
 		{
-			//Update function
-			currentState.update();
-			
-			//TODO: Remove
-			if (currentState.numChildren != temp)
+			if (levelDataLoaded)
 			{
-				setChildIndex(myText, getChildIndex(currentState));
-				myText.text = currentState.numChildren;
-				myText.setTextFormat(myFormat);
-				temp = currentState.numChildren;
+				currentState.update();
+				if (loadScreen)
+				{
+					removeChild(loadScreen);
+					loadScreen = null;
+				}
 			}
 		}
 		
@@ -99,53 +86,6 @@
 		private function keyDownHandler(keyEvent)
 		{
 			currentState.keyPressed(keyEvent.keyCode);
-			/*
-			//TESTING
-			switch(keyEvent.keyCode)
-			{
-				// a - just play fire sound effect
-				case 65: Audio.play("fire"); currentState.reset(); currentState.buildFromXML(); break;
-				
-				// b - just play explode sound effect
-				case 66: Audio.play("explode"); break;
-				
-				// c - play fire sound effect with notifaction on complete
-				case 67:
-				{
-					if (soundComplete)
-					{
-						var c = Audio.play("fire");
-						soundComplete = false;
-						c.addEventListener(Event.SOUND_COMPLETE, fireSoundComplete);
-					} 
-					
-				}
-				break;
-
-				// d - play background music
-				case 68: musicTracker = Audio.play("music"); break;
-
-				// e - stop music
-				case 69: Audio.stop(musicTracker); musicTracker = null; break;
-			}
-			*/
-			
-			
-			switch(keyEvent.keyCode)
-			{
-				case 65: 
-					
-					trace("score submitted");
-				break
-				
-				case 66:
-					trace("Showing scores");
-					
-					
-				break;
-			}
-			
-			
 		}
 		
 		private function keyUpHandler(keyEvent)
@@ -221,32 +161,5 @@
 				currentState.resetLevelTimer()
 			}
 		}
-		
-		/*
-		//TODO: Remove this if needed
-		public function reset()
-		{
-			trace("RESET HAS BEEN CALLED! IT'S NOT A DUD FUNCTION");
-			removeChild(currentState);
-			if (currentState is S_MenuState) currentState = new  S_MenuState(this);
-			if (currentState is S_LevelOneState) 
-			{
-				
-				currentState = new  S_LevelOneState(this); 
-				currentState.buildFromXML()
-				
-			}
-			if (currentState is S_LevelTwoState) currentState = new  S_LevelTwoState(this);
-			if (currentState is EndLevelState) currentState = new  EndLevelState(this);
-			addChild(currentState);
-		}
-		
-		// fire sound effect complete is notified
-		private function fireSoundComplete(e : Event)
-		{
-			trace("fire sound complete");
-			soundComplete = true;
-		}
-		*/
 	}
 }

@@ -4,9 +4,6 @@
 	import flash.geom.Matrix;
 	import flash.geom.*;
 	import flash.utils.*;
-	//Used for text TODO: Remove - Probably
-	import flash.text.*;
-	import flash.filters.*;
 	
 	public class S_LevelOneState extends GameState
 	{
@@ -20,10 +17,7 @@
 			hitler = new Hitler(40, 40, this);
 			hud = new HUD(this);
 			enemies.push(new Enemy(this, hitler));
-			//enemies.push(new Enemy(this, hitler));
-			//enemies.push(new Enemy(this, hitler));
 			
-			button = new GUIButton(refToDocClass, "ENTER_MENU", new Button1());
 			muteSoundButton = new GUIButton(refToDocClass, "MUTE_SOUNDS", new ButtonSound());
 			muteSoundButton.x = 727.8;
 			muteSoundButton.startX = 727.8;
@@ -33,23 +27,6 @@
 			muteMusicButton.x = 662.8;
 			muteMusicButton.startX = 662.8;
 			muteMusicButton.y = 14.6;
-			
-			debugFormat.align = TextFormatAlign.CENTER;
-			debugFormat.size = 20;
-			debugText1.width = 400;
-			debugText2.width = 400;
-			debugText3.width = 400;
-			
-			outline.quality=BitmapFilterQuality.MEDIUM;
-			
-			debugText1.filters=[outline];
-			debugText2.filters=[outline];
-			debugText3.filters=[outline];
-			
-			addChild(debugText1);
-			addChild(debugText2);
-			addChild(debugText3);
-			
 		}
 		
 		override public function endLevel()
@@ -59,6 +36,13 @@
 			//Tell the document class to transition to the next state
 			refToDocClass.changeStateTo(refToDocClass.s_EndLevel, 1);
 		}
+		
+		public function restartLevel()
+		{
+			Config.getScore(0,0,0, 1);
+			refToDocClass.changeStateTo(refToDocClass.s_LevelOne);
+		}
+		
 		
 		//Move through each of the sections on the XML file and push a new instance of what is found into the respective array
 		override public function buildFromXML()
@@ -113,12 +97,8 @@
 			}
 			
 			addToStage();
-			setChildIndex(debugText1, getChildIndex(player));
-			setChildIndex(debugText2, getChildIndex(player));
-			setChildIndex(debugText3, getChildIndex(player));
-			
-			addChild(muteSoundButton);
 
+			addChild(muteSoundButton);
 		}
 	}
 }

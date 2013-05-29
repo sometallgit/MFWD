@@ -34,7 +34,7 @@
 			y = _y;
 			parentState = state;
 			
-			currentWeapon = new Weapon("GRENADE", true, this, parentState);
+			currentWeapon = new Weapon("KNIFE", true, this, parentState);
 			addChild(currentWeapon);
 			
 			scaleX = 0.8;
@@ -74,18 +74,13 @@
 			if (isMovingRight && grounded && parentState.hitler.isCarried == true) animationState = "R_WALKING_CARRY";
 			else if (directionFacing == "RIGHT" && grounded && parentState.hitler.isCarried == true) animationState = "R_IDLE_CARRY";
 			
-			//attacking idle
-			//attacking moving
-			//make attack set a flag
-			//end of attack animation sets the flag back
-			//animationState = "ATTACK";
-			
 			if ((isMovingUp || yVelocity < 0) && directionFacing == "LEFT" && parentState.hitler.isCarried == false) animationState = "L_JUMP";
 			else if ((isMovingUp || yVelocity < 0) && directionFacing == "RIGHT" && parentState.hitler.isCarried == false) animationState = "R_JUMP";
 			
 			if ((isMovingUp || yVelocity < 0) && directionFacing == "LEFT" && parentState.hitler.isCarried == true) animationState = "L_JUMP_CARRY";
 			else if ((isMovingUp || yVelocity < 0) && directionFacing == "RIGHT" && parentState.hitler.isCarried == true) animationState = "R_JUMP_CARRY";
 			
+			//Weapon specific states
 			if (currentWeapon.type == "KNIFE")
 			{
 				if (isMovingLeft && grounded && parentState.hitler.isCarried == false) animationState = "L_WALKING_KNIFE";
@@ -113,20 +108,13 @@
 				else if (directionFacing == "RIGHT" && grounded && parentState.hitler.isCarried == false) animationState = "R_IDLE_GRENADE";
 			}
 			
-			//MovieClip(root).debugText1.text = "PLAYER ANIM STATE: " + animationState;
-			parentState.debugText1.text = "PLAYER ANIM STATE: " + animationState;
-			parentState.debugText1.x = x - (parentState.debugText1.width/2);
-			parentState.debugText1.y = y;
-			
-			parentState.debugText1.setTextFormat(parentState.debugFormat);
 			//Only set the new animation if there was a change in the state
 			if (lastAnimationState != animationState)
 			{
-				//trace ("animation change");
 				gotoAndPlay(animationState);
 			}
 		}
-		
+		//Attack animations interrupt any other animations and will not allow a state change until the animation has finished
 		private function startAttackAnimation()
 		{
 			animationBeforeAttack = animationState;
@@ -176,7 +164,6 @@
 			if (animationState != animationBeforeAttack && (currentWeapon.currentTime > currentWeapon.cooldownOverTime)) 
 			{
 				animationBeforeAttack = animationState;
-				
 			}
 			startAttackAnimation();
 		}
@@ -189,6 +176,7 @@
 			addChild(currentWeapon);
 		}
 		
+		//Picking up weapons off the ground
 		public function pickupWeapon()
 		{
 			for (var i:int = 0; i < parentState.droppedWeapons.length; i++)
@@ -293,9 +281,6 @@
 
 			if (!isMovingLeft)
 				{
-					//removeChild(playerClip);
-					//playerClip = new Player_RunningL();
-					//addChild(playerClip);
 					directionFacing = "LEFT";
 					isMovingLeft 	= true; 
 					applyConstantForce(-6,0);
@@ -306,9 +291,6 @@
 		{
 			if (!isMovingRight)
 				{
-					//removeChild(playerClip);
-					//playerClip = new Player_Running();
-					//addChild(playerClip);
 					directionFacing = "RIGHT";
 					isMovingRight 	= true; 
 					applyConstantForce(6,0);
@@ -316,22 +298,17 @@
 		}
 		
 		public function stopMovingUp()		{isMovingUp 	= false;}
+		
 		public function stopMovingDown() 	{isMovingDown 	= false;}		
+		
 		public function stopMovingLeft() 	
 		{
 			isMovingLeft 	= false; xConst = 0;
-			//removeChild(playerClip);
-			//playerClip = new PlayerL();
-			//addChild(playerClip);
 		}
 		
 		public function stopMovingRight() 	
 		{
 			isMovingRight 	= false; xConst = 0;
-			//removeChild(playerClip);
-			//playerClip = new Player();
-			//addChild(playerClip);
 		}
-		
 	}
 }

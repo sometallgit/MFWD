@@ -12,6 +12,9 @@
 		private var moving:Boolean; //Am I moving
 		public var animationState:String;
 		public var directionFacing:String = "RIGHT";
+		public var lastAnimationState:String;
+		public var attackFinished:Boolean = true;
+		public var animationBeforeAttack;
 		
 		public var stopTime:int = 0;
 		public var currentTime;
@@ -28,12 +31,6 @@
 		
 		private var parentState;
 		
-		//Has a movement key been pressed/released?
-		//private var isMovingUp:Boolean = false;
-		//private var isMovingDown:Boolean = false;
-		//private var isMovingLeft:Boolean = false;
-		//private var isMovingRight:Boolean = false;
-		
 		public function Enemy(state, _target)
 		{
 			target = _target;
@@ -48,6 +45,9 @@
 				case "GUN": 		stopDistance = 200;	break;
 				case "GRENADE": 	stopDistance = 400;	break;
 			}
+			
+			scaleX = 0.8;
+			scaleY = 0.8;
 			
 			init();
 		}
@@ -104,32 +104,108 @@
 			//If I get spawned outside the world, replace me
 			if (y > 600) init();
 			
-			stateCheck();
+			if (attackFinished) stateCheck();
 		}
 		
 		private function stateCheck()
 		{
+			lastAnimationState = animationState;	
+			
 			//Set the animation state accordingly
-			if (yVelocity > 0 && directionFacing == "LEFT") animationState = "L_FALL";
-			else if (yVelocity > 0 && directionFacing == "RIGHT") animationState = "R_FALL";
+			if (currentWeapon.type == "KNIFE")
+			{
+				if (moving && grounded && directionFacing == "LEFT") animationState = "L_WALKING_KNIFE";
+				else if (!moving && directionFacing == "LEFT" && grounded) animationState = "L_IDLE_KNIFE";
+				
+				if (moving && grounded && directionFacing == "RIGHT") animationState = "R_WALKING_KNIFE";
+				else if (!moving && directionFacing == "RIGHT" && grounded) animationState = "R_IDLE_KNIFE";
+			}
 			
-			if (moving && grounded && directionFacing == "LEFT") animationState = "L_WALKING";
-			else if (!moving && directionFacing == "LEFT" && grounded) animationState = "L_IDLE";
+			else if (currentWeapon.type == "GUN")
+			{
+				if (moving && grounded && directionFacing == "LEFT") animationState = "L_WALKING_RIFLE";
+				else if (!moving && directionFacing == "LEFT" && grounded ) animationState = "L_IDLE_RIFLE";
+				
+				if (moving && grounded && directionFacing == "RIGHT") animationState = "R_WALKING_RIFLE";
+				else if (!moving && directionFacing == "RIGHT" && grounded ) animationState = "R_IDLE_RIFLE";
+			}
 			
-			if (moving && grounded && directionFacing == "RIGHT") animationState = "R_WALKING";
-			else if (!moving && directionFacing == "RIGHT" && grounded) animationState = "RIGHT_IDLE";
+			else if (currentWeapon.type == "GRENADE")
+			{
+				if (moving && grounded && directionFacing == "LEFT") animationState = "L_WALKING_GRENADE";
+				else if (!moving && directionFacing == "LEFT" && grounded ) animationState = "L_IDLE_GRENADE";
+				
+				if (moving && grounded && directionFacing == "RIGHT") animationState = "R_WALKING_GRENADE";
+				else if (!moving && directionFacing == "RIGHT" && grounded ) animationState = "R_IDLE_GRENADE";
+			}
 			
-			if (yVelocity < 0 && directionFacing == "LEFT") animationState = "L_JUMP";
-			else if (yVelocity < 0 && directionFacing == "RIGHT") animationState = "R_JUMP";
+			if (yVelocity > 3 && directionFacing == "LEFT") animationState = "L_FALL";
+			else if (yVelocity > 3 && directionFacing == "RIGHT") animationState = "R_FALL";
 			
-			//trace("ANIM STATE: " + animationState);
+			if (yVelocity < -3 && directionFacing == "LEFT") animationState = "L_JUMP";
+			else if (yVelocity < -3 && directionFacing == "RIGHT") animationState = "R_JUMP";
 			
+			if (lastAnimationState != animationState)
+			{
+				//trace("ANIM STATE: " + animationState);
+				gotoAndPlay(animationState);
+			}
+		}
+		
+		//Attack animations interrupt any other animations and will not allow a state change until the animation has finished
+		private function startAttackAnimation()
+		{
+			animationBeforeAttack = animationState;
+
+			if (currentWeapon.type == "KNIFE")
+			{
+				if (moving && directionFacing == "RIGHT") gotoAndPlay("R_ATTACK_KNIFE");
+				if (moving && directionFacing == "LEFT") gotoAndPlay("L_ATTACK_KNIFE");
+				
+				if (!moving && directionFacing == "RIGHT") gotoAndPlay("R_ATTACK_KNIFE");
+				if (!moving && directionFacing == "LEFT") gotoAndPlay("L_ATTACK_KNIFE");
+			}
+			
+			else if (currentWeapon.type == "GUN")
+			{
+				if (moving && directionFacing == "RIGHT") gotoAndPlay("R_ATTACK_RIFLE");
+				if (moving && directionFacing == "LEFT") gotoAndPlay("L_ATTACK_RIFLE");
+				
+				if (!moving && directionFacing == "RIGHT") gotoAndPlay("R_IDLE_ATTACK_RIFLE");
+				if (!moving && directionFacing == "LEFT") gotoAndPlay("L_IDLE_ATTACK_RIFLE");
+			}
+			
+			else if (currentWeapon.type == "GRENADE")
+			{
+				if (moving && directionFacing == "RIGHT") gotoAndPlay("R_ATTACK_GRENADE");
+				if (moving && directionFacing == "LEFT") gotoAndPlay("L_ATTACK_GRENADE");
+				
+				if (!moving && directionFacing == "RIGHT") gotoAndPlay("R_ATTACK_GRENADE");
+				if (!moving && directionFacing == "LEFT") gotoAndPlay("L_ATTACK_GRENADE");
+			}
 		}
 		
 		public function attack()
 		{
 			//TODO: Introduce a delay (wind up) to attacking for balancing
 			currentWeapon.fire();
+			
+			//Override the current animation checking with an immediate attack animation and record what the animation was before the attack started
+			//So it can be returned to after the attack finishes
+			attackFinished = false;
+			if (currentWeapon.ammo < 0)
+			{
+				attackFinished = true;
+				stateCheck();
+				return;
+			}
+			if (animationState != animationBeforeAttack && (currentWeapon.currentTime > currentWeapon.cooldownOverTime)) 
+			{
+				animationBeforeAttack = animationState;
+				
+			}
+			
+			startAttackAnimation();
 		}
 		
 		//Basically the same as the mario code
@@ -163,7 +239,7 @@
 			applyForce(0, gravity);
 			
 			//If the enemy starts to fall, set grounded to false
-			if (yVelocity > 1) grounded = false;
+			if (yVelocity > 3) grounded = false;
 		}
 		
 		private function updateCollisions()
@@ -179,9 +255,6 @@
 			{
 				parentState.jumpTriggerArray[i].resolveCollisions(this);
 			}
-			
-			//parentState.stoppingPointArray[currentTarget].resolveCollisions(this);
-			
 		}
 		
 		
@@ -207,62 +280,5 @@
 			xConst += aX;
 			yConst += aY;
 		}
-		
-		/*
-		public function startMovingUp()		
-		{
-
-			if (!isMovingUp && grounded)
-				{					
-					grounded = false;
-					isMovingUp 	= true; 
-					applyForce(0, -8.5);
-				}
-		}
-		public function startMovingDown() 	{isMovingDown 	= true;}		
-		
-		public function startMovingLeft() 	
-		{
-
-			if (!isMovingLeft)
-				{
-					//removeChild(playerClip);
-					//playerClip = new Player_RunningL();
-					//addChild(playerClip);
-					isMovingLeft 	= true; 
-					applyConstantForce(-6,0);
-				}
-		}		
-		
-		public function startMovingRight()	
-		{
-			if (!isMovingRight)
-				{
-					//removeChild(playerClip);
-					//playerClip = new Player_Running();
-					//addChild(playerClip);
-					isMovingRight 	= true; 
-					applyConstantForce(6,0);
-				}
-		}
-		
-		public function stopMovingUp()		{isMovingUp 	= false;}
-		public function stopMovingDown() 	{isMovingDown 	= false;}		
-		public function stopMovingLeft() 	
-		{
-			isMovingLeft 	= false; xConst = 0;
-			//removeChild(playerClip);
-			//playerClip = new PlayerL();
-			//addChild(playerClip);
-		}
-		
-		public function stopMovingRight() 	
-		{
-			isMovingRight 	= false; xConst = 0;
-			//removeChild(playerClip);
-			//playerClip = new Player();
-			//addChild(playerClip);
-		}
-		*/
 	}
 }

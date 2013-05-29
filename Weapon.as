@@ -31,11 +31,12 @@
 		
 		public function Weapon(_type, _isPlayer, _owner, _parentState)
 		{
-			//visible = false;
+
 			type = _type;
 			isPlayer = _isPlayer
 			refToOwner = _owner;
 			parentState = _parentState;
+			//Set the gun type if random was a type
 			if (type == "RANDOM")
 			{
 				var r = int(Math.random()*3);
@@ -46,9 +47,9 @@
 					case 2:		type = "GRENADE";	break;
 				}
 			}
+			//Set the ammo based on the weapon type
 			switch (type)
 			{
-				
 				case "KNIFE": 	ammo = knifeAmmo; break;
 				case "GUN": 	ammo = gunAmmo; break;
 				case "GRENADE": ammo = grenadeAmmo; break;
@@ -61,7 +62,7 @@
 			
 			x = refToOwner.x + (refToOwner.width/2);
 			y = refToOwner.y + (refToOwner.height/2);
-			//trace(x);
+
 			for (var i:int = 0; i < parentState.bullets.length; i++)
 			{
 				parentState.bullets[i].update();
@@ -71,22 +72,18 @@
 			{
 				refToOwner.weaponDepleted();
 			}
-			
 		}
 		
 		public function fire()
 		{
 			if (currentTime > cooldownOverTime)
 			{
-				//TODO: Add a proper offset for the bullet pos
 				parentState.bullets.push(new Bullet(parent.x, parent.y, type, isPlayer, refToOwner.directionFacing, parentState))
-				//parentState.addChild(parentState.bullets[parentState.bullets.length-1]);
 				parentState.addChildAt(parentState.bullets[parentState.bullets.length-1], parentState.getChildIndex(parentState.player));
 				//Reset the cooldown
 				if (isPlayer)
 				{
 					ammo--;
-					//trace(ammo);
 					switch (type)
 					{
 						case "KNIFE":	cooldownOverTime = currentTime + knifeCooldown;		break;
@@ -104,7 +101,6 @@
 					}
 				}
 			}
-		}
-						
+		}				
 	}
 }

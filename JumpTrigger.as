@@ -23,10 +23,19 @@
 		
 		public function resolveCollisions(target)
 		{
+			
+			if (target is Hitler || target is Player || target is Enemy)
+			{
+				var collision:Point = testAABB(
+										x, (x + width), y, (y + height),
+										target.x - (target.width / 2), (target.x + (target.width/2)), (target.y - (target.height/2)), (target.y + (target.height/2))
+									 );
+			}
+			/*
 			var collision:Point = testAABB(
 										x, (x + width), y, (y + height),
 										target.x, (target.x + target.width), target.y, (target.y + target.height)
-									 );
+									 );*/
 			if(collision) 
 			{
 				target.yVelocity = -8;

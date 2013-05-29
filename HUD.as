@@ -1,8 +1,6 @@
 ﻿package  
 {
-	
 	import flash.display.MovieClip;
-	
 	
 	public class HUD extends MovieClip 
 	{

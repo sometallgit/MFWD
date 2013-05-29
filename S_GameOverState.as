@@ -1,13 +1,13 @@
-package
+﻿package
 {
 	import flash.display.MovieClip;
 	import flash.text.*;
+	
 	//The Newgrounds API
 	import com.newgrounds.*;
 	import com.newgrounds.components.*;
 	
 	//This state is changed to at the very end of the game
-	//TODO: Figure out what to do with hitler dies (restart the level or go back to main menu?)
 	public class S_GameOverState extends StateMachine
 	{
 		private var refToDocClass;
@@ -18,25 +18,29 @@ package
 		public var scoreFormat:TextFormat = new TextFormat();
 		public var totalText:TextField = new TextField();
 		
+		public var highscoreBackground;
+		
 		public function S_GameOverState(documentClass)
 		{
 			refToDocClass = documentClass;
 			
 			//Create GUI
-			button = new GUIButton(refToDocClass, "ENTER_MENU", new Button1());
+			button = new GUIButton(refToDocClass, "ENTER_MENU", new ButtonBack());
 			addChild(button);	
-			
-			//initialise the newgrounds scorebrowser
-			//scoreBrowser = new ScoreBrowser();
 			
 			scoreFormat.align = TextFormatAlign.CENTER;
 			scoreFormat.size = 20;
+			scoreFormat.color = 0xFFFFFF;
 			
 			totalText.text = "Total Score: 0";			
 			totalText.width = 800;
 			totalText.y = 20;
 
+			highscoreBackground = new HighscoresBackground();
+			
+			addChild(highscoreBackground);
 			addChild(totalText);
+			addChild(button);
 		}
 		
 		override public function update()

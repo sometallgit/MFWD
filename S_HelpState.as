@@ -7,7 +7,8 @@
 		private var refToDocClass;
 		private var backButton;
 		private var helpBackground;
-
+		private var controls
+		
 		public function S_HelpState(documentClass)
 		{
 			refToDocClass = documentClass;
@@ -18,8 +19,10 @@
 			backButton.y = 20;
 			//Create the background image for the menu state
 			helpBackground = new HelpBackground();
+			controls = new Controls();
 			addChild(helpBackground);
-			addChild(backButton);			
+			addChild(backButton);		
+			addChild(controls);
 		}
 		
 		//Update the buttons

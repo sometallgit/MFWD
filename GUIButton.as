@@ -16,7 +16,6 @@
 		public var soundPlayed:Boolean = false;
 		
 		//Assign the newly created button with a function and a movielip
-		//TODO: Mouseover States
 		public function GUIButton(documentClass, f, c)
 		{
 			refToDocClass = documentClass

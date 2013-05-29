@@ -18,9 +18,13 @@
 		var refToStage;
 		var xmlLoader = new URLLoader();
 		var refToDocClass
+		//To generate and dump an XML file, set generateXML to true
+		//Do the opposite to load an already generated xml file
+		private var generateXML:Boolean = false;
 		
-		//If the readStage() function is uncommented, this empty xml object will be populated as it reads the stage
-		//If load() is uncommented, the xml object is replaced by the xml file that the URL loader brings in
+		
+		//If generateXML is true, this empty xml object will be populated as it reads the stage
+		//If generateXML is false, the xml object is replaced by the xml file that the URL loader brings in
 		public function XmlManager(stage, refToDoc)
 		{
 			refToStage = stage;
@@ -69,12 +73,16 @@
 								</level_3>
 																
 							</Data>;
-			//TODO: Move this into a flag held in the config xml
-			//To generate and dump an XML file, uncomment readStage() and save() and comment load()
-			//Do the opposite to load an already generated xml file
-			//readStage();
-			//save();
-			load();
+			if (generateXML)
+			{
+				readStage();
+				save();
+			}
+			else
+			{
+				load();
+			}
+			
 		}
 		
 		public function readStage()
@@ -166,8 +174,8 @@
 				if (stageAddress.getChildAt(i) is Asset74)		appendXML("Asset74", stageAddress, xmlAddress);
 				if (stageAddress.getChildAt(i) is Asset75)		appendXML("Asset75", stageAddress, xmlAddress);
 				if (stageAddress.getChildAt(i) is Asset76)		appendXML("Asset76", stageAddress, xmlAddress);
-				/*if (stageAddress.getChildAt(i) is Asset77)		appendXML("Asset77", stageAddress, xmlAddress);
-				if (stageAddress.getChildAt(i) is Asset78)		appendXML("Asset78", stageAddress, xmlAddress);
+				if (stageAddress.getChildAt(i) is Asset77)		appendXML("Asset77", stageAddress, xmlAddress);
+				/*if (stageAddress.getChildAt(i) is Asset78)		appendXML("Asset78", stageAddress, xmlAddress);
 				if (stageAddress.getChildAt(i) is Asset79)		appendXML("Asset79", stageAddress, xmlAddress);
 				if (stageAddress.getChildAt(i) is Asset80)		appendXML("Asset80", stageAddress, xmlAddress);
 				if (stageAddress.getChildAt(i) is Asset81)		appendXML("Asset81", stageAddress, xmlAddress);
@@ -467,15 +475,16 @@
 		public function load()
 		{
 			xmlLoader.addEventListener(Event.COMPLETE, loadXML);
-			xmlLoader.load(new URLRequest("Data.xml"));
+			if (Main.loadFromNet) xmlLoader.load(new URLRequest("https://dl.dropboxusercontent.com/s/wpemfps5hp1a3vb/Data.xml?token_hash=AAGba4Vxz51Hs9X3hvNsZ-tVM__HMuQO--zEa9KkILEBzg&dl=1")); 
+			//if (!Main.loadFromNet) xmlLoader.load(new URLRequest("Data.xml"));
 		}
 		
 		private function loadXML(e:Event)
 		{
 			xmlFile = new XML(e.target.data);
 			trace("XML Loaded Successfully");
+			Main.levelDataLoaded = true;
 			//Once the external xml file has loaded, tell the states to grab a copy
-			//refToDocClass.s_Menu.buildFromXML();
 			refToDocClass.s_LevelOne.buildFromXML();
 			refToDocClass.s_LevelTwo.buildFromXML();
 			refToDocClass.s_LevelThree.buildFromXML();

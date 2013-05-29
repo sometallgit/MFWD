@@ -3,6 +3,7 @@
 	import flash.display.MovieClip;
 	import flash.utils.*;
 
+	//When an enemy is killed, an instance of WeaponDropped is created in their place
 	public class WeaponDropped extends MovieClip
 	{
 		public var clip;
@@ -58,7 +59,6 @@
 			{
 				visible = false;
 			}
-			
 		}
 	}
 }

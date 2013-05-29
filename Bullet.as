@@ -40,6 +40,8 @@
 			x = startX;
 			y = startY;
 			
+			if (type == "KNIFE") visible = false;
+			
 			//Keep a note of how long the bullet has been alive for. This is needed for the grenade
 			currentTime = getTimer();
 			expireTime = currentTime + grenadeDieTime;
@@ -237,7 +239,6 @@
 				if (type != "GRENADE")
 				{
 					//iterate through enemy array when it exists
-					//if (x > parentState.enemy.x && x < parentState.enemy.x + parentState.enemy.width && y > parentState.enemy.y && y < parentState.enemy.y + parentState.enemy.height)
 					for (var i:int = 0; i < parentState.enemies.length; i++)	
 					{
 						if (this.hitTestObject(parentState.enemies[i]))
@@ -246,7 +247,6 @@
 							parentState.dropWep(i);
 							parentState.removeChild(parentState.enemies[i]);
 							parentState.enemies[i] = new Enemy(parentState, parentState.hitler);
-							//parentState.addChild(parentState.enemy);
 							parentState.addChildAt(parentState.enemies[i], parentState.getChildIndex(parentState.player));
 							isAlive = false;
 						}
@@ -272,6 +272,7 @@
 			var point2:Point
 			var distance;
 			
+			//Any enemies found inside a 200 unit radius of the grenade when it explodes is instantly killed
 			if (isPlayer)
 			{
 				for (var i:int = 0; i < parentState.enemies.length; i++)	
@@ -285,16 +286,15 @@
 						parentState.dropWep(i);
 						parentState.removeChild(parentState.enemies[i]);
 						parentState.enemies[i] = new Enemy(parentState, parentState.hitler);
-						//parentState.addChild(parentState.enemy);
 						parentState.addChildAt(parentState.enemies[i], parentState.getChildIndex(parentState.player));
 					}
 				}
 			}
+			//If the grenade came from an enemy, damage hitler based on a falloff
 			else
 			{
 				point1 = new Point(x, y);
 				point2 = new Point(parentState.hitler.x, parentState.hitler.y);
-				
 				distance =  Point.distance(point1, point2);
 				//Cap the distance to the max distance
 				if (distance > 350) distance = 350;
@@ -303,8 +303,6 @@
 				var damage = 20 * damagePercent;
 				parentState.hitler.hurt(damage);
 			}
-			
-		
 		}
 		
 		private function updateCollisions()
@@ -313,7 +311,6 @@
 			{
 				parentState.barrierArray[i].resolveCollisionsGrenade(this);
 			}
-			
 		}
 		
 		//Play the grenade bounce sound once

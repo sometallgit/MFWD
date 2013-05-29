@@ -11,7 +11,7 @@
 		
 		public var stopTime:int = 0;
 		public var currentTime;
-		public var stopDuration:int = 2000;
+		public var stopDuration:int = 5000;
 		public var currentTarget:int = 0;
 		
 		public var health:int = 100;
@@ -48,25 +48,16 @@
 		public function init()
 		{
 			//Manually called constructor after the XML is successfully loaded
-			
 			parentState.stoppingPointArray[currentTarget]; //TODO: Figure out what this does - I don't remember
 		}
 		
 		public function update()
 		{
-			//MovieClip(root).debugText3.text = "Hitler's health: " + health;
-			parentState.debugText3.text = "Hitler's health: " + health;
-			parentState.debugText3.x = x - (parentState.debugText3.width/2);
-			parentState.debugText3.y = y + 20;
-			
-			parentState.debugText3.setTextFormat(parentState.debugFormat);
-			
 			//If I'm being carried, parent me to the player
 			if (isCarried)
 			{
 				x = parentState.player.x;
 				y = parentState.player.y - 125;
-				
 			}
 			
 			//Otherwise, update normally
@@ -78,14 +69,14 @@
 					//Next stop point is to the right, run right
 					if (parentState.stoppingPointArray[currentTarget].x > x + 10)
 					{
-						setConstantForce(4,0);
+						setConstantForce(3,0);
 						directionFacing = "RIGHT";
 						moving = true;
 					}
 					//Next stop point is to the left, run left
 					else if (parentState.stoppingPointArray[currentTarget].x < x - 10)
 					{
-						setConstantForce(-4,0);
+						setConstantForce(-3,0);
 						directionFacing = "LEFT";
 						moving = true;
 					}
@@ -106,7 +97,6 @@
 				currentTime = getTimer();
 				updateMovement();
 				updateCollisions();
-				
 			}
 			stateCheck();
 		}
@@ -129,14 +119,6 @@
 			if (isCarried == true && parentState.player.directionFacing == "LEFT") animationState = "L_CARRIED";
 			else if (isCarried == true && parentState.player.directionFacing == "RIGHT") animationState = "R_CARRIED";
 			
-			//MovieClip(root).debugText3.text = "HITLER ANIM STATE: " + animationState;
-			
-			parentState.debugText2.text = "HITLER ANIM STATE: " + animationState;
-			parentState.debugText2.x = x - (parentState.debugText2.width/2);
-			parentState.debugText2.y = y;
-			
-			parentState.debugText2.setTextFormat(parentState.debugFormat);
-			
 			//When the player picks up hitler, set him to invisible
 			if (animationState == "L_CARRIED" || animationState == "R_CARRIED")
 			{
@@ -147,7 +129,6 @@
 				visible = true;;
 				gotoAndPlay(animationState);
 			}
-			
 		}
 		
 		public function carry()
@@ -168,6 +149,11 @@
 		public function hurt(damage:int = 10)
 		{
 			health -= damage;
+			
+			if (health < 0)
+			{
+				parentState.restartLevel();
+			}
 		}
 		
 		//Basically the same as the mario code
@@ -223,22 +209,17 @@
 		
 		public function atStopPoint()
 		{
-			//trace("collision");
 			stopTime = currentTime + stopDuration;
-			//trace(stopTime);
 			
 			//If we're at the last stop point in the level, end the level
 			if (currentTarget == parentState.stoppingPointArray.length -1)
 			{
-				//parentState.reset();
 				parentState.endLevel();
-				//currentTarget = 0;
 			}
 			else
 			{
 				currentTarget++;
 			}
-			
 		}
 		
 		public function resetYVelocity()
@@ -263,7 +244,7 @@
 			xConst += aX;
 			yConst += aY;
 		}
-		
+		/*
 		public function startMovingUp()		
 		{
 
@@ -280,44 +261,34 @@
 		{
 
 			if (!isMovingLeft)
-				{
-					//removeChild(playerClip);
-					//playerClip = new Player_RunningL();
-					//addChild(playerClip);
-					isMovingLeft 	= true; 
-					applyConstantForce(-6,0);
-				}
+			{
+				isMovingLeft 	= true; 
+				applyConstantForce(-6,0);
+			}
 		}		
 		
 		public function startMovingRight()	
 		{
 			if (!isMovingRight)
-				{
-					//removeChild(playerClip);
-					//playerClip = new Player_Running();
-					//addChild(playerClip);
-					isMovingRight 	= true; 
-					applyConstantForce(6,0);
-				}
+			{
+				isMovingRight 	= true; 
+				applyConstantForce(6,0);
+			}
 		}
 		
 		public function stopMovingUp()		{isMovingUp 	= false;}
+		
 		public function stopMovingDown() 	{isMovingDown 	= false;}		
+		
 		public function stopMovingLeft() 	
 		{
 			isMovingLeft 	= false; xConst = 0;
-			//removeChild(playerClip);
-			//playerClip = new PlayerL();
-			//addChild(playerClip);
 		}
 		
 		public function stopMovingRight() 	
 		{
 			isMovingRight 	= false; xConst = 0;
-			//removeChild(playerClip);
-			//playerClip = new Player();
-			//addChild(playerClip);
 		}
-		
+		*/
 	}
 }

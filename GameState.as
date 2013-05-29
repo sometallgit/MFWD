@@ -4,10 +4,10 @@
 	import flash.geom.Matrix;
 	import flash.geom.*;
 	import flash.utils.*;
-	import flash.text.*;
 	import flash.display.*;
-	import flash.filters.*;
 	
+	//GameState serves as a base class for the game levels. It holds all the common elements that the levels share to 
+	//reduce the amount of duplicated code
 	public class GameState extends StateMachine
 	{
 		public var refToDocClass;
@@ -32,7 +32,6 @@
 		
 		public var droppedWeapons:Array = new Array();
 		
-		public var button;
 		public var muteSoundButton;
 		public var muteMusicButton;
 		public var player;
@@ -40,82 +39,17 @@
 		
 		public var hud; 
 		
-		//Text object used for debugging
-		public var debugFormat:TextFormat = new TextFormat();
-		public var debugText1:TextField = new TextField();
-		public var debugText2:TextField = new TextField();
-		public var debugText3:TextField = new TextField();
-		
-		//Make the text a bit easier to see
-		public var outline:GlowFilter=new GlowFilter(0xFFFFFF,1.0,2.0,2.0,10);
-		
-		
 		public function GameState(documentClass = null)
 		{
 			currentTime = getTimer();
 			startTime = currentTime;
 			
 			refToDocClass = documentClass;
-			//Initialise the player
-			//player = new Player(40, 40, this);
-			
-			//Initialise Hitler
-			//hitler = new Hitler(40, 40, this);
-			
-			//button = new GUIButton(refToDocClass, "ENTER_MENU", new Button1());
+
 			muteSoundButton = new GUIButton(refToDocClass, "MUTE_SOUNDS", new Button1());
 			muteSoundButton.x = 400;
 			hud = new HUD(this);
-			
 		}
-		
-		/*
-		public function reset()
-		{
-			currentTime = getTimer();
-			startTime = currentTime;
-		    levelTime = 0;
-			
-			x = 0;
-			var i:int = 0;
-			for (i = 0; i < backgroundArray.length; i++)		{				removeChild(backgroundArray[i]);		}
-			for (i = 0; i < midgroundArray.length; i++)			{				removeChild(midgroundArray[i]);			}
-			for (i = 0; i < stoppingPointArray.length; i++)		{				removeChild(stoppingPointArray[i]);		}			
-			for (i = 0; i < enemies.length; i++)				{				removeChild(enemies[i]);				}
-			removeChild(hitler);
-			removeChild(player);
-			for (i = 0; i < staticForegroundArray.length; i++)	{				removeChild(staticForegroundArray[i]);	}
-			for (i = 0; i < staticBackgroundArray.length; i++)	{				removeChild(staticBackgroundArray[i]);	}
-			for (i = 0; i < foregroundArray.length; i++)		{				removeChild(foregroundArray[i]);		}
-			for (i = 0; i < bullets.length; i++)				{				removeChild(bullets[i]);				}
-			
-			barrierArray = new Array();
-			jumpTriggerArray = new Array();
-			foregroundArray = new Array();
-			staticForegroundArray = new Array(); //Non parallaxing layer
-			staticBackgroundArray = new Array(); //Non parallaxing layer
-			midgroundArray = new Array();
-			backgroundArray = new Array();
-			stoppingPointArray = new Array();
-			enemies = new Array();
-		
-			bullets = new Array();
-		
-			droppedWeapons = new Array();
-			
-			player = new Player(40, 40, this);
-			hitler = new Hitler(40, 40, this);
-			
-			enemies.push(new Enemy(this, hitler));
-			enemies.push(new Enemy(this, hitler));
-			enemies.push(new Enemy(this, hitler));
-			
-			removeChild(button);
-			button = new GUIButton(refToDocClass, "ENTER_MENU", new Button1());
-			
-			buildFromXML();
-		}
-		*/
 		
 		override public function update()
 		{
@@ -134,7 +68,6 @@
 				enemies[i].update();
 			}
 			updateScroll();
-			button.update(mouseIsPressed);
 			muteSoundButton.update(mouseIsPressed);
 			muteMusicButton.update(mouseIsPressed);
 			
@@ -142,9 +75,6 @@
 			{
 				droppedWeapons[i].update();
 			}
-			//parent.setChildIndex(MovieClip(root).debugText1, 7)
-			//parent.setChildIndex(MovieClip(root).debugText2, 7)
-			//parent.setChildIndex(MovieClip(root).debugText3, 7)
 		}
 		
 		//Reset the start time for the level
@@ -181,7 +111,6 @@
 		//Get mouse input
 		override public function mousePressed()
 		{
-			button.mousePressed();
 			muteSoundButton.mousePressed();
 			muteMusicButton.mousePressed();
 		}
@@ -337,8 +266,8 @@
 					case "Asset74":						layerArray.push(new Asset74());						createAssetGeneric();					break;
 					case "Asset75":						layerArray.push(new Asset75());						createAssetGeneric();					break;		
 					case "Asset76":						layerArray.push(new Asset76());						createAssetGeneric();					break;
-					/*case "Asset77":						layerArray.push(new Asset77());						createAssetGeneric();					break;
-					case "Asset78":						layerArray.push(new Asset78());						createAssetGeneric();					break;
+					case "Asset77":						layerArray.push(new Asset77());						createAssetGeneric();					break;
+					/*case "Asset78":						layerArray.push(new Asset78());						createAssetGeneric();					break;
 					case "Asset79":						layerArray.push(new Asset79());						createAssetGeneric();					break;
 					case "Asset80":						layerArray.push(new Asset80());						createAssetGeneric();					break;
 					case "Asset81":						layerArray.push(new Asset81());						createAssetGeneric();					break;
@@ -406,7 +335,6 @@
 				addChild(foregroundArray[i]);
 			}
 			
-			addChild(button);
 			addChild(muteSoundButton);
 			addChild(muteMusicButton);
 			addChild(hud);

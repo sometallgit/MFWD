@@ -12,13 +12,10 @@
 		{
 			//Give me a reference/pointer to the document class so I can access the variables and functions in the document class
 			refToDocClass = documentClass;
-			
-			
 		}
 		
 		public function update()
 		{
-			//muteSoundButton.update(mouseIsPressed);
 		}
 		
 		public function endLevel()
@@ -28,12 +25,10 @@
 		
 		public function keyPressed(key)
 		{
-			
 		}
 		
 		public function keyReleased(key)
 		{
-		
 		}
 		
 		public function mousePressed()
@@ -45,12 +40,5 @@
 		{
 			mouseIsPressed = false;
 		}
-		
-		public function test()
-		{
-			trace("parent");
-			trace(refToDocClass);
-		}
-		
 	}
 }

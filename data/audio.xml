@@ -11,30 +11,35 @@
 	   		<name>land_0</name>
 	   		<file>land_0.mp3</file>
 	   		<volume>0.5</volume>
+			<url>https://dl.dropboxusercontent.com/s/jb2yu05zqgxfosv/Land_0.mp3?token_hash=AAEe6ZZBfxXoPNj4aR5Aks9DwxGRY7FsXkBDsD25TaMf3A&dl=1</url>
 	   	</sample>
 		
 		<sample>
 	   		<name>land_1</name>
 	   		<file>land_1.mp3</file>
 	   		<volume>0.5</volume>
+			<url>https://dl.dropboxusercontent.com/s/1eqex6hflr3wz3w/Land_1.mp3?token_hash=AAG_MqK85ev9VpbZTdfcFRNDuLPM8e7AqSpvHS-gI5hiMA&dl=1</url>
 	   	</sample>
 		
 		<sample>
 	   		<name>land_2</name>
 	   		<file>land_2.mp3</file>
 	   		<volume>0.5</volume>
+			<url>https://dl.dropboxusercontent.com/s/wd35rbrnq6bz9ui/Land_2.mp3?token_hash=AAF0meXNtMx3_7x42Bp-Mt44rCOfXA3ImVBorDrk1kaDgw&dl=1</url>
 	   	</sample>
 		
 		<sample>
 	   		<name>land_3</name>
 	   		<file>land_3.mp3</file>
 	   		<volume>0.5</volume>
+			<url>https://dl.dropboxusercontent.com/s/3oh5hlyi3xy8xuy/Land_3.mp3?token_hash=AAFJLEe80LY_z7-oXy46S__R5gZc-v6gGrEK7nwrCGGqtQ&dl=1</url>
 	   	</sample>
 		
 		<sample>
 	   		<name>land_4</name>
 	   		<file>land_4.mp3</file>
 	   		<volume>0.5</volume>
+			<url>https://dl.dropboxusercontent.com/s/q5r7x77atymok6r/Land_4.mp3?token_hash=AAH-isaHs7-um4T2ESU2-p84cRBH3lufjrv_4ieUPb-3IQ&dl=1</url>
 	   	</sample>
 		
 		<!-- When the player/AI jumps -->
@@ -42,18 +47,21 @@
 	   		<name>jump_0</name>
 	   		<file>Jump_0.mp3</file>
 	   		<volume>0.5</volume>
+			<url>https://dl.dropboxusercontent.com/s/kj10e8wrnj23i5n/Jump_0.mp3?token_hash=AAFU3LQ4yfxvIbCM9jac2iBkOcs5MlWnemZjAQOI8izZPw&dl=1</url>
 	   	</sample>
 		
 		<sample>
 	   		<name>jump_1</name>
 	   		<file>Jump_1.mp3</file>
 	   		<volume>0.5</volume>
+			<url>https://dl.dropboxusercontent.com/s/gfdj5bc7e8ftave/Jump_1.mp3?token_hash=AAFgBEsVqP06ta8x20nyPYw5l4l-5eJ_FuTlqlewyPNBcw&dl=1</url>
 	   	</sample>
 		
 		<sample>
 	   		<name>jump_2</name>
 	   		<file>Jump_2.mp3</file>
 	   		<volume>0.5</volume>
+			<url>https://dl.dropboxusercontent.com/s/euog662pa8szdyw/Jump_2.mp3?token_hash=AAECh_Qmk3XM56Ob64C62bWqu98I91QCz98pjxMpRgOypg&dl=1</url>
 	   	</sample>
 		
 		<!-- When an attack with a knife is made -->
@@ -61,18 +69,21 @@
 	   		<name>attack_knife_0</name>
 	   		<file>Knife_0.mp3</file>
 	   		<volume>1</volume>
+			<url>https://dl.dropboxusercontent.com/s/oq8e6l1eo7ynks1/Knife_0.mp3?token_hash=AAHlAfncS-IqaQM-XEPBCD74GfY46u5-3DKaPxx7oHvptA&dl=1</url>
 	   	</sample>
 		
 		<sample>
 	   		<name>attack_knife_1</name>
 	   		<file>Knife_1.mp3</file>
 	   		<volume>1</volume>
+			<url>https://dl.dropboxusercontent.com/s/hyln7zhqi76aj9n/Knife_1.mp3?token_hash=AAGzapFqV34Fr3huXqyHNRYR_4nGmNqWpn7jQwge04PW_w&dl=1</url>
 	   	</sample>
 		
 		<sample>
 	   		<name>attack_knife_2</name>
 	   		<file>Knife_2.mp3</file>
 	   		<volume>1</volume>
+			<url>https://dl.dropboxusercontent.com/s/hckkw9vixm58xpr/Knife_2.mp3?token_hash=AAF6EiXpseX1aJpVUw3usWSbCOS2Q4syWWGHn8J4yNXHWA&dl=1</url>
 	   	</sample>
 		
 		<!-- When an attack with a gun is made -->
@@ -80,18 +91,21 @@
 	   		<name>attack_gun_0</name>
 	   		<file>Rifle_Shot_0.mp3</file>
 	   		<volume>0.6</volume>
+			<url>https://dl.dropboxusercontent.com/s/imdkithcahppxa3/Rifle_Shot_0.mp3?token_hash=AAFAu5SNN1-7yn7kaGZ_09QTus2AVhJyghWtEILojYwBLQ&dl=1</url>
 	   	</sample>
 		
 		<sample>
 	   		<name>attack_gun_1</name>
 	   		<file>Rifle_Shot_1.mp3</file>
 	   		<volume>0.6</volume>
+			<url>https://dl.dropboxusercontent.com/s/39fm2b6g0x3w4ws/Rifle_Shot_1.mp3?token_hash=AAEGaaFxhsEx80VdNplgD7OaW58NprBRdR3exiLGOoEltw&dl=1</url>
 	   	</sample>
 		
 		<sample>
 	   		<name>attack_gun_2</name>
 	   		<file>Rifle_Shot_2.mp3</file>
 	   		<volume>0.6</volume>
+			<url>https://dl.dropboxusercontent.com/s/1incawq51fs7au8/Rifle_Shot_2.mp3?token_hash=AAGSOt_gLvtYxTuJ3gUdVHvV36AdGcEqD14f5Po3FE94uA&dl=1</url>
 	   	</sample>
 		
 		<!-- When an attack with a grenade is made -->
@@ -99,12 +113,14 @@
 	   		<name>attack_grenade_0</name>
 	   		<file>Grenade_Throw_0.mp3</file>
 	   		<volume>1</volume>
+			<url>https://dl.dropboxusercontent.com/s/fpr466h7nmzppud/Grenade_Throw_0.mp3?token_hash=AAHVvO5kTLuy7b5iHSSUmU3y8Z0Esd20eWeFcyHtkyloIw&dl=1</url>
 	   	</sample>
 		
 		<sample>
 	   		<name>attack_grenade_1</name>
 	   		<file>Grenade_Throw_1.mp3</file>
 	   		<volume>1</volume>
+			<url>https://dl.dropboxusercontent.com/s/06fnaznou5d6gk8/Grenade_Throw_1.mp3?token_hash=AAFWCZNh3e1m8ZlxroxJBbhpb7vFtLEeFHaXH_-uLfq2Hw&dl=1</url>
 	   	</sample>
 		
 		<!-- When a grenade explodes -->
@@ -112,12 +128,14 @@
 	   		<name>grenade_explode_0</name>
 	   		<file>Grenade_Explosion_0.mp3</file>
 	   		<volume>1</volume>
+			<url>https://dl.dropboxusercontent.com/s/n3s21aeb7702yvs/Grenade_Explosion_0.mp3?token_hash=AAFO4VcqsI4Jh74kgpK8-LWE-qkcTrIHr5OGf_zpxzIZLA&dl=1</url>
 	   	</sample>
 		
 		<sample>
 	   		<name>grenade_explode_1</name>
 	   		<file>Grenade_Explosion_1.mp3</file>
 	   		<volume>1</volume>
+			<url>https://dl.dropboxusercontent.com/s/vx4x3ofmgvkiyyd/Grenade_Explosion_1.mp3?token_hash=AAH0nDUqV9KsgElGE5Vzyg-MT5pgpBDZVTTeTqCVQfnROQ&dl=1</url>
 	   	</sample>
 		
 		<!-- When a grenade bounces on the ground -->
@@ -125,24 +143,28 @@
 	   		<name>grenade_bounce_0</name>
 	   		<file>Grenade_Bounce_0.mp3</file>
 	   		<volume>1</volume>
+			<url>https://dl.dropboxusercontent.com/s/ij3rprslin9v4to/Grenade_Bounce_0.mp3?token_hash=AAH3wr-UcW0q3dkB2ur_blOuxe8uhzBrN14URDOAYOTAXw&dl=1</url>
 	   	</sample>
 		
 		<sample>
 	   		<name>grenade_bounce_1</name>
 	   		<file>Grenade_Bounce_1.mp3</file>
 	   		<volume>1</volume>
+			<url>https://dl.dropboxusercontent.com/s/k7iylod900jfmm5/Grenade_Bounce_1.mp3?token_hash=AAGmLuQLOkK93D4GRIwqVTAK0h0mEHMp8bLHf2Ag0l3u_Q&dl=1</url>
 	   	</sample>
 		
 		<sample>
 	   		<name>grenade_bounce_2</name>
 	   		<file>Grenade_Bounce_2.mp3</file>
 	   		<volume>1</volume>
+			<url>https://dl.dropboxusercontent.com/s/6qvvz6yowo6gkws/Grenade_Bounce_2.mp3?token_hash=AAFuji6J8jaYVS_jnPGmqkWUo4m6kRPnlhPU5D9YyUWssg&dl=1</url>
 	   	</sample>
 		
 		<sample>
 	   		<name>grenade_bounce_3</name>
 	   		<file>Grenade_Bounce_3.mp3</file>
 	   		<volume>1</volume>
+			<url>https://dl.dropboxusercontent.com/s/kwihfheqag8wcxz/Grenade_Bounce_3.mp3?token_hash=AAF4qZLSxM_VNVXsduASMLPOBeTeN1Z7ZMdgu7NMIpGvwA&dl=1</url>
 	   	</sample>
 	   	
 		<!-- When a score is incremented -->
@@ -150,6 +172,7 @@
 	   		<name>score_build_0</name>
 	   		<file>Game_Score_Build.mp3</file>
 	   		<volume>1</volume>
+			<url>https://dl.dropboxusercontent.com/s/k0hkuyu9utpw0cx/Game_Score_Build.mp3?token_hash=AAFNsRWgbtRuuC8O7WvPKG_x8U6jn0NhQYs3QgTjlGq_4Q&dl=1</url>
 	   	</sample>
 		
 		<!-- When a score is finalised -->
@@ -157,6 +180,7 @@
 	   		<name>score_final_0</name>
 	   		<file>Game_Score_Final.mp3</file>
 	   		<volume>1</volume>
+			<url>https://dl.dropboxusercontent.com/s/fe19gyd9nstaw18/Game_Score_Final.mp3?token_hash=AAHQsHiTD-SDOLnS9PDYB06o4xmkSVXRAgVJfHcwBzDIzQ&dl=1</url>
 	   	</sample>
 		
 		<!-- When a button is moused over -->
@@ -164,6 +188,7 @@
 	   		<name>button_0</name>
 	   		<file>UI_Scroll_Sound.mp3</file>
 	   		<volume>1</volume>
+			<url>https://dl.dropboxusercontent.com/s/klgy9b0gi31k0ii/UI_Scroll_Sound.mp3?token_hash=AAETZ9lz4IJ0-U-BTYm2XxEUlQ0VGVDnebwqIOMnK36k_w&dl=1</url>
 	   	</sample>
 		
 		<!-- background music -->
@@ -171,6 +196,7 @@
 	   		<name>music_0</name>
 	   		<file>Music_0.mp3</file>	
 	   		<volume>1.5</volume>
+			<url>https://dl.dropboxusercontent.com/s/6hgydoovjp95zk9/Music_0.mp3?token_hash=AAERaUMFadBO3elgGTJKP1b8C96Uh1LmZ7uJl38k0cDERA&dl=1</url>
 	   		<type>loop</type>		<!-- use type loop for background music -->
 	   	</sample>
 	</samples>
